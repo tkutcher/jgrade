@@ -5,7 +5,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import static edu.jhu.cs226.instructor.autograder.base.Consts.*;
+import static com.github.tkutcher.autograder.gradedtest.Consts.*;
 
 
 @Retention(RetentionPolicy.RUNTIME)
