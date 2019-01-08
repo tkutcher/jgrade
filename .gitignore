@@ -7,6 +7,9 @@
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
+.idea/modules.xml
+.idea/*.iml
+.idea/modules
 out/
 
 # Compiled class file
