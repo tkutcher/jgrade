@@ -10,7 +10,7 @@
 .idea/modules.xml
 .idea/*.iml
 .idea/modules
-out/
+target/
 
 # Compiled class file
 *.class
