@@ -1,4 +1,4 @@
 # autograder
-__A java based autograder framework__
+_A java based autograder framework_
 
-https://travis-ci.com/tkutche1/autograder.svg?token=o33zRRbwCfdkkKhsDNVp&branch=master
+[![Build Status](https://travis-ci.com/tkutche1/autograder.svg?token=o33zRRbwCfdkkKhsDNVp&branch=master)](https://travis-ci.com/tkutche1/autograder)
