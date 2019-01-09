@@ -9,11 +9,14 @@ import java.util.List;
 
 public class Grader {
 
+    private List<OutputObserver> observers;
+
     private List<GradedTestResult> gradedTestResults;
     private long executionTime;
     private long startTime;
 
     public Grader() {
+        this.observers = new ArrayList<>();
         this.gradedTestResults = new ArrayList<>();
         this.executionTime = 0;
     }
@@ -47,6 +50,16 @@ public class Grader {
         runner.addListener(listener);
         runner.run(testSuite);
         this.gradedTestResults.addAll(listener.getGradedTestResults());
+    }
+
+    public void attachOutputObserver(OutputObserver o) {
+        this.observers.add(o);
+    }
+
+    public void notifyOutputObservers() {
+        for (OutputObserver o : this.observers) {
+            o.update();
+        }
     }
 
     public String toJson(int indentationLevel) {

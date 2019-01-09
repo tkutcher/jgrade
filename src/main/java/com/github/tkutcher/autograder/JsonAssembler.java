@@ -10,11 +10,19 @@ import java.util.List;
 import static com.github.tkutcher.autograder.gradedtest.Consts.GradescopeJson.*;
 
 
-public class JsonAssembler {
+public class JsonAssembler implements OutputObserver {
     private JSONObject obj;
 
     public JsonAssembler() {
         this.obj = new JSONObject();
+    }
+
+    public void update() {
+
+    }
+
+    public String getOutput() {
+        return "";
     }
 
     public JSONObject assemble(GradedTestResult r) {
