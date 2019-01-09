@@ -26,8 +26,6 @@ public final class Main {
                 e.printStackTrace();
             }
         }
-
-        System.out.print(grader.toJson(2));
     }
 
     private static void usage() {

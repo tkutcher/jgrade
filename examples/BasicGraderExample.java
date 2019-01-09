@@ -1,14 +1,15 @@
-import com.github.tkutcher.jgrade.BeforeGrade;
-import com.github.tkutcher.jgrade.DoneGrade;
-import com.github.tkutcher.jgrade.Grade;
-import com.github.tkutcher.jgrade.Grader;
+import com.github.tkutcher.jgrade.*;
 import com.github.tkutcher.jgrade.gradedtest.GradedTestResult;
 
 public class BasicGraderExample {
 
+    private GradescopeJsonObserver output;
+
     @BeforeGrade
     public void initGrader(Grader grader) {
         grader.startTimer();
+        output = new GradescopeJsonObserver(grader);
+        grader.attachOutputObserver(output);
     }
 
     @Grade
@@ -21,5 +22,7 @@ public class BasicGraderExample {
     @DoneGrade
     public void endGrader(Grader grader) {
         grader.stopTimer();
+        grader.notifyOutputObservers();
+        System.out.println(output.toString(2));
     }
 }

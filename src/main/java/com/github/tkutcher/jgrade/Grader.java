@@ -61,17 +61,4 @@ public class Grader {
             o.update();
         }
     }
-
-    public String toJson(int indentationLevel) {
-        GradescopeJsonObserver assembler = new GradescopeJsonObserver();
-        assembler.assemble(this);
-        return assembler.toString(indentationLevel);
-    }
-
-    public String toJson() {
-        return this.toJson(0);
-    }
-
-    // Static Global stuff
-
 }
