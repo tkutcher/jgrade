@@ -10,19 +10,18 @@ import java.util.List;
 import static com.github.tkutcher.autograder.gradedtest.Consts.GradescopeJson.*;
 
 
-public class JsonAssembler implements OutputObserver {
-    private JSONObject obj;
+public class GradescopeJsonObserver implements OutputObserver {
+    private JSONObject json;
+    private Grader grader;
 
-    public JsonAssembler() {
-        this.obj = new JSONObject();
+    public GradescopeJsonObserver(Grader grader) {
+        this.grader = grader;
+        this.json = new JSONObject();
     }
 
     public void update() {
-
-    }
-
-    public String getOutput() {
-        return "";
+        this.json = new JSONObject();
+        this.assemble();
     }
 
     public JSONObject assemble(GradedTestResult r) {
@@ -47,11 +46,11 @@ public class JsonAssembler implements OutputObserver {
         return testResults;
     }
 
-    public void assemble(Grader g) {
+    public void assemble() {
         try {
-            this.obj.put(STDOUT_VISIBILITY, HIDDEN)
-                    .put(EXECUTION_TIME, g.getExecutionTime())
-                    .put(TESTS, this.assemble(g.getGradedTestResults()));
+            this.json.put(STDOUT_VISIBILITY, HIDDEN)
+                    .put(EXECUTION_TIME, this.grader.getExecutionTime())
+                    .put(TESTS, this.assemble(this.grader.getGradedTestResults()));
         } catch (JSONException e) {
             throw new InternalError(e);
         }
@@ -59,7 +58,7 @@ public class JsonAssembler implements OutputObserver {
 
     public String toString(int indentationLevel) {
         try {
-            return this.obj.toString(indentationLevel);
+            return this.json.toString(indentationLevel);
         } catch (JSONException e) {
             throw new InternalError(e);
         }

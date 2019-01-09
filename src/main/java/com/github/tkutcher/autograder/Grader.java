@@ -63,7 +63,7 @@ public class Grader {
     }
 
     public String toJson(int indentationLevel) {
-        JsonAssembler assembler = new JsonAssembler();
+        GradescopeJsonObserver assembler = new GradescopeJsonObserver();
         assembler.assemble(this);
         return assembler.toString(indentationLevel);
     }
