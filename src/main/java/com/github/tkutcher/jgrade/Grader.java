@@ -1,7 +1,7 @@
-package com.github.tkutcher.autograder;
+package com.github.tkutcher.jgrade;
 
-import com.github.tkutcher.autograder.gradedtest.GradedTestListener;
-import com.github.tkutcher.autograder.gradedtest.GradedTestResult;
+import com.github.tkutcher.jgrade.gradedtest.GradedTestListener;
+import com.github.tkutcher.jgrade.gradedtest.GradedTestResult;
 import org.junit.runner.JUnitCore;
 
 import java.util.ArrayList;
@@ -9,11 +9,14 @@ import java.util.List;
 
 public class Grader {
 
+    private List<OutputObserver> observers;
+
     private List<GradedTestResult> gradedTestResults;
     private long executionTime;
     private long startTime;
 
     public Grader() {
+        this.observers = new ArrayList<>();
         this.gradedTestResults = new ArrayList<>();
         this.executionTime = 0;
     }
@@ -49,16 +52,13 @@ public class Grader {
         this.gradedTestResults.addAll(listener.getGradedTestResults());
     }
 
-    public String toJson(int indentationLevel) {
-        JsonAssembler assembler = new JsonAssembler();
-        assembler.assemble(this);
-        return assembler.toString(indentationLevel);
+    public void attachOutputObserver(OutputObserver o) {
+        this.observers.add(o);
     }
 
-    public String toJson() {
-        return this.toJson(0);
+    public void notifyOutputObservers() {
+        for (OutputObserver o : this.observers) {
+            o.update();
+        }
     }
-
-    // Static Global stuff
-
 }
