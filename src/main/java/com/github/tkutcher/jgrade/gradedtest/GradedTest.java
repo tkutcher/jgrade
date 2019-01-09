@@ -1,11 +1,11 @@
-package com.github.tkutcher.autograder.gradedtest;
+package com.github.tkutcher.jgrade.gradedtest;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import static com.github.tkutcher.autograder.gradedtest.Consts.*;
+import static com.github.tkutcher.jgrade.gradedtest.Consts.*;
 
 
 @Retention(RetentionPolicy.RUNTIME)

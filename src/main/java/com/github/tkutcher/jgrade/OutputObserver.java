@@ -1,4 +1,4 @@
-package com.github.tkutcher.autograder;
+package com.github.tkutcher.jgrade;
 
 public interface OutputObserver {
     void update();

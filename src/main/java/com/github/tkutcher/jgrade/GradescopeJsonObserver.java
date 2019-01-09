@@ -1,13 +1,13 @@
-package com.github.tkutcher.autograder;
+package com.github.tkutcher.jgrade;
 
-import com.github.tkutcher.autograder.gradedtest.GradedTestResult;
+import com.github.tkutcher.jgrade.gradedtest.GradedTestResult;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.List;
 
-import static com.github.tkutcher.autograder.gradedtest.Consts.GradescopeJson.*;
+import static com.github.tkutcher.jgrade.gradedtest.Consts.GradescopeJson.*;
 
 
 public class GradescopeJsonObserver implements OutputObserver {

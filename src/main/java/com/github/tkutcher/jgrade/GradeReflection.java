@@ -1,4 +1,4 @@
-package com.github.tkutcher.autograder;
+package com.github.tkutcher.jgrade;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;

@@ -1,8 +1,8 @@
-import com.github.tkutcher.autograder.BeforeGrade;
-import com.github.tkutcher.autograder.DoneGrade;
-import com.github.tkutcher.autograder.Grade;
-import com.github.tkutcher.autograder.Grader;
-import com.github.tkutcher.autograder.gradedtest.GradedTestResult;
+import com.github.tkutcher.jgrade.BeforeGrade;
+import com.github.tkutcher.jgrade.DoneGrade;
+import com.github.tkutcher.jgrade.Grade;
+import com.github.tkutcher.jgrade.Grader;
+import com.github.tkutcher.jgrade.gradedtest.GradedTestResult;
 
 public class BasicGraderExample {
 

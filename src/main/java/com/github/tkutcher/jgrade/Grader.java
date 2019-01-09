@@ -1,7 +1,7 @@
-package com.github.tkutcher.autograder;
+package com.github.tkutcher.jgrade;
 
-import com.github.tkutcher.autograder.gradedtest.GradedTestListener;
-import com.github.tkutcher.autograder.gradedtest.GradedTestResult;
+import com.github.tkutcher.jgrade.gradedtest.GradedTestListener;
+import com.github.tkutcher.jgrade.gradedtest.GradedTestResult;
 import org.junit.runner.JUnitCore;
 
 import java.util.ArrayList;

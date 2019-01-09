@@ -1,4 +1,4 @@
-package com.github.tkutcher.autograder.gradedtest;
+package com.github.tkutcher.jgrade.gradedtest;
 
 public class Consts {
 

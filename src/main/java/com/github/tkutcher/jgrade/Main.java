@@ -1,4 +1,4 @@
-package com.github.tkutcher.autograder;
+package com.github.tkutcher.jgrade;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -31,7 +31,7 @@ public final class Main {
     }
 
     private static void usage() {
-        System.out.println("usage: autograder [classes...]");
+        System.out.println("usage: jgrade [classes...]");
         System.exit(1);
     }
 

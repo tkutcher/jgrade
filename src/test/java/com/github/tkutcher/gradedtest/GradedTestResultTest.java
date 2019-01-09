@@ -1,12 +1,12 @@
 package com.github.tkutcher.gradedtest;
 
-import com.github.tkutcher.autograder.gradedtest.GradedTestResult;
+import com.github.tkutcher.jgrade.gradedtest.GradedTestResult;
 import org.junit.Before;
 import org.junit.Test;
 
 import javax.naming.SizeLimitExceededException;
 
-import static com.github.tkutcher.autograder.gradedtest.Consts.*;
+import static com.github.tkutcher.jgrade.gradedtest.Consts.*;
 import static org.junit.Assert.assertEquals;
 
 

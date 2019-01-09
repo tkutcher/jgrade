@@ -1,7 +1,7 @@
-package com.github.tkutcher.autograder.gradedtest;
+package com.github.tkutcher.jgrade.gradedtest;
 
 
-import static com.github.tkutcher.autograder.gradedtest.Consts.GradescopeJson.*;
+import static com.github.tkutcher.jgrade.gradedtest.Consts.GradescopeJson.*;
 
 public class GradedTestResult {
     private String name;

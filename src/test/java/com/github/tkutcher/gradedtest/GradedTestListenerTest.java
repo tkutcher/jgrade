@@ -1,16 +1,16 @@
 package com.github.tkutcher.gradedtest;
 
-import com.github.tkutcher.autograder.gradedtest.GradedTest;
-import com.github.tkutcher.autograder.gradedtest.GradedTestListener;
-import com.github.tkutcher.autograder.gradedtest.GradedTestResult;
+import com.github.tkutcher.jgrade.gradedtest.GradedTest;
+import com.github.tkutcher.jgrade.gradedtest.GradedTestListener;
+import com.github.tkutcher.jgrade.gradedtest.GradedTestResult;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.JUnitCore;
 
 import java.util.List;
 
-import static com.github.tkutcher.autograder.gradedtest.Consts.*;
-import static com.github.tkutcher.autograder.gradedtest.Consts.GradescopeJson.HIDDEN;
+import static com.github.tkutcher.jgrade.gradedtest.Consts.*;
+import static com.github.tkutcher.jgrade.gradedtest.Consts.GradescopeJson.HIDDEN;
 import static org.junit.Assert.*;
 
 
