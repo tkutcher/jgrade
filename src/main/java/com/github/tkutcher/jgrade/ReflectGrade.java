@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
-final class GradeReflection {
+final class ReflectGrade {
 
     // Borrowed mostly from phf
     static Class<?> load(String className) {

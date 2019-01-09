@@ -18,7 +18,7 @@ public final class Main {
         }
 
         Grader grader = new Grader();
-        for (Method m : GradeReflection.graderMethods(c)) {
+        for (Method m : ReflectGrade.graderMethods(c)) {
             try {
                 m.invoke(o, grader);
             } catch (IllegalAccessException | InvocationTargetException e) {
@@ -42,7 +42,7 @@ public final class Main {
         }
 
         for (String className: args){
-            Class<?> c = GradeReflection.load(className);
+            Class<?> c = ReflectGrade.load(className);
             if (c == null) {
                 System.err.printf("error loading class %s", className);
             } else {
