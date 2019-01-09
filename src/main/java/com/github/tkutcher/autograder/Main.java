@@ -4,7 +4,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-public class Main {
+public final class Main {
 
     private static void grade(Class<?> c) {
         Object o = null;
