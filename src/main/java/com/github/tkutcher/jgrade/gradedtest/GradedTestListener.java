@@ -1,4 +1,4 @@
-package com.github.tkutcher.autograder.gradedtest;
+package com.github.tkutcher.jgrade.gradedtest;
 
 import org.junit.runner.Description;
 import org.junit.runner.Result;

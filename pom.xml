@@ -12,7 +12,7 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
-            <!--<scope>test</scope> NOTE - Used in source. -->
+            <!--<scope>test</scope> NOTE - Used in source, so not a test scope. -->
         </dependency>
         <dependency>
             <groupId>org.hamcrest</groupId>
@@ -36,6 +36,25 @@
                     <target>8</target>
                 </configuration>
             </plugin>
+            <!-- Uncomment and re-compile if running from command line -->
+            <!--<plugin>-->
+                <!--<groupId>org.apache.maven.plugins</groupId>-->
+                <!--<artifactId>maven-dependency-plugin</artifactId>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<id>copy-dependencies</id>-->
+                        <!--<phase>package</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>copy-dependencies</goal>-->
+                        <!--</goals>-->
+                        <!--<configuration>-->
+                            <!--<outputDirectory>${project.build.directory}</outputDirectory>-->
+                            <!--<overWriteReleases>false</overWriteReleases>-->
+                            <!--<overWriteSnapshots>true</overWriteSnapshots>-->
+                        <!--</configuration>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+            <!--</plugin>-->
         </plugins>
     </build>
 
