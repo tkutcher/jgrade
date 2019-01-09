@@ -13,6 +13,20 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public final class Main {
+    private static final String HELP_OPT = "help";
+    private static final String VERSION_OPT = "version";
+    private static final String NO_OUTPUT_OPT = "no-output";
+    private static final String OUTPUT_OPT = "o";
+    private static final String DEST_ARG = "destination";
+    private static final String FORMAT_OPT = "format";
+    private static final String FORMAT_ARG = "output-format";
+    private static final String PP_OPT = "pretty-print";
+    private static final String JSON_VAL = "json";
+    private static final String TXT_VAL = "txt";
+
+    private static class Config {
+        String outputFormat;
+    }
 
     private static void grade(Class<?> c) {
         Object o = null;
@@ -45,6 +59,11 @@ public final class Main {
     public static void main(String[] args) {
         String[] temp = new String[]{"-f", "json"};
         CommandLine line = readCommandLine(temp);
+        if (line == null) {
+            return;
+        }
+
+
 //        CommandLine line = readCommandLine(args);
 
 //        for (String className: args){
@@ -59,42 +78,35 @@ public final class Main {
 
     private static CommandLine readCommandLine(String[] args) {
         Options options = new Options();
-        options.addOption(Option.builder("f").longOpt("format")
+        options.addOption(Option.builder("f").longOpt(FORMAT_OPT)
                 .desc("specify output, one of \'json\' (default) or \'text\'")
                 .hasArg(true)
-                .argName("output-format")
+                .argName(FORMAT_ARG)
                 .build());
-        options.addOption(Option.builder().longOpt("pretty-print")
-                .desc("pretty-print json output")
+        options.addOption(Option.builder().longOpt(PP_OPT)
+                .desc("pretty-print output (when format is json)")
                 .build());
-        options.addOption(Option.builder().longOpt("no-output")
+        options.addOption(Option.builder().longOpt(NO_OUTPUT_OPT)
                 .desc("don't produce any output (if user overriding)")
                 .build());
-        options.addOption(Option.builder("o")
+        options.addOption(Option.builder(OUTPUT_OPT)
                 .desc("save output to another file (if not specified, prints to standard out)")
                 .hasArg(true)
-                .argName("destination")
+                .argName(DEST_ARG)
                 .build());
-        options.addOption(Option.builder("h").longOpt("help").build());
-        options.addOption(Option.builder("v").longOpt("version").build());
+        options.addOption(Option.builder("h").longOpt(HELP_OPT).build());
+        options.addOption(Option.builder("v").longOpt(VERSION_OPT).build());
 
-        HelpFormatter formatter = new HelpFormatter();
-        formatter.setWidth(80);
-        formatter.printHelp("jgrade", options);
+//        HelpFormatter formatter = new HelpFormatter();
+//        formatter.setWidth(80);
+//        formatter.printHelp("jgrade", options);
 
-        CommandLineParser parser = new DefaultParser();
         try {
-            System.out.println("parsing...");
-            CommandLine line  = parser.parse(options, args, false);
-            line.getArgList();
-            for (Option s : line.getOptions()) {
-                s.getValue();
-                System.out.print(s.getValue() +" ");
-            }
+            CommandLineParser parser = new DefaultParser();
+            return parser.parse(options, args, false);
         } catch (ParseException e) {
             System.err.println(e.getMessage());
+            return null;
         }
-
-        return null;
     }
 }
