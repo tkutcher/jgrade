@@ -2,12 +2,30 @@ package com.github.tkutcher.autograder;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.nio.file.FileSystems;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
 final class GradeReflection {
+
+    // Borrowed mostly from phf
+    static Class<?> load(String className) {
+        Class<?> c = null;
+        try {
+            URL url = FileSystems.getDefault().getPath("").toUri().toURL();
+            URLClassLoader loader = new URLClassLoader(new URL[]{url});
+            c = loader.loadClass(className);
+        } catch (ClassNotFoundException | MalformedURLException e) {
+            System.err.println(e);
+        }
+
+        return c;
+    }
 
     private static class GradeMethods {
         private SortedMap<String, Method> beforeGradeMethods;
