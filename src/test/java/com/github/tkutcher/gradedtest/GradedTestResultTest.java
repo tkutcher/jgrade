@@ -6,7 +6,6 @@ import org.junit.Test;
 
 import javax.naming.SizeLimitExceededException;
 
-import static com.github.tkutcher.jgrade.gradedtest.Consts.*;
 import static org.junit.Assert.assertEquals;
 
 
@@ -17,19 +16,19 @@ public class GradedTestResultTest {
     @Before
     public void initUnit() {
         this.unit = new GradedTestResult(
-                DEFAULT_NAME,
-                DEFAULT_NUMBER,
-                DEFAULT_POINTS,
-                DEFAULT_VISIBILITY
+                GradedTestResult.DEFAULT_NAME,
+                GradedTestResult.DEFAULT_NUMBER,
+                GradedTestResult.DEFAULT_POINTS,
+                GradedTestResult.DEFAULT_VISIBILITY
         );
     }
 
     @Test
     public void hasCorrectParams() {
-        assertEquals(DEFAULT_NAME, unit.getName());
-        assertEquals(DEFAULT_NUMBER, unit.getNumber());
-        assertEquals(DEFAULT_POINTS, unit.getPoints(), 0.0);
-        assertEquals(DEFAULT_VISIBILITY, unit.getVisibility());
+        assertEquals(GradedTestResult.DEFAULT_NAME, unit.getName());
+        assertEquals(GradedTestResult.DEFAULT_NUMBER, unit.getNumber());
+        assertEquals(GradedTestResult.DEFAULT_POINTS, unit.getPoints(), 0.0);
+        assertEquals(GradedTestResult.DEFAULT_VISIBILITY, unit.getVisibility());
     }
 
     @Test
@@ -71,6 +70,6 @@ public class GradedTestResultTest {
 
     @Test(expected=IllegalArgumentException.class)
     public void visibilityMustBeValid() {
-        new GradedTestResult(DEFAULT_NAME, DEFAULT_NUMBER, DEFAULT_POINTS, "INVALID");
+        new GradedTestResult(GradedTestResult.DEFAULT_NAME, GradedTestResult.DEFAULT_NUMBER, GradedTestResult.DEFAULT_POINTS, "INVALID");
     }
 }

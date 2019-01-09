@@ -1,9 +1,19 @@
 package com.github.tkutcher.jgrade.gradedtest;
 
 
-import static com.github.tkutcher.jgrade.gradedtest.Consts.GradescopeJson.*;
-
 public class GradedTestResult {
+    // Visibility options
+    public static final String VISIBLE = "visible";
+    public static final String HIDDEN = "hidden";
+    public static final String AFTER_DUE_DATE = "after_due_date";
+    public static final String AFTER_PUBLISHED = "after_published";
+
+    // GradedTest annotation defaults
+    public static final String DEFAULT_NAME = "Unnamed Test";
+    public static final String DEFAULT_NUMBER = "";
+    public static final double DEFAULT_POINTS = 1.0;
+    public static final String DEFAULT_VISIBILITY = VISIBLE;
+
     private String name;
     private String number;
     private double points;

@@ -9,8 +9,7 @@ import org.junit.runner.JUnitCore;
 
 import java.util.List;
 
-import static com.github.tkutcher.jgrade.gradedtest.Consts.*;
-import static com.github.tkutcher.jgrade.gradedtest.Consts.GradescopeJson.HIDDEN;
+import static com.github.tkutcher.jgrade.gradedtest.GradedTestResult.HIDDEN;
 import static org.junit.Assert.*;
 
 
@@ -62,10 +61,10 @@ public class GradedTestListenerTest {
     @Test
     public void addsDefaultGradedTestResult() {
         GradedTestResult result = getOnlyGradedTestResult(SingleDefaultGradedTest.class);
-        assertEquals(DEFAULT_NAME, result.getName());
-        assertEquals(DEFAULT_NUMBER, result.getNumber());
-        assertEquals(DEFAULT_POINTS, result.getPoints(), 0.0);
-        assertEquals(DEFAULT_VISIBILITY, result.getVisibility());
+        assertEquals(GradedTestResult.DEFAULT_NAME, result.getName());
+        assertEquals(GradedTestResult.DEFAULT_NUMBER, result.getNumber());
+        assertEquals(GradedTestResult.DEFAULT_POINTS, result.getPoints(), 0.0);
+        assertEquals(GradedTestResult.DEFAULT_VISIBILITY, result.getVisibility());
     }
 
     @Test
