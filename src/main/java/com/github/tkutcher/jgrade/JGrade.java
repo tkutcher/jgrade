@@ -169,7 +169,7 @@ public final class JGrade {
 
     public static void main(String[] args) {
         CommandLine line = readCommandLine(args);
-        if (line == null || line.hasOption(HELP_OPT)) {
+        if (args.length == 0 || line == null || line.hasOption(HELP_OPT)) {
             usage();
             System.exit(line == null ? 1 : 0);
         } else if (line.hasOption(VERSION_OPT)) {
