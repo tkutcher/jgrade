@@ -1,14 +1,15 @@
 /* OwnGraderInstance.java
+ *
  * Alternatively, the Grader class is public so it can just be instantiated
  * on it's own if you don't want to use the annotations (since they essentially
  * use the class like a singleton anyway). This would be invoked like any main
  * program:
  *
- * java OwnGraderInstance
+ * $ java -cp jgrade-1.0.jar OwnGraderInstance
  */
 
-import com.github.tkutcher.jgrade.Grader;
-import com.github.tkutcher.jgrade.gradescope.GradescopeJsonObserver;
+import edu.jhu.cs.jgrade.Grader;
+import edu.jhu.cs.jgrade.gradescope.GradescopeJsonObserver;
 
 public class OwnGraderInstance {
     public static void main(String[] args) {

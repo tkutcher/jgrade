@@ -1,6 +1,6 @@
-package com.github.tkutcher.jgrade;
+package edu.jhu.cs.jgrade;
 
-import com.github.tkutcher.jgrade.gradescope.GradescopeJsonObserver;
+import edu.jhu.cs.jgrade.gradescope.GradescopeJsonObserver;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;

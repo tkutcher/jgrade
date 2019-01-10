@@ -1,4 +1,4 @@
-package com.github.tkutcher.jgrade.gradedtest;
+package edu.jhu.cs.jgrade.gradedtest;
 
 
 public class GradedTestResult {

@@ -1,7 +1,7 @@
-package com.github.tkutcher.jgrade;
+package edu.jhu.cs.jgrade;
 
-import com.github.tkutcher.jgrade.gradedtest.GradedTestListener;
-import com.github.tkutcher.jgrade.gradedtest.GradedTestResult;
+import edu.jhu.cs.jgrade.gradedtest.GradedTestListener;
+import edu.jhu.cs.jgrade.gradedtest.GradedTestResult;
 import org.junit.runner.JUnitCore;
 
 import java.util.ArrayList;

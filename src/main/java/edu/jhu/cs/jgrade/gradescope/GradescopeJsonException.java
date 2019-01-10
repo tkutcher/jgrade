@@ -1,4 +1,4 @@
-package com.github.tkutcher.jgrade.gradescope;
+package edu.jhu.cs.jgrade.gradescope;
 
 public class GradescopeJsonException extends RuntimeException {
     public GradescopeJsonException(String message) {

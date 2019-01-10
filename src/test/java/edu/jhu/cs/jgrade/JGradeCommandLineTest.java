@@ -1,6 +1,6 @@
-package com.github.tkutcher.jgrade;
+package edu.jhu.cs.jgrade;
 
-import com.github.tkutcher.jgrade.gradedtest.GradedTestResult;
+import edu.jhu.cs.jgrade.gradedtest.GradedTestResult;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.After;

@@ -1,12 +1,12 @@
-package com.github.tkutcher.jgrade.gradedtest;
+package edu.jhu.cs.jgrade.gradedtest;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.JUnitCore;
 
 import java.util.List;
 
-import static com.github.tkutcher.jgrade.gradedtest.GradedTestResult.HIDDEN;
 import static org.junit.Assert.*;
 
 
@@ -70,7 +70,7 @@ public class GradedTestListenerTest {
         assertEquals(EXAMPLE_NAME, result.getName());
         assertEquals(EXAMPLE_NUMBER, result.getNumber());
         assertEquals(EXAMPLE_POINTS, result.getPoints(), 0.0);
-        assertEquals(HIDDEN, result.getVisibility());
+        Assert.assertEquals(GradedTestResult.HIDDEN, result.getVisibility());
     }
 
     @Test
@@ -148,7 +148,7 @@ public class GradedTestListenerTest {
                 name=EXAMPLE_NAME,
                 number=EXAMPLE_NUMBER,
                 points=EXAMPLE_POINTS,
-                visibility=HIDDEN)
+                visibility= GradedTestResult.HIDDEN)
         public void gradedTest() { assertTrue(true); }
     }
 

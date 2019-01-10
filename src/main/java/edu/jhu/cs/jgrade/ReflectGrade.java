@@ -1,4 +1,4 @@
-package com.github.tkutcher.jgrade;
+package edu.jhu.cs.jgrade;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;

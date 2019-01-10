@@ -1,7 +1,7 @@
-package com.github.tkutcher.jgrade;
+package edu.jhu.cs.jgrade;
 
-import com.github.tkutcher.jgrade.gradedtest.AllGraderTests;
-import com.github.tkutcher.jgrade.gradescope.GradescopeJsonObserverTest;
+import edu.jhu.cs.jgrade.gradedtest.AllGraderTests;
+import edu.jhu.cs.jgrade.gradescope.GradescopeJsonObserverTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 

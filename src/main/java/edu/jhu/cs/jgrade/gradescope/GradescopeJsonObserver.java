@@ -1,20 +1,18 @@
-package com.github.tkutcher.jgrade.gradescope;
+package edu.jhu.cs.jgrade.gradescope;
 
-import com.github.tkutcher.jgrade.Grade;
-import com.github.tkutcher.jgrade.Grader;
-import com.github.tkutcher.jgrade.OutputObserver;
-import com.github.tkutcher.jgrade.gradedtest.GradedTestResult;
-import org.hamcrest.core.Every;
+import edu.jhu.cs.jgrade.Grader;
+import edu.jhu.cs.jgrade.OutputObserver;
+import edu.jhu.cs.jgrade.gradedtest.GradedTestResult;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.List;
 
-import static com.github.tkutcher.jgrade.gradedtest.GradedTestResult.AFTER_DUE_DATE;
-import static com.github.tkutcher.jgrade.gradedtest.GradedTestResult.AFTER_PUBLISHED;
-import static com.github.tkutcher.jgrade.gradedtest.GradedTestResult.HIDDEN;
-import static com.github.tkutcher.jgrade.gradedtest.GradedTestResult.VISIBLE;
+import static edu.jhu.cs.jgrade.gradedtest.GradedTestResult.AFTER_DUE_DATE;
+import static edu.jhu.cs.jgrade.gradedtest.GradedTestResult.AFTER_PUBLISHED;
+import static edu.jhu.cs.jgrade.gradedtest.GradedTestResult.HIDDEN;
+import static edu.jhu.cs.jgrade.gradedtest.GradedTestResult.VISIBLE;
 
 
 public class GradescopeJsonObserver implements OutputObserver {

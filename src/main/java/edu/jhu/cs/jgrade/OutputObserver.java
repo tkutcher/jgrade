@@ -1,4 +1,4 @@
-package com.github.tkutcher.jgrade;
+package edu.jhu.cs.jgrade;
 
 public interface OutputObserver {
     void update(Grader grader);
