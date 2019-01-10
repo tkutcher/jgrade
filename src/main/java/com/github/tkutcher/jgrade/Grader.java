@@ -48,6 +48,7 @@ public class Grader {
 
     // </editor-fold>
 
+
     public void attachOutputObserver(OutputObserver o) {
         this.observers.add(o);
     }
