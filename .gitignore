@@ -11,6 +11,7 @@
 .idea/*.iml
 .idea/modules
 target/
+out/
 
 # Compiled class file
 *.class
