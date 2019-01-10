@@ -39,10 +39,10 @@ public final class JGrade {
     private JGrade() { }
 
 
+    // Throws a RunTimeException instead of calling System.exit();
+    // FIXME - Is it better to have a different exception?
     private static void fatal(String msg, Exception e) {
-        System.err.println(msg);
-        e.printStackTrace(System.err);
-        System.exit(1);
+        throw new RuntimeException(msg, e);
     }
 
     private static void usage() {
@@ -157,21 +157,23 @@ public final class JGrade {
         return options;
     }
 
-    private static CommandLine readCommandLine(String[] args) {
-        try {
-            CommandLineParser parser = new DefaultParser();
-            return parser.parse(getOptions(), args, false);
-        } catch (ParseException e) {
-            System.err.println(e.getMessage());
-            return null;
-        }
+    private static CommandLine readCommandLine(String[] args) throws ParseException {
+        CommandLineParser parser = new DefaultParser();
+        return parser.parse(getOptions(), args, false);
     }
 
     public static void main(String[] args) {
-        CommandLine line = readCommandLine(args);
-        if (args.length == 0 || line == null || line.hasOption(HELP_OPT)) {
+        CommandLine line = null;
+        try {
+            line = readCommandLine(args);
+        } catch (ParseException e) {
+            fatal("could not parse command line", e);
+        }
+
+        assert line != null;
+
+        if (args.length == 0 || line.hasOption(HELP_OPT)) {
             usage();
-            System.exit(line == null ? 1 : 0);
         } else if (line.hasOption(VERSION_OPT)) {
             System.out.println(VERSION);
         } else {
