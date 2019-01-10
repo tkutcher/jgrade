@@ -1,5 +1,5 @@
-import com.github.tkutcher.jgrade.BeforeGrade;
-import com.github.tkutcher.jgrade.DoneGrade;
+import com.github.tkutcher.jgrade.AfterGrading;
+import com.github.tkutcher.jgrade.BeforeGrading;
 import com.github.tkutcher.jgrade.Grade;
 import com.github.tkutcher.jgrade.Grader;
 import com.github.tkutcher.jgrade.gradedtest.GradedTestResult;
@@ -23,7 +23,7 @@ public class ExampleWithOwnObserver extends BasicGraderExample {
      * also add to the grader members like a max score.
      */
 
-    @BeforeGrade
+    @BeforeGrading
     public void addObserverDetails(Grader grader) {
         observer = new GradescopeJsonObserver(grader);
         grader.attachOutputObserver(observer);
@@ -51,7 +51,7 @@ public class ExampleWithOwnObserver extends BasicGraderExample {
      *         and stopping the timer there?
      */
 
-    @DoneGrade
+    @AfterGrading
     @Override
     public void endGrader(Grader grader) {
         grader.stopTimer();

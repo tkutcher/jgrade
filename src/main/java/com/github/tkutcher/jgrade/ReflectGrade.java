@@ -41,9 +41,9 @@ final class ReflectGrade {
     }
 
     private static boolean hasGradeAnnotation(Method m) {
-        int num = (m.isAnnotationPresent(BeforeGrade.class) ? 1 : 0) +
+        int num = (m.isAnnotationPresent(BeforeGrading.class) ? 1 : 0) +
                 (m.isAnnotationPresent(Grade.class) ? 1 : 0) +
-                (m.isAnnotationPresent(DoneGrade.class) ? 1 : 0);
+                (m.isAnnotationPresent(AfterGrading.class) ? 1 : 0);
 
         if (num > 1) {
             System.err.printf("method %s has too many grade annotations, should only have 1", m.getName());
@@ -57,11 +57,11 @@ final class ReflectGrade {
             return;
         }
 
-        if (m.isAnnotationPresent(BeforeGrade.class)) {
+        if (m.isAnnotationPresent(BeforeGrading.class)) {
             gradeMethods.beforeGradeMethods.put(m.getName(), m);
         } else if (m.isAnnotationPresent(Grade.class)) {
             gradeMethods.gradeMethods.put(m.getName(), m);
-        } else if (m.isAnnotationPresent(DoneGrade.class)) {
+        } else if (m.isAnnotationPresent(AfterGrading.class)) {
             gradeMethods.doneGradeMethods.put(m.getName(), m);
         }
     }
