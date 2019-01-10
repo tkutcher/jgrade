@@ -7,6 +7,11 @@ import org.json.JSONObject;
 
 import java.util.List;
 
+import static com.github.tkutcher.jgrade.gradedtest.GradedTestResult.AFTER_DUE_DATE;
+import static com.github.tkutcher.jgrade.gradedtest.GradedTestResult.AFTER_PUBLISHED;
+import static com.github.tkutcher.jgrade.gradedtest.GradedTestResult.HIDDEN;
+import static com.github.tkutcher.jgrade.gradedtest.GradedTestResult.VISIBLE;
+
 
 public class GradescopeJsonObserver implements OutputObserver {
 
@@ -25,9 +30,6 @@ public class GradescopeJsonObserver implements OutputObserver {
 
     private JSONObject json;
     private Grader grader;
-
-
-
     private int prettyPrint;
 
     public GradescopeJsonObserver(Grader grader) {
@@ -40,12 +42,13 @@ public class GradescopeJsonObserver implements OutputObserver {
         this.prettyPrint = prettyPrint;
     }
 
+    @Override
     public void update() {
         this.json = new JSONObject();
         this.assemble();
     }
 
-    public JSONObject assemble(GradedTestResult r) {
+    private JSONObject assemble(GradedTestResult r) {
         try {
             return new JSONObject()
                     .put(NAME, r.getName())
@@ -59,7 +62,7 @@ public class GradescopeJsonObserver implements OutputObserver {
         }
     }
 
-    public JSONArray assemble(List<GradedTestResult> l) {
+    private JSONArray assemble(List<GradedTestResult> l) {
         JSONArray testResults = new JSONArray();
         for (GradedTestResult r : l) {
             testResults.put(assemble(r));
@@ -67,14 +70,51 @@ public class GradescopeJsonObserver implements OutputObserver {
         return testResults;
     }
 
-    public void assemble() {
+    private void assemble() {
         try {
-            this.json.put(STDOUT_VISIBILITY, GradedTestResult.HIDDEN)
-                    .put(EXECUTION_TIME, this.grader.getExecutionTime())
-                    .put(TESTS, this.assemble(this.grader.getGradedTestResults()));
+            validateGrader();
+            if (this.grader.hasScore())
+                this.json.put(SCORE, grader.getScore());
+            if (this.grader.hasMaxScore())
+                this.json.put(MAX_SCORE, grader.getMaxScore());
+            if (this.grader.hasExecutionTime())
+                this.json.put(EXECUTION_TIME, grader.getExecutionTime());
+            if (this.grader.hasOutput())
+                this.json.put(OUTPUT, this.grader.getOutput());
+            if (this.grader.hasVisibility())
+                this.json.put(VISIBILITY, this.grader.getVisibility());
+            if (this.grader.hasStdoutVisibility())
+                this.json.put(STDOUT_VISIBILITY, this.grader.getStdoutVisibility());
+            if (this.grader.hasGradedTestResults())
+                this.json.put(TESTS, this.assemble(this.grader.getGradedTestResults()));
         } catch (JSONException e) {
             throw new InternalError(e);
+        } catch (GradescopeJsonException e) {
+            System.err.println(e.getMessage());
         }
+    }
+
+    private void validateGrader() {
+        if (!(grader.hasScore() || grader.hasGradedTestResults())) {
+            throw new GradescopeJsonException("Gradescope Json must have either tests or score set");
+        } else if (grader.hasVisibility() && !isValidVisibility(grader.getVisibility())) {
+            throw new GradescopeJsonException(grader.getVisibility() + " is not a valid visibility option");
+        } else if (grader.hasStdoutVisibility() && !isValidVisibility(grader.getStdoutVisibility())) {
+            throw new GradescopeJsonException(grader.getStdoutVisibility() + " is not a valid visibility option");
+        }
+
+        for (GradedTestResult r : grader.getGradedTestResults()) {
+            if (!isValidVisibility(r.getVisibility())) {
+                throw new GradescopeJsonException(r.getVisibility() + " is not a valid visibility option");
+            }
+        }
+    }
+
+    private boolean isValidVisibility(String visibility) {
+        return visibility.equals(VISIBLE) ||
+                visibility.equals(HIDDEN) ||
+                visibility.equals(AFTER_DUE_DATE) ||
+                visibility.equals(AFTER_PUBLISHED);
     }
 
     @Override
