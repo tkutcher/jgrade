@@ -55,7 +55,7 @@ public class Grader {
 
     public void notifyOutputObservers() {
         for (OutputObserver o : this.observers) {
-            o.update();
+            o.update(this);
         }
     }
 

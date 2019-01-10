@@ -25,7 +25,7 @@ public class ExampleWithOwnObserver extends BasicGraderExample {
 
     @BeforeGrading
     public void addObserverDetails(Grader grader) {
-        observer = new GradescopeJsonObserver(grader);
+        observer = new GradescopeJsonObserver();
         grader.attachOutputObserver(observer);
         grader.setMaxScore(20.0);
     }

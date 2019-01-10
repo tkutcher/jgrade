@@ -7,7 +7,10 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-/* Some example unit tests annotated with @GradedTest. */
+/* Some example unit tests annotated with @GradedTest. An instance of a GradedTestListener
+ * when attached to a JUnit run will keep a list of all results from @GradedTest annotated
+ * methods.
+ */
 
 public class ExampleGradedTests {
     @Test

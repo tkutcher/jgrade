@@ -13,7 +13,7 @@ import com.github.tkutcher.jgrade.gradescope.GradescopeJsonObserver;
 public class OwnGraderInstance {
     public static void main(String[] args) {
         Grader myGrader = new Grader();
-        GradescopeJsonObserver myObserver = new GradescopeJsonObserver(myGrader);
+        GradescopeJsonObserver myObserver = new GradescopeJsonObserver();
         myGrader.attachOutputObserver(myObserver);
 
         myGrader.startTimer();

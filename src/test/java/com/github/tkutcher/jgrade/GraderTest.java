@@ -100,7 +100,8 @@ public class GraderTest {
     private class TestObserver implements OutputObserver {
         private boolean isUpdated;
         TestObserver() { this.isUpdated = false; }
-        @Override public void update() { isUpdated = true; }
+        @Override public void update(Grader g) { isUpdated = true; }
+        public String getOutput() { return "hello!"; }
         public boolean isUpdated() { return this.isUpdated; }
     }
 

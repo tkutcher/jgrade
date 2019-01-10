@@ -28,13 +28,11 @@ public class GradescopeJsonObserver implements OutputObserver {
     private static final String VISIBILITY = "visibility";
 
     private JSONObject json;
-    private Grader grader;
     private int prettyPrint;
     private String visibility;
     private String stdoutVisibility;
 
-    public GradescopeJsonObserver(Grader grader) {
-        this.grader = grader;
+    public GradescopeJsonObserver() {
         this.json = new JSONObject();
         this.prettyPrint = 0;
     }
@@ -45,9 +43,9 @@ public class GradescopeJsonObserver implements OutputObserver {
     public void setPrettyPrint(int prettyPrint) { this.prettyPrint = prettyPrint; }
 
     @Override
-    public void update() {
+    public void update(Grader grader) {
         this.json = new JSONObject();
-        this.assemble();
+        this.assemble(grader);
     }
 
     private JSONObject assemble(GradedTestResult r) {
@@ -72,23 +70,23 @@ public class GradescopeJsonObserver implements OutputObserver {
         return testResults;
     }
 
-    private void assemble() {
+    private void assemble(Grader grader) {
         try {
-            validateGrader();
-            if (this.grader.hasScore())
+            validateGrader(grader);
+            if (grader.hasScore())
                 this.json.put(SCORE, grader.getScore());
-            if (this.grader.hasMaxScore())
+            if (grader.hasMaxScore())
                 this.json.put(MAX_SCORE, grader.getMaxScore());
-            if (this.grader.hasExecutionTime())
+            if (grader.hasExecutionTime())
                 this.json.put(EXECUTION_TIME, grader.getExecutionTime());
-            if (this.grader.hasOutput())
-                this.json.put(OUTPUT, this.grader.getOutput());
+            if (grader.hasOutput())
+                this.json.put(OUTPUT, grader.getOutput());
             if (this.hasVisibility())
                 this.json.put(VISIBILITY, this.visibility);
             if (this.hasStdoutVisibility())
                 this.json.put(STDOUT_VISIBILITY, this.stdoutVisibility);
-            if (this.grader.hasGradedTestResults())
-                this.json.put(TESTS, this.assemble(this.grader.getGradedTestResults()));
+            if (grader.hasGradedTestResults())
+                this.json.put(TESTS, this.assemble(grader.getGradedTestResults()));
         } catch (JSONException e) {
             throw new InternalError(e);
         } catch (GradescopeJsonException e) {
@@ -96,7 +94,7 @@ public class GradescopeJsonObserver implements OutputObserver {
         }
     }
 
-    private void validateGrader() {
+    private void validateGrader(Grader grader) {
         if (!(grader.hasScore() || grader.hasGradedTestResults())) {
             throw new GradescopeJsonException("Gradescope Json must have either tests or score set");
         } else if (this.hasVisibility() && !isValidVisibility(this.visibility)) {
@@ -117,6 +115,10 @@ public class GradescopeJsonObserver implements OutputObserver {
                 visibility.equals(HIDDEN) ||
                 visibility.equals(AFTER_DUE_DATE) ||
                 visibility.equals(AFTER_PUBLISHED);
+    }
+
+    public String getOutput() {
+        return this.toString();
     }
 
     @Override

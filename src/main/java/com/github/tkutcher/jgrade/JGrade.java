@@ -84,7 +84,7 @@ public final class JGrade {
                     throw new IllegalArgumentException("unrecognized format value " + val);
             }
         } else if (!line.hasOption(NO_OUTPUT_OPT)) {
-            jsonObserver = new GradescopeJsonObserver(grader);
+            jsonObserver = new GradescopeJsonObserver();
             grader.attachOutputObserver(jsonObserver);
         }
 
