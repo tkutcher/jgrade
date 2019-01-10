@@ -30,6 +30,7 @@ public final class Main {
     private static final String PP_OPT = "pretty-print";
     private static final String JSON_VAL = "json";
     private static final String TXT_VAL = "txt";
+    private static final String DEFAULT_FORMAT = JSON_VAL;
 
     // Observers
     private static GradescopeJsonObserver jsonObserver;
@@ -64,28 +65,21 @@ public final class Main {
         }
     }
 
-    private static void addJsonObserver(Grader grader) {
-        jsonObserver = new GradescopeJsonObserver(grader);
-        grader.attachOutputObserver(jsonObserver);
-    }
-
     private static Grader initGrader(CommandLine line) {
         jsonObserver = null;
 
         Grader grader = new Grader();
-        if (line.hasOption(FORMAT_OPT)) {
+        if (line.hasOption(FORMAT_OPT) && !line.getOptionValue(FORMAT_OPT).equals(DEFAULT_FORMAT)) {
             String val = line.getOptionValue(FORMAT_OPT);
             switch (val) {
-                case JSON_VAL:
-                    addJsonObserver(grader);
-                    break;
                 case TXT_VAL:
                     throw new UnsupportedOperationException("have not implemented textual output");
                 default:
                     throw new IllegalArgumentException("unrecognized format value " + val);
             }
         } else {
-            addJsonObserver(grader);
+            jsonObserver = new GradescopeJsonObserver(grader);
+            grader.attachOutputObserver(jsonObserver);
         }
 
         if (line.hasOption(PP_OPT)) {
