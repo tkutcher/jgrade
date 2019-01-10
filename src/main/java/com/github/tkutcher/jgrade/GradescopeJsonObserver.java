@@ -17,15 +17,12 @@ public class GradescopeJsonObserver implements OutputObserver {
 
     private static final String EXECUTION_TIME = "execution_time";
     private static final String STDOUT_VISIBILITY = "stdout_visibility";
-    private static final String LEADERBOARD = "leaderboard";
     private static final String TESTS = "tests";
     private static final String SCORE = "score";
     private static final String MAX_SCORE = "max_score";
     private static final String NAME = "name";
     private static final String NUMBER = "number";
     private static final String OUTPUT = "output";
-    private static final String TAGS = "tags";
-    private static final String EXTRA_DATA = "extra_data";
     private static final String VISIBILITY = "visibility";
 
     private JSONObject json;

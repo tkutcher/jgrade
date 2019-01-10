@@ -18,7 +18,6 @@ public final class Main {
 
     private static final String VERSION = "1.0.0-SNAPSHOT";
 
-    private static final int MAX_CLASSES = 10;
     private static final String CLASS_OPT = "classname";
     private static final String HELP_OPT = "help";
     private static final String VERSION_OPT = "version";
@@ -35,6 +34,9 @@ public final class Main {
     // Observers
     private static GradescopeJsonObserver jsonObserver;
 
+    // Hide Constructor
+    private Main() { }
+
 
     private static void fatal(String msg, Exception e) {
         System.err.println(msg);
@@ -48,21 +50,24 @@ public final class Main {
         formatter.printHelp("jgrade", getOptions());
     }
 
-
-    public static void main(String[] args) {
-        CommandLine line = readCommandLine(args);
-        if (line == null || line.hasOption(HELP_OPT)) {
-            usage();
-            System.exit(line == null ? 1 : 0);
-        } else if (line.hasOption(VERSION_OPT)) {
-            System.out.println(VERSION);
-        } else {
-            Grader grader = initGrader(line);
-            Class<?> c = getClassToGrade(line.getOptionValue(CLASS_OPT));
-            grade(grader, c);
-            grader.notifyOutputObservers();
-            outputResult(grader, line);
+    private static void outputResult(Grader grader, CommandLine line) {
+        if (line.hasOption(NO_OUTPUT_OPT)) {
+            return;
         }
+
+        PrintStream out = System.out;
+        if (line.hasOption(OUTPUT_OPT)) {
+            try {
+                out = new PrintStream(line.getOptionValue(OUTPUT_OPT));
+            } catch (FileNotFoundException e) {
+                fatal("error printing output to file", e);
+            }
+        }
+
+        if (jsonObserver != null) {
+            out.println(jsonObserver.toString());
+        }
+
     }
 
     private static Grader initGrader(CommandLine line) {
@@ -90,27 +95,6 @@ public final class Main {
         }
 
         return grader;
-    }
-
-    private static void outputResult(Grader grader, CommandLine line) {
-        if (line.hasOption(NO_OUTPUT_OPT)) {
-            return;
-        }
-
-
-        PrintStream out = System.out;
-        if (line.hasOption(OUTPUT_OPT)) {
-            try {
-                out = new PrintStream(line.getOptionValue(OUTPUT_OPT));
-            } catch (FileNotFoundException e) {
-                fatal("error printing output to file", e);
-            }
-        }
-
-        if (jsonObserver != null) {
-            out.println(jsonObserver.toString());
-        }
-
     }
 
     private static void grade(Grader grader, Class<?> c) {
@@ -179,6 +163,22 @@ public final class Main {
         } catch (ParseException e) {
             System.err.println(e.getMessage());
             return null;
+        }
+    }
+
+    public static void main(String[] args) {
+        CommandLine line = readCommandLine(args);
+        if (line == null || line.hasOption(HELP_OPT)) {
+            usage();
+            System.exit(line == null ? 1 : 0);
+        } else if (line.hasOption(VERSION_OPT)) {
+            System.out.println(VERSION);
+        } else {
+            Grader grader = initGrader(line);
+            Class<?> c = getClassToGrade(line.getOptionValue(CLASS_OPT));
+            grade(grader, c);
+            grader.notifyOutputObservers();
+            outputResult(grader, line);
         }
     }
 }
