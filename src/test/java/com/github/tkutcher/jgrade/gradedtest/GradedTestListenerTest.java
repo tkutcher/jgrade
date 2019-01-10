@@ -1,8 +1,5 @@
-package com.github.tkutcher.gradedtest;
+package com.github.tkutcher.jgrade.gradedtest;
 
-import com.github.tkutcher.jgrade.gradedtest.GradedTest;
-import com.github.tkutcher.jgrade.gradedtest.GradedTestListener;
-import com.github.tkutcher.jgrade.gradedtest.GradedTestResult;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.JUnitCore;
