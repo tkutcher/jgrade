@@ -49,8 +49,7 @@ public final class Main {
 
 
     public static void main(String[] args) {
-        String[] temp = new String[]{"-f", "json", "-c", "BasicGraderExample", "--pretty-print"};
-        CommandLine line = readCommandLine(temp);
+        CommandLine line = readCommandLine(args);
         if (line == null || line.hasOption(HELP_OPT)) {
             usage();
             System.exit(line == null ? 1 : 0);
@@ -65,6 +64,11 @@ public final class Main {
         }
     }
 
+    private static void addJsonObserver(Grader grader) {
+        jsonObserver = new GradescopeJsonObserver(grader);
+        grader.attachOutputObserver(jsonObserver);
+    }
+
     private static Grader initGrader(CommandLine line) {
         jsonObserver = null;
 
@@ -73,14 +77,15 @@ public final class Main {
             String val = line.getOptionValue(FORMAT_OPT);
             switch (val) {
                 case JSON_VAL:
-                    jsonObserver = new GradescopeJsonObserver(grader);
-                    grader.attachOutputObserver(jsonObserver);
+                    addJsonObserver(grader);
                     break;
                 case TXT_VAL:
                     throw new UnsupportedOperationException("have not implemented textual output");
                 default:
                     throw new IllegalArgumentException("unrecognized format value " + val);
             }
+        } else {
+            addJsonObserver(grader);
         }
 
         if (line.hasOption(PP_OPT)) {
