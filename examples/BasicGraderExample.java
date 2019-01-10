@@ -1,5 +1,6 @@
 import com.github.tkutcher.jgrade.*;
 import com.github.tkutcher.jgrade.gradedtest.GradedTestResult;
+import com.github.tkutcher.jgrade.gradescope.GradescopeJsonObserver;
 
 public class BasicGraderExample {
 

@@ -1,5 +1,6 @@
 package com.github.tkutcher.jgrade;
 
+import com.github.tkutcher.jgrade.gradescope.GradescopeJsonObserver;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -14,7 +15,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 
-public final class Main {
+public final class JGrade {
 
     private static final String VERSION = "1.0.0-SNAPSHOT";
 
@@ -35,7 +36,7 @@ public final class Main {
     private static GradescopeJsonObserver jsonObserver;
 
     // Hide Constructor
-    private Main() { }
+    private JGrade() { }
 
 
     private static void fatal(String msg, Exception e) {

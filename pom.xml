@@ -48,7 +48,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.github.tkutcher.jgrade.Main</mainClass>
+                            <mainClass>com.github.tkutcher.jgrade.JGrade</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
