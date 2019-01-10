@@ -14,17 +14,10 @@ import java.util.TreeMap;
 final class ReflectGrade {
 
     // Borrowed mostly from phf
-    static Class<?> load(String className) {
-        Class<?> c = null;
-        try {
-            URL url = FileSystems.getDefault().getPath("").toUri().toURL();
-            URLClassLoader loader = new URLClassLoader(new URL[]{url});
-            c = loader.loadClass(className);
-        } catch (ClassNotFoundException | MalformedURLException e) {
-            System.err.println(e);
-        }
-
-        return c;
+    static Class<?> load(String className) throws ClassNotFoundException, MalformedURLException {
+        URL url = FileSystems.getDefault().getPath("").toUri().toURL();
+        URLClassLoader loader = new URLClassLoader(new URL[]{url});
+        return loader.loadClass(className);
     }
 
     private static class GradeMethods {

@@ -26,9 +26,18 @@ public class GradescopeJsonObserver implements OutputObserver {
     private JSONObject json;
     private Grader grader;
 
+
+
+    private int prettyPrint;
+
     public GradescopeJsonObserver(Grader grader) {
         this.grader = grader;
         this.json = new JSONObject();
+        this.prettyPrint = 0;
+    }
+
+    public void setPrettyPrint(int prettyPrint) {
+        this.prettyPrint = prettyPrint;
     }
 
     public void update() {
@@ -68,9 +77,10 @@ public class GradescopeJsonObserver implements OutputObserver {
         }
     }
 
-    public String toString(int indentationLevel) {
+    @Override
+    public String toString() {
         try {
-            return this.json.toString(indentationLevel);
+            return this.prettyPrint > 0 ? this.json.toString(this.prettyPrint) : this.json.toString();
         } catch (JSONException e) {
             throw new InternalError(e);
         }

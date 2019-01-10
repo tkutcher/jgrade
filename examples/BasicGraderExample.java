@@ -8,8 +8,8 @@ public class BasicGraderExample {
     @BeforeGrade
     public void initGrader(Grader grader) {
         grader.startTimer();
-        output = new GradescopeJsonObserver(grader);
-        grader.attachOutputObserver(output);
+//        output = new GradescopeJsonObserver(grader);
+//        grader.attachOutputObserver(output);
     }
 
     @Grade
@@ -22,7 +22,7 @@ public class BasicGraderExample {
     @DoneGrade
     public void endGrader(Grader grader) {
         grader.stopTimer();
-        grader.notifyOutputObservers();
-        System.out.println(output.toString(2));
+//        grader.notifyOutputObservers();
+//        System.out.println(output.toString(2));
     }
 }
