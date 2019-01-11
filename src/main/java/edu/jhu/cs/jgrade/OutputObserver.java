@@ -16,7 +16,7 @@ public interface OutputObserver {
 
     /**
      * Get the output for the observed grader.
-     * @return
+     * @return The output of the observed grader.
      */
     String getOutput();
 }
