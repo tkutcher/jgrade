@@ -3,10 +3,7 @@ package edu.jhu.cs.jgrade.gradedtest;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.naming.SizeLimitExceededException;
-
 import static org.junit.Assert.assertEquals;
-
 
 public class GradedTestResultTest {
 
@@ -52,7 +49,7 @@ public class GradedTestResultTest {
     }
 
     @Test
-    public void canAddScore() throws SizeLimitExceededException {
+    public void canAddScore() {
         double score1 = 0.5;
         double score2 = 0.75;
         assertEquals(0, unit.getScore(), 0.0);
@@ -62,7 +59,7 @@ public class GradedTestResultTest {
         assertEquals(score2, unit.getScore(), 0.0);
     }
 
-    @Test(expected=InternalError.class)
+    @Test(expected=RuntimeException.class)
     public void cannotAddScoreGreaterThanPoints() {
         unit.setScore(15.0);
     }
