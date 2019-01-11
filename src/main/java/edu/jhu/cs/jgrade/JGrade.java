@@ -15,6 +15,34 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 
+
+/**
+ * The class with the main entry point for JGrade. The jar file (if run as an
+ * executable) will enter this main method. The main program takes a class that
+ * is annotated with {@link Grade} methods and invokes all of those methods
+ * passing in a single instance of a {@link Grader}.  It requires one argument,
+ * a <code>-c</code> flag and the name of the class containing annotated
+ * methods. It can produce output as specified by other options like a format
+ * option, and an option to specify where the output should be written. If no
+ * format is specified, the default is the Gradescope JSON, if no output file
+ * is specified, output will just be written to standard out. The
+ * <code>--no-output</code> flag can be used to not produce any output.
+ *
+ * The help/usage message is the following:
+ * <code>
+ *    usage: jgrade
+ *      -c,--classname <arg>          the class containing annotated methods to grade
+ *      -f,--format <output-format>   specify output, one of 'json' (default) or 'txt'
+ *      -h,--help
+ *         --no-output                don't produce any output (if user overriding)
+ *      -o <destination>              save output to another file (if not specified,
+ *                                    prints to standard out)
+ *         --pretty-print             pretty-print output (when format is json)
+ *      -v,--version
+ * </code>
+ *
+ * If
+ */
 public final class JGrade {
 
     private static final String VERSION = "1.0.0-SNAPSHOT";
@@ -68,7 +96,6 @@ public final class JGrade {
         if (jsonObserver != null) {
             out.println(jsonObserver.toString());
         }
-
     }
 
     private static Grader initGrader(CommandLine line) {
@@ -132,7 +159,7 @@ public final class JGrade {
     private static Options getOptions() {
         Options options = new Options();
         options.addOption(Option.builder("f").longOpt(FORMAT_OPT)
-                .desc("specify output, one of \'json\' (default) or \'text\'")
+                .desc("specify output, one of \'json\' (default) or \'txt\'")
                 .hasArg(true)
                 .argName(FORMAT_ARG)
                 .build());
@@ -150,7 +177,7 @@ public final class JGrade {
         options.addOption(Option.builder("c").longOpt(CLASS_OPT)
                 .desc("the class containing annotated methods to grade")
                 .hasArg()
-                .required(true)
+//                .required(true)
                 .build());
         options.addOption(Option.builder("h").longOpt(HELP_OPT).build());
         options.addOption(Option.builder("v").longOpt(VERSION_OPT).build());
@@ -162,6 +189,10 @@ public final class JGrade {
         return parser.parse(getOptions(), args, false);
     }
 
+    /**
+     * Main entry point. See usage or run with <code>--help</code>
+     * @param args Command line arguments.
+     */
     public static void main(String[] args) {
         CommandLine line = null;
         try {
@@ -176,6 +207,8 @@ public final class JGrade {
             usage();
         } else if (line.hasOption(VERSION_OPT)) {
             System.out.println(VERSION);
+        } else if (!line.hasOption(CLASS_OPT )) {
+            fatal("missing required class flag", new ParseException("missing required class flag"));
         } else {
             Grader grader = initGrader(line);
             Class<?> c = getClassToGrade(line.getOptionValue(CLASS_OPT));

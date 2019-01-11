@@ -11,6 +11,14 @@ import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
+
+/**
+ * Helper class used to consolidate all {@link java.lang.reflect} functionality
+ * in grabbing annotated methods and making sure they have the proper
+ * signature. Much of this code is borrowed from Peter Froehlich's Jaybee
+ * which is open source at
+ * <a href="https://github.com/phf/jb">https://github.com/phf/jb</a>.
+ */
 final class ReflectGrade {
 
     // Borrowed mostly from phf
