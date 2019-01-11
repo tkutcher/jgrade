@@ -15,6 +15,13 @@ import static edu.jhu.cs.jgrade.gradedtest.GradedTestResult.HIDDEN;
 import static edu.jhu.cs.jgrade.gradedtest.GradedTestResult.VISIBLE;
 
 
+/**
+ * A concrete observer for a {@link Grader} where the output it produces
+ * is the JSON a Gradescope Autograder can work with. The Grader does not
+ * notify on its own after changes, so if not using the main JGrade method
+ * then be sure to call {@link Grader#notifyOutputObservers()} to see
+ * updates.
+ */
 public class GradescopeJsonObserver implements OutputObserver {
 
     private static final String EXECUTION_TIME = "execution_time";
@@ -32,29 +39,55 @@ public class GradescopeJsonObserver implements OutputObserver {
     private String visibility;
     private String stdoutVisibility;
 
+    /**
+     * Creates an instance of the observer. By default the pretty-print
+     * option is off (the integer is negative).
+     */
     public GradescopeJsonObserver() {
         this.json = new JSONObject();
-        this.prettyPrint = 0;
+        this.prettyPrint = -1;
     }
 
     private boolean hasVisibility() { return this.visibility != null; }
     private boolean hasStdoutVisibility() { return this.stdoutVisibility != null; }
 
-    public void setVisibility(String visibility) {
+    // <editor-fold "desc="accessors">
+
+    /**
+     * Sets the visibility for all of the test cases.
+     * @param visibility The top-level visibility to use for all test cases.
+     * @throws GradescopeJsonException If visibility not valid.
+     */
+    public void setVisibility(String visibility) throws GradescopeJsonException {
         if (!isValidVisibility(visibility)) {
             throw new GradescopeJsonException(visibility + " is not a valid visibility");
         }
         this.visibility = visibility;
     }
 
-    public void setStdoutVisibility(String visibility) {
+    /**
+     * Sets the visibility for standard out during the run.
+     * @param visibility The visibility to set for standard out.
+     * @throws GradescopeJsonException If visibility is not valid.
+     */
+    public void setStdoutVisibility(String visibility) throws GradescopeJsonException {
         if (!isValidVisibility(visibility)) {
             throw new GradescopeJsonException(visibility + " is not a valid visibility");
         }
         this.stdoutVisibility = visibility;
     }
 
+    /**
+     * Sets the pretty-print for the JSON to output. The integer is how many
+     * spaces to add for each indent level. A negative integer corresponds to
+     * disabling pretty-print. If non-negative, simply calls
+     * {@link JSONObject#toString(int)}
+     * @param prettyPrint The integer for how much to indent
+     */
     public void setPrettyPrint(int prettyPrint) { this.prettyPrint = prettyPrint; }
+
+    // </editor-fold>
+
 
     @Override
     public void update(Grader grader) {
@@ -136,6 +169,13 @@ public class GradescopeJsonObserver implements OutputObserver {
 
     // TODO - Enforce that if score and tests both present that they match?
 
+    /**
+     * Get the observers output of the JSON String.
+     * <p>
+     *     Note: just calls <code>toString()</code>
+     * </p>
+     * @return The JSON String for the observed Grader.
+     */
     public String getOutput() {
         return this.toString();
     }
@@ -143,7 +183,7 @@ public class GradescopeJsonObserver implements OutputObserver {
     @Override
     public String toString() {
         try {
-            return this.prettyPrint > 0 ? this.json.toString(this.prettyPrint) : this.json.toString();
+            return this.prettyPrint >= 0 ? this.json.toString(this.prettyPrint) : this.json.toString();
         } catch (JSONException e) {
             throw new InternalError(e);
         }
