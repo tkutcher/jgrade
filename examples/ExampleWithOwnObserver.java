@@ -1,11 +1,11 @@
-import com.github.tkutcher.jgrade.BeforeGrade;
-import com.github.tkutcher.jgrade.DoneGrade;
-import com.github.tkutcher.jgrade.Grade;
-import com.github.tkutcher.jgrade.Grader;
-import com.github.tkutcher.jgrade.gradedtest.GradedTestResult;
-import com.github.tkutcher.jgrade.gradescope.GradescopeJsonObserver;
+import edu.jhu.cs.jgrade.AfterGrading;
+import edu.jhu.cs.jgrade.BeforeGrading;
+import edu.jhu.cs.jgrade.Grade;
+import edu.jhu.cs.jgrade.Grader;
+import edu.jhu.cs.jgrade.gradedtest.GradedTestResult;
+import edu.jhu.cs.jgrade.gradescope.GradescopeJsonObserver;
 
-import static com.github.tkutcher.jgrade.gradedtest.GradedTestResult.VISIBLE;
+import static edu.jhu.cs.jgrade.gradedtest.GradedTestResult.VISIBLE;
 
 
 /* This is an example of a class where you don't use the options for the main entry
@@ -23,9 +23,9 @@ public class ExampleWithOwnObserver extends BasicGraderExample {
      * also add to the grader members like a max score.
      */
 
-    @BeforeGrade
+    @BeforeGrading
     public void addObserverDetails(Grader grader) {
-        observer = new GradescopeJsonObserver(grader);
+        observer = new GradescopeJsonObserver();
         grader.attachOutputObserver(observer);
         grader.setMaxScore(20.0);
     }
@@ -51,7 +51,7 @@ public class ExampleWithOwnObserver extends BasicGraderExample {
      *         and stopping the timer there?
      */
 
-    @DoneGrade
+    @AfterGrading
     @Override
     public void endGrader(Grader grader) {
         grader.stopTimer();

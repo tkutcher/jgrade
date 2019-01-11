@@ -17,24 +17,24 @@
 
 
 /* You'll have to import classes from the jgrade and jgrade.gradedtest packages. */
-import com.github.tkutcher.jgrade.BeforeGrade;
-import com.github.tkutcher.jgrade.DoneGrade;
-import com.github.tkutcher.jgrade.Grade;
-import com.github.tkutcher.jgrade.Grader;
-import com.github.tkutcher.jgrade.gradedtest.GradedTestResult;
+import edu.jhu.cs.jgrade.BeforeGrading;
+import edu.jhu.cs.jgrade.AfterGrading;
+import edu.jhu.cs.jgrade.Grade;
+import edu.jhu.cs.jgrade.Grader;
+import edu.jhu.cs.jgrade.gradedtest.GradedTestResult;
 
-import static com.github.tkutcher.jgrade.gradedtest.GradedTestResult.HIDDEN;
+import static edu.jhu.cs.jgrade.gradedtest.GradedTestResult.HIDDEN;
 
 
 public class BasicGraderExample {
 
-    /* All @Grade/@BeforeGrade/@DoneGrade methods must take exactly one parameter
+    /* All @Grade/@BeforeGrading/@AfterGrading methods must take exactly one parameter
      * of type Grader. This parameter is the same grader throughout.
      *
-     * @BeforeGrade methods are run before others.
+     * @BeforeGrading methods are run before others.
      */
 
-    @BeforeGrade
+    @BeforeGrading
     public void initGrader(Grader grader) {
         grader.startTimer();
     }
@@ -69,9 +69,9 @@ public class BasicGraderExample {
     }
 
 
-    /* @DoneGrade methods are run after all other methods. */
+    /* @AfterGrading methods are run after all other methods. */
 
-    @DoneGrade
+    @AfterGrading
     public void endGrader(Grader grader) {
         grader.stopTimer();
     }

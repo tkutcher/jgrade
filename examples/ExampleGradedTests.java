@@ -1,13 +1,16 @@
-import com.github.tkutcher.jgrade.gradedtest.GradedTest;
+import edu.jhu.cs.jgrade.gradedtest.GradedTest;
 import org.junit.Test;
 
-import static com.github.tkutcher.jgrade.gradedtest.GradedTestResult.HIDDEN;
-import static com.github.tkutcher.jgrade.gradedtest.GradedTestResult.VISIBLE;
+import static edu.jhu.cs.jgrade.gradedtest.GradedTestResult.HIDDEN;
+import static edu.jhu.cs.jgrade.gradedtest.GradedTestResult.VISIBLE;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-/* Some example unit tests annotated with @GradedTest. */
+/* Some example unit tests annotated with @GradedTest. An instance of a GradedTestListener
+ * when attached to a JUnit run will keep a list of all results from @GradedTest annotated
+ * methods.
+ */
 
 public class ExampleGradedTests {
     @Test
