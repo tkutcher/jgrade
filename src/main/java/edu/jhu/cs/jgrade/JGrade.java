@@ -175,7 +175,6 @@ public final class JGrade {
         options.addOption(Option.builder("c").longOpt(CLASS_OPT)
                 .desc("the class containing annotated methods to grade")
                 .hasArg()
-//                .required(true)
                 .build());
         options.addOption(Option.builder("h").longOpt(HELP_OPT).build());
         options.addOption(Option.builder("v").longOpt(VERSION_OPT).build());
