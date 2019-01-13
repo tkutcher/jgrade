@@ -66,6 +66,8 @@ First, the client can instantiate/extend their own `Grader` (which is a public c
 Secondly, the client can run the main method in the `JGrade` class (which is the main method for the entire jar). The command line expects the name of a class containing `@Grade` methods and optional format parameters. The usage message for this main program can be expanded below:
 <details><summary>Usage</summary>
 <p>
+
+```
 -c,--classname arg            the class containing annotated methods to grade
 -f,--format output-format     specify output, one of 'json' (default) or 'txt'
 -h,--help<br>
@@ -73,9 +75,14 @@ Secondly, the client can run the main method in the `JGrade` class (which is the
 -o destination                save output to another file (if not specified,
                               prints to standard out)
    --pretty-print             pretty-print output (when format is json)
--v,--version<br>
+-v,--version
+
+```
+
 </p>
 </details>
+
+
 
 With a `Grader` object, the client can do the following:
 - `attachOutputObserver(OutputObserver o)`: Attach an output observer to interpret the data the `Grader` holds
