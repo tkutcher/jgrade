@@ -11,7 +11,7 @@
 
     <name>jgrade</name>
     <url>https://github.com/tkutche1/jgrade</url>
-    <description>A lightweight grading framework for Java assignments.</description>
+    <description>A library for grading Java assignments</description>
 
     <licenses>
         <license>
