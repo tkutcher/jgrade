@@ -6,7 +6,15 @@ _A library for grading Java assignments_
 
 - [Overview](#overview)
   - [Library Files](#library-files)
+  - [Discussion](#inspiration-and-discussion)
   - [Acknowledgements](#acknowledgements)
+- [Use](#use)
+- [Building](#building)
+  - [JGrade](#building-jgrade)
+  - [Tests](#running-tests)
+  - [Requirements](#requirements)
+  - [Full API](#full-api)
+  
   
 ---
 
@@ -31,7 +39,7 @@ JGrade is a helper tool with various classes designed to assist in course instru
   - `OutputObserver`: Just an observer interface to observe a `Grader` and produce output.
 
   
-### Inspiration & Discussion
+### Inspiration and Discussion
 First, I wanted to have a setup for making Gradescope Autograders that was easily configurable so that as assignments change/update it is easy to modify the code related to testing the student's code. For example, if one assignment could benefit from a leaderboard/execution-time-statistics it would be easy to extend in to the same code for other assignments that don't need that information. I already had most of the code written and I had a few free days so this repository is just the repackaging of that code in to a main-program-executable/library.
 
 Secondly, there were a few cases that came up where it was easier to manually add the   `GradedTestResult` somewhere rather than have all tests be a simple pass/fail of a unit test. For example, say you deduct 1 point for each checkstyle error and you want to incorporate that in the autograded portion, it would be much easier to have the ability to run checkstyle outside of a unit test and just add that test result to the encapsulating `Grader` object. I also find it much easier to have something observe a `Grader` object rather than have specific `RunListener`'s that produce each type of output.
