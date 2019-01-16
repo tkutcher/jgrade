@@ -97,7 +97,7 @@ public class GraderTest {
     }
 
 
-    private class TestObserver implements OutputObserver {
+    private class TestObserver implements GraderObserver {
         private boolean isUpdated;
         TestObserver() { this.isUpdated = false; }
         @Override public void update(Grader g) { isUpdated = true; }

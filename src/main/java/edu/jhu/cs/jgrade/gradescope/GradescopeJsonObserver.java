@@ -1,7 +1,7 @@
 package edu.jhu.cs.jgrade.gradescope;
 
 import edu.jhu.cs.jgrade.Grader;
-import edu.jhu.cs.jgrade.OutputObserver;
+import edu.jhu.cs.jgrade.GraderObserver;
 import edu.jhu.cs.jgrade.gradedtest.GradedTestResult;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,7 +22,7 @@ import static edu.jhu.cs.jgrade.gradedtest.GradedTestResult.VISIBLE;
  * then be sure to call {@link Grader#notifyOutputObservers()} to see
  * updates.
  */
-public class GradescopeJsonObserver implements OutputObserver {
+public class GradescopeJsonObserver implements GraderObserver {
 
     private static final String EXECUTION_TIME = "execution_time";
     private static final String STDOUT_VISIBILITY = "stdout_visibility";

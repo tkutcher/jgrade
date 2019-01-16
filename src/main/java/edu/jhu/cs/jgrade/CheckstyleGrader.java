@@ -1,7 +1,6 @@
-package edu.jhu.cs226.instructor.autograder;
+package edu.jhu.cs.jgrade;
 
-import edu.jhu.cs226.instructor.autograder.base.GradedTestResult;
-import edu.jhu.cs226.instructor.tests.MainProgramUnitTester;
+import edu.jhu.cs.jgrade.gradedtest.GradedTestResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -22,17 +21,21 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static edu.jhu.cs226.instructor.autograder.base.Consts.GradescopeJson.VISIBLE;
+import static edu.jhu.cs.jgrade.gradedtest.GradedTestResult.VISIBLE;
 
+/**
+ * Class to assist in getting a {@link GradedTestResult} for checkstyle. It
+ * sets a max score, and a points per deduction, then deducts up to the max
+ * score number of points. Assumes is checking an entire directory but
+ * excludes any files with "test" in the name by default (since we don't
+ * really require JUnit files be checkstyle compliant). To configure it for
+ * specific files the client has to override {@link #isFileToCheck(Path)}.
+ * @version 1.0.0
+ */
 class CheckstyleGrader {
 
     private static final String CHECKSTYLE_NAME = "Checkstyle";
-    private static final double CHECKSTYLE_POINTS = 10.0;
-    private static final String CHECKSTYLE_JAR = "lib/checkstyle-8.12-all.jar";
-    private static final String CHECKSTYLE_CONFIG = "res/cs226_checks.xml";
     private static final String CHECKSTYLE_FORMAT = "xml";
-    private static final String BASE_PATH = "src/student/java/edu/jhu/cs226/student/";
-
     private static final String FILE_TAG = "file";
     private static final String FILE_NAME_ATTR = "name";
     private static final String ERROR_TAG = "error";
@@ -40,14 +43,100 @@ class CheckstyleGrader {
     private static final String COL_ATTR = "column";
     private static final String MSG_ATTR = "message";
 
-    private static GradedTestResult initResult() {
-        return new GradedTestResult(CHECKSTYLE_NAME, "", CHECKSTYLE_POINTS, VISIBLE);
+    private double points;
+    private double deduct;
+    private String pathToJar;
+    private String dirToCheck;
+    private String config;
+
+    /**
+     * Instantiate a new CheckstyleGrader.
+     * @param points The total number of points for the checkstyle test.
+     * @param deduct The number of points to deduct per error.
+     * @param pathToJar The path to the checkstyle jar executable.
+     * @param dirToCheck The directory of files to check.
+     */
+    public CheckstyleGrader(double points, double deduct,
+                            String pathToJar, String dirToCheck) {
+        this.points = points;
+        this.deduct = deduct;
+        this.pathToJar = pathToJar;
+        this.dirToCheck = dirToCheck;
+        this.config = null;
     }
 
-    private static GradedTestResult internalErrorResult(String msg) {
+    /**
+     * Set a configuration file to use for the checkstyle run.
+     * @param config - The file to use as the -c argument to checkstyle.
+     */
+    public void setConfig(String config) {
+        this.config = config;
+    }
+
+    /**
+     * Run the graded for a {@link GradedTestResult}. This will run the jar
+     * for xml output and parse that output. If a configuration file has been
+     * specified from {@link #setConfig(String)} then it will add the config
+     * to the command. Will include all files that {@link #isFileToCheck(Path)}
+     * returns true for, which by default is any java file not containing
+     * "test" in it's name. Will deduct to 0 points for each error.
+     * @return The generated result.
+     */
+    public GradedTestResult runForGradedTestResult() {
+        List<String> command = new ArrayList<>(Arrays.asList("java", "-jar",
+                this.pathToJar, "-f", CHECKSTYLE_FORMAT));
+        if (this.config != null) {
+            command.add("-c");
+            command.add(this.config);
+        }
+
+        try {
+            Files.walk(Paths.get(dirToCheck))
+                    .filter(CheckstyleGrader::isFileToCheck)
+                    .forEach(path -> command.add(path.toString()));
+            String xmlOutput = CLITester.executeProcess(
+                    new ProcessBuilder(command))
+                    .getOutput(CLITestResult.STREAM.STDOUT);
+            return xmlToGradedTestResult(xmlOutput);
+        } catch (InternalError | IOException | RuntimeException e) {
+            return internalErrorResult(e.toString());
+        }
+    }
+
+    /**
+     * Boolean function for whether or not a file should be included in
+     * checkstyle's run. By default it only includes files that are
+     * java files and excludes any containing "test" in the directory.
+     * If a client wanted to include more they could override this and
+     * add to what returns true.
+     * @param path The file to consider.
+     * @return True if it should be checked.
+     */
+    protected static boolean isFileToCheck(Path path) {
+        String s = path.toString();
+        return s.endsWith(".java") && !s.contains("test");
+    }
+
+    private GradedTestResult initResult() {
+        return new GradedTestResult(CHECKSTYLE_NAME, "", this.points, VISIBLE);
+    }
+
+    private GradedTestResult internalErrorResult(String msg) {
         GradedTestResult result = initResult();
         result.addOutput("Internal Error!\n");
         result.addOutput(msg);
+        return result;
+    }
+
+    private GradedTestResult xmlToGradedTestResult(String checkstyleOutput) throws InternalError {
+        String xml = stripNonXml(checkstyleOutput);
+        Document d = getXmlAsDocument(xml);
+        GradedTestResult result = initResult();
+        NodeList filesWithErrors = d.getElementsByTagName(FILE_TAG);
+        int numErrors = 0;
+        for (int i = 0; i < filesWithErrors.getLength(); i++)
+            numErrors += addOutputForFileNode(result, filesWithErrors.item(i));
+        result.setScore(Math.max(this.points - (numErrors * this.deduct), 0));
         return result;
     }
 
@@ -64,18 +153,6 @@ class CheckstyleGrader {
         } catch (ParserConfigurationException | IOException | SAXException e) {
             throw new InternalError(e);
         }
-    }
-
-    private static GradedTestResult xmlToGradedTestResult(String checkstyleOutput) throws InternalError {
-        String xml = stripNonXml(checkstyleOutput);
-        Document d = getXmlAsDocument(xml);
-        GradedTestResult result = initResult();
-        NodeList filesWithErrors = d.getElementsByTagName(FILE_TAG);
-        int numErrors = 0;
-        for (int i = 0; i < filesWithErrors.getLength(); i++)
-            numErrors += addOutputForFileNode(result, filesWithErrors.item(i));
-        result.setScore(Math.max(CHECKSTYLE_POINTS - numErrors, 0));
-        return result;
     }
 
     private static String getAttributeValue(String prefix, Node attribute) {
@@ -105,25 +182,5 @@ class CheckstyleGrader {
         for (int i = 0; i < errorNodes.getLength(); i++)
             result.addOutput(getOutputForErrorNode(errorNodes.item(i).getAttributes()));
         return errorNodes.getLength();
-    }
-
-    private static boolean isFileToCheck(Path path) {
-        String s = path.toString();
-        return s.endsWith(".java") && !s.contains("test") && !s.contains("bench");
-    }
-
-    public static GradedTestResult runForGradedTestResult() {
-        List<String> command = new ArrayList<>(Arrays.asList("java", "-jar", CHECKSTYLE_JAR,
-                "-c", CHECKSTYLE_CONFIG, "-f", CHECKSTYLE_FORMAT));
-
-        try {
-            Files.walk(Paths.get(BASE_PATH))
-                    .filter(CheckstyleGrader::isFileToCheck)
-                    .forEach(path -> command.add(path.toString()));
-            String xmlOutput = MainProgramUnitTester.executeProcess(new ProcessBuilder(command)).getStdOutOutput();
-            return xmlToGradedTestResult(xmlOutput);
-        } catch (InternalError | IOException | RuntimeException e) {
-            return internalErrorResult(e.toString());
-        }
     }
 }

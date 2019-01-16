@@ -36,7 +36,7 @@ JGrade is a helper tool with various classes designed to assist in course instru
   - `BeforeGrading`: An annotation run before `Grade` annotated methods.
   - `Grade`: An annotation for anything to do to grade.
   - `Grader`: An object that holds data specific to general purpose grading (a list of `GradedTestResult`s, output for the whole run, etc.)
-  - `OutputObserver`: Just an observer interface to observe a `Grader` and produce output.
+  - `GraderObserver`: Just an observer interface to observe a `Grader` and produce output.
 
   
 ### Inspiration and Discussion
