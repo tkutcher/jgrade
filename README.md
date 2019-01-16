@@ -96,7 +96,7 @@ With a `Grader` object, the client can do the following:
   - `maxScore: double`
   - `executionTime: long` (automatically set by the timer if used)
   - `output: String` (call `addOutput(String s)` to continually append output)
-  - `gradedTestResults: List<GradedTestResult>` (call `addGradedTestResult(GradedTestResult r))` to add more `GradedTestResult`s)
+  - `gradedTestResults: List<GradedTestResult>` (call `addGradedTestResult(GradedTestResult r)`) to add more `GradedTestResult`s)
 
 _For a more detailed API description, see how to acquire the [full API](#full-api)_
 
