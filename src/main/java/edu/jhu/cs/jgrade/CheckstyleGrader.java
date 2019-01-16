@@ -32,7 +32,7 @@ import static edu.jhu.cs.jgrade.gradedtest.GradedTestResult.VISIBLE;
  * specific files the client has to override {@link #isFileToCheck(Path)}.
  * @version 1.0.0
  */
-class CheckstyleGrader {
+public class CheckstyleGrader {
 
     private static final String CHECKSTYLE_NAME = "Checkstyle";
     private static final String CHECKSTYLE_FORMAT = "xml";
@@ -96,19 +96,21 @@ class CheckstyleGrader {
                     .forEach(path -> command.add(path.toString()));
             String xmlOutput = CLITester.executeProcess(
                     new ProcessBuilder(command))
-                    .getOutput(CLITestResult.STREAM.STDOUT);
+                    .getOutput(CLIResult.STREAM.STDOUT);
             return xmlToGradedTestResult(xmlOutput);
         } catch (InternalError | IOException | RuntimeException e) {
             return internalErrorResult(e.toString());
         }
     }
 
+    // FIXME - Alternative to make this take some interface that calls the
+    //   static boolean function.
     /**
      * Boolean function for whether or not a file should be included in
      * checkstyle's run. By default it only includes files that are
      * java files and excludes any containing "test" in the directory.
-     * If a client wanted to include more they could override this and
-     * add to what returns true.
+     * If a client wanted to include more or exclude others they would
+     * have to subclass and override this.
      * @param path The file to consider.
      * @return True if it should be checked.
      */

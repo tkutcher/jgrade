@@ -4,7 +4,7 @@ import java.util.List;
 
 
 /** For the result of interaction with a command line interface program. */
-public interface CLITestResult {
+public interface CLIResult {
 
     /**
      * Enumeration for the different types of streams to get output for,

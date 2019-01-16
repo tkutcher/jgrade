@@ -20,7 +20,7 @@ import java.util.List;
  */
 public abstract class CLITester {
 
-    private static class ExecutionResult implements CLITestResult {
+    private static class ExecutionResult implements CLIResult {
         private String stdOutOutput;
         private String stdErrOutput;
 
@@ -114,9 +114,9 @@ public abstract class CLITester {
      * @param withInput The input to input to the execution.
      * @return The result of the execution of the program.
      */
-    protected CLITestResult runCommand(String withInput) {
+    protected CLIResult runCommand(String withInput) {
         this.builder.command(this.command);
-        CLITestResult output = executeProcess(this.builder, withInput);
+        CLIResult output = executeProcess(this.builder, withInput);
         if (printOutput)
             ((ExecutionResult) output).dump();
         return output;
@@ -128,7 +128,7 @@ public abstract class CLITester {
      * {@link #runCommand(String)}.
      * @return The result of the execution of the program.
      */
-    protected CLITestResult runCommand() {
+    protected CLIResult runCommand() {
         return runCommand(null);
     }
 
@@ -138,10 +138,10 @@ public abstract class CLITester {
      * program.
      * @param builder The {@link ProcessBuilder} to use for the command.
      * @param toWriteIn Input for the program that it reads from stdin.
-     * @return The {@link CLITestResult} containing the output from the run.
+     * @return The {@link CLIResult} containing the output from the run.
      */
-    public static CLITestResult executeProcess(ProcessBuilder builder,
-                                                 String toWriteIn) {
+    public static CLIResult executeProcess(ProcessBuilder builder,
+                                           String toWriteIn) {
         try {
             Process proc = builder.start();
             OutputStream driverStdin = proc.getOutputStream();
@@ -172,9 +172,9 @@ public abstract class CLITester {
      * no input to the program. Other than that, same as
      * {@link #executeProcess(ProcessBuilder, String)}.
      * @param builder The {@link ProcessBuilder} to use to run.
-     * @return The {@link CLITestResult} containing the output from the run.
+     * @return The {@link CLIResult} containing the output from the run.
      */
-    public static CLITestResult executeProcess(ProcessBuilder builder) {
+    public static CLIResult executeProcess(ProcessBuilder builder) {
         return executeProcess(builder, null);
     }
 

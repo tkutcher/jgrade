@@ -1,0 +1,179 @@
+<?xml version="1.0"?>
+<!DOCTYPE module PUBLIC
+          "-//Puppy Crawl//DTD Check Configuration 1.3//EN"
+          "http://www.puppycrawl.com/dtds/configuration_1_3.dtd">
+
+
+<!--
+    BORROWED FROM PETER - PLACEHOLDER CONFIGURATION:
+
+    Peter's checkstyle configuration. Originally based on sun_checks.xml
+    from checkstyle-5.5 but updated to fit my teaching better.
+
+    Why are certain checks missing? We don't emphasize/teach packages.
+    We don't teach i18n stuff.
+-->
+
+<module name="Checker">
+    <!-- hard to avoid on Windows, more of a pain to keep it -->
+    <!--<module name="NewlineAtEndOfFile"/>-->
+
+    <!-- maximum 2000 lines by default -->
+    <module name="FileLength"/>
+
+    <!-- tabs are not popular in Java -->
+    <module name="FileTabCharacter"/>
+
+    <!-- no trailing whitespace, evil -->
+    <module name="RegexpSingleline">
+       <property name="format" value="\s+$"/>
+       <property name="message" value="Line has trailing whitespace."/>
+    </module>
+
+    <module name="TreeWalker">
+        <!-- enforce Javadoc but not for private stuff -->
+        <module name="JavadocMethod">
+           <property name="scope" value="protected"/>
+        </module>
+        <module name="JavadocType">
+           <property name="scope" value="protected"/>
+        </module>
+        <module name="JavadocVariable">
+           <property name="scope" value="protected"/>
+        </module>
+        <module name="JavadocStyle">
+           <property name="scope" value="protected"/>
+           <!-- empty tags are not okay -->
+           <property name="checkEmptyJavadoc" value="true"/>
+        </module>
+        <!-- being super-picky here, like Google -->
+        <module name="JavadocTagContinuationIndentation"/> <!-- not in 5.9 -->
+
+        <!-- various naming conventions -->
+        <module name="ConstantName"/>
+        <module name="LocalFinalVariableName"/>
+        <module name="LocalVariableName"/>
+        <module name="MemberName"/>
+        <module name="MethodName"/>
+        <module name="PackageName"/>
+        <module name="ParameterName"/>
+        <module name="StaticVariableName"/>
+        <module name="TypeName"/>
+        <module name="CatchParameterName"/> <!-- not in 5.9 -->
+        <module name="ClassTypeParameterName"/>
+        <module name="InterfaceTypeParameterName"/>
+        <module name="MethodTypeParameterName"/>
+
+        <!-- enforce sane imports -->
+        <module name="AvoidStarImport"/>
+        <module name="IllegalImport"/> <!-- default sun.* packages -->
+        <module name="RedundantImport"/>
+        <module name="UnusedImports"/>
+
+        <!-- size violations -->
+        <module name="AnonInnerLength"/> <!-- default 20 lines -->
+        <module name="LineLength"/> <!-- default 80 chars -->
+        <module name="MethodLength"/> <!-- default 150 lines -->
+        <module name="ParameterNumber"/> <!-- default 7 parameters -->
+        <module name="OuterTypeNumber"/> <!-- default 1 per file -->
+
+        <!-- whitespace checks -->
+        <module name="EmptyForInitializerPad"/>
+        <module name="EmptyForIteratorPad"/>
+        <module name="EmptyLineSeparator">
+            <property name="allowNoEmptyLineBetweenFields" value="true" />
+        </module>
+        <module name="GenericWhitespace"/>
+        <module name="MethodParamPad"/>
+        <module name="NoLineWrap"/>
+        <module name="NoWhitespaceAfter"/>
+        <module name="NoWhitespaceBefore"/>
+        <module name="OperatorWrap"/>
+        <module name="ParenPad"/>
+        <module name="TypecastParenPad"/>
+        <module name="WhitespaceAfter"/>
+        <module name="WhitespaceAround">
+           <!-- empty methods look better this way -->
+           <property name="allowEmptyMethods" value="true" />
+           <property name="allowEmptyConstructors" value="true" />
+        </module>
+
+        <!-- sane use of modifiers (sane is a relative term) -->
+        <module name="ModifierOrder"/>
+        <module name="RedundantModifier"/>
+
+        <!-- block checks -->
+        <module name="AvoidNestedBlocks"/>
+        <module name="EmptyBlock"/>
+        <module name="EmptyCatchBlock"/> <!-- not in 5.9 -->
+        <module name="LeftCurly"/>
+        <module name="NeedBraces"/>
+        <module name="RightCurly"/>
+
+        <!-- coding style -->
+        <module name="ArrayTrailingComma"/>
+        <!--
+            I want them to use ?: every now and then; sadly
+            there's no option to just disallow complicated ones.
+        -->
+        <!--<module name="AvoidInlineConditionals"/>-->
+        <module name="CovariantEquals"/> <!-- avoid accidental overloading -->
+        <module name="DeclarationOrder"/> <!-- standardize classes -->
+        <module name="DefaultComesLast"/> <!-- standardize switch -->
+        <module name="EmptyStatement"/>
+        <module name="EqualsAvoidNull"/>
+        <module name="EqualsHashCode"/>
+        <module name="ExplicitInitialization"/> <!-- avoid initializing twice -->
+        <module name="FallThrough"/> <!-- avoid forgetting breaks -->
+        <module name="HiddenField"> <!-- softened for constructors, discourage other places -->
+           <property name="ignoreConstructorParameter" value="true"/>
+        </module>
+        <module name="IllegalCatch"/> <!-- avoid overly generic catch -->
+        <module name="IllegalThrows"/> <!-- avoid overly generic throw -->
+        <module name="InnerAssignment"/> <!-- avoid assignments as expressions -->
+        <!--<module name="MagicNumber"/>--> <!-- more trouble than it's worth, we can still grade them down but we don't have to force ridiculous constant declarations -->
+        <module name="MissingSwitchDefault"/> <!-- standardize switch -->
+        <module name="ModifiedControlVariable"/> <!-- TODO: should for-each be different? -->
+        <module name="MultipleVariableDeclarations"/>
+        <module name="NestedTryDepth"/> <!-- no try inside a try -->
+        <module name="NoClone"/>
+        <module name="NoFinalizer"/>
+        <module name="OneStatementPerLine"/>
+        <module name="OverloadMethodsDeclarationOrder"/>
+        <module name="RequireThis"/> <!-- emphasize non-local stuff -->
+        <module name="SimplifyBooleanExpression"/>
+        <module name="SimplifyBooleanReturn"/>
+        <module name="StringLiteralEquality"/> <!-- reminder to use equals() -->
+
+        <!-- annotation checks -->
+        <module name="AnnotationLocation"/> <!-- standardize classes --> <!-- not in 5.9 -->
+
+        <!-- design checks -->
+        <!--<module name="DesignForExtension"/>--> <!-- too hard to explain -->
+        <module name="FinalClass"/>
+        <module name="HideUtilityClassConstructor"/>
+        <module name="InterfaceIsType"/>
+        <module name="MutableException"/>
+        <module name="OneTopLevelClass"/>
+        <module name="ThrowsCount">
+            <property name="ignorePrivateMethods" value="false"/> <!-- not in 5.9 -->
+        </module>
+        <!--<module name="VisibilityModifier"/>--> <!-- too restrictive for nested classes -->
+
+        <!-- code complexity checks -->
+	<!--<module name="ClassDataAbstractionCoupling"/>--> <!-- too restrictive for polymorphic test drivers that make instances of a lot of classes -->
+        <module name="ClassFanOutComplexity"/> <!-- TODO: on probation -->
+        <module name="CyclomaticComplexity"/> <!-- keep methods managable -->
+        <module name="NPathComplexity"/> <!-- TODO: on probation -->
+
+        <!-- miscellaneous checks -->
+        <module name="ArrayTypeStyle"/> <!-- it's not a C course -->
+        <module name="CommentsIndentation"/> <!-- not in 5.9 -->
+        <!--<module name="FinalParameters"/>--> <!-- ruins pass-by-value -->
+        <module name="Indentation"/> <!-- standardize indentation TODO: case labels? -->
+        <module name="OuterTypeFilename"/>
+        <module name="TodoComment"/>
+        <module name="UpperEll"/>
+    </module>
+
+</module>
