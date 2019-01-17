@@ -8,8 +8,8 @@
  * $ java -cp jgrade-1.0.jar OwnGraderInstance
  */
 
-import edu.jhu.cs.jgrade.Grader;
-import edu.jhu.cs.jgrade.gradescope.GradescopeJsonObserver;
+import com.github.tkutche1.jgrade.Grader;
+import com.github.tkutche1.jgrade.gradescope.GradescopeJsonObserver;
 
 public class OwnGraderInstance {
     public static void main(String[] args) {

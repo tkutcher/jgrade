@@ -1,9 +1,9 @@
 package staff.hello;
 
-import edu.jhu.cs.jgrade.CheckstyleGrader;
-import edu.jhu.cs.jgrade.Grade;
-import edu.jhu.cs.jgrade.Grader;
-import edu.jhu.cs.jgrade.gradedtest.GradedTestResult;
+import com.github.tkutche1.jgrade.CheckstyleGrader;
+import com.github.tkutche1.jgrade.Grade;
+import com.github.tkutche1.jgrade.Grader;
+import com.github.tkutche1.jgrade.gradedtest.GradedTestResult;
 
 public class GradeHello {
 

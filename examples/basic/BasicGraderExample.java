@@ -17,13 +17,13 @@
 
 
 /* You'll have to import classes from the jgrade and jgrade.gradedtest packages. */
-import edu.jhu.cs.jgrade.BeforeGrading;
-import edu.jhu.cs.jgrade.AfterGrading;
-import edu.jhu.cs.jgrade.Grade;
-import edu.jhu.cs.jgrade.Grader;
-import edu.jhu.cs.jgrade.gradedtest.GradedTestResult;
+import com.github.tkutche1.jgrade.BeforeGrading;
+import com.github.tkutche1.jgrade.AfterGrading;
+import com.github.tkutche1.jgrade.Grade;
+import com.github.tkutche1.jgrade.Grader;
+import com.github.tkutche1.jgrade.gradedtest.GradedTestResult;
 
-import static edu.jhu.cs.jgrade.gradedtest.GradedTestResult.HIDDEN;
+import static com.github.tkutche1.jgrade.gradedtest.GradedTestResult.HIDDEN;
 
 
 public class BasicGraderExample {

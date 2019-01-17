@@ -1,11 +1,11 @@
-import edu.jhu.cs.jgrade.AfterGrading;
-import edu.jhu.cs.jgrade.BeforeGrading;
-import edu.jhu.cs.jgrade.Grade;
-import edu.jhu.cs.jgrade.Grader;
-import edu.jhu.cs.jgrade.gradedtest.GradedTestResult;
-import edu.jhu.cs.jgrade.gradescope.GradescopeJsonObserver;
+import com.github.tkutche1.jgrade.AfterGrading;
+import com.github.tkutche1.jgrade.BeforeGrading;
+import com.github.tkutche1.jgrade.Grade;
+import com.github.tkutche1.jgrade.Grader;
+import com.github.tkutche1.jgrade.gradedtest.GradedTestResult;
+import com.github.tkutche1.jgrade.gradescope.GradescopeJsonObserver;
 
-import static edu.jhu.cs.jgrade.gradedtest.GradedTestResult.VISIBLE;
+import static com.github.tkutche1.jgrade.gradedtest.GradedTestResult.VISIBLE;
 
 
 /* This is an example of a class where you don't use the options for the main entry
