@@ -99,6 +99,8 @@ public class CheckstyleGrader {
                     .getOutput(CLIResult.STREAM.STDOUT);
             return xmlToGradedTestResult(xmlOutput);
         } catch (InternalError | IOException | RuntimeException e) {
+            e.printStackTrace();
+            e.printStackTrace(System.err);
             return internalErrorResult(e.toString());
         }
     }

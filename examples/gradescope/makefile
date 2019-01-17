@@ -1,4 +1,7 @@
 
+output: classes
+	sh run.sh --local
+
 classes:
 	sh compile.sh
 
