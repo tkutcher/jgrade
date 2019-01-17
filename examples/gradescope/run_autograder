@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+cd /autograder/source
+
+# compilation
+./compile.sh
+
+# execution
+./run.sh
