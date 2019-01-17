@@ -60,38 +60,44 @@
                     <target>8</target>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.1.1</version>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <mainClass>edu.jhu.cs.jgrade.JGrade</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
-            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <!--<version>3.0.1</version>-->
+                <version>3.0.1</version>
                 <configuration>
                     <additionalOptions>-html5</additionalOptions>
                 </configuration>
             </plugin>
+
+            <!-- FIXME - Get rid of warnings... -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <!--<version>2.4</version>-->
                 <executions>
                     <execution>
-                        <id>attach-javadocs</id>
+                        <id>create-my-bundle</id>
+                        <phase>package</phase>
                         <goals>
-                            <goal>jar</goal>
+                            <goal>single</goal>
                         </goals>
+                        <configuration>
+                            <finalName>jgrade-1.0.0-alpha-all</finalName>
+                            <descriptorRefs>
+                                <descriptorRef>jar-with-dependencies</descriptorRef>
+                            </descriptorRefs>
+                            <appendAssemblyId>false</appendAssemblyId>
+                            <archive>
+                                <manifest>
+                                    <mainClass>edu.jhu.cs.jgrade.JGrade</mainClass>
+                                </manifest>
+                            </archive>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
+
         </plugins>
     </build>
 </project>
