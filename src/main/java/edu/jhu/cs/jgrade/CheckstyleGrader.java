@@ -137,10 +137,16 @@ public class CheckstyleGrader {
         Document d = getXmlAsDocument(xml);
         GradedTestResult result = initResult();
         NodeList filesWithErrors = d.getElementsByTagName(FILE_TAG);
+
         int numErrors = 0;
         for (int i = 0; i < filesWithErrors.getLength(); i++)
             numErrors += addOutputForFileNode(result, filesWithErrors.item(i));
+
         result.setScore(Math.max(this.points - (numErrors * this.deduct), 0));
+
+        if (numErrors == 0)
+            result.addOutput("Passed all checks!");
+
         return result;
     }
 
@@ -181,10 +187,13 @@ public class CheckstyleGrader {
         String fullPath = elementNode.getAttributes().getNamedItem(FILE_NAME_ATTR).toString();
         String fileName = fullPath.substring(fullPath.lastIndexOf('/') + 1, fullPath.length() - 1);
         NodeList errorNodes = ((Element) elementNode).getElementsByTagName(ERROR_TAG);
+
         if (errorNodes.getLength() > 0)
             result.addOutput(fileName + ":\n");
+
         for (int i = 0; i < errorNodes.getLength(); i++)
             result.addOutput(getOutputForErrorNode(errorNodes.item(i).getAttributes()));
+
         return errorNodes.getLength();
     }
 }

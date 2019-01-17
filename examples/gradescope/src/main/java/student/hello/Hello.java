@@ -1,12 +1,14 @@
 package student.hello;
 
-public class Hello implements Greeting {
+
+/** Say hello. */
+public final class Hello implements Greeting {
 
     /**
      * Construct a new Hello object.
      * @param greeting The greeting to use to say hello.
      */
-    public Hello(String greeting) {
+    public Hello(final String greeting) {
         // TODO
     }
 
@@ -17,7 +19,7 @@ public class Hello implements Greeting {
     }
 
     @Override
-    public String greet(String who) {
+    public String greet(final String who) {
         // TODO
         return null;
     }

@@ -6,6 +6,20 @@ import edu.jhu.cs.jgrade.Grader;
 import edu.jhu.cs.jgrade.gradedtest.GradedTestResult;
 
 public class GradeHello {
+
+    @Grade
+    public void debugMode(Grader grader) {
+        if (HelloTest.DEBUG) {
+            GradedTestResult r = new GradedTestResult(
+                    "Debug Mode Warning", "",
+                    0.0, GradedTestResult.HIDDEN
+            );
+            r.addOutput("WARNING: Autograder in DEBUG mode, not" +
+                    " checking student submission");
+            grader.addGradedTestResult(r);
+        }
+    }
+
     @Grade
     public void runUnitTests(Grader grader) {
         grader.runJUnitGradedTests(HelloTest.class);

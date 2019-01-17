@@ -9,7 +9,8 @@ import static org.junit.Assert.assertEquals;
 
 public class HelloTest {
 
-    private static final boolean DEBUG = true;
+    static final boolean DEBUG = true;
+
     private static final String GREETING = "Hello";
 
     private Greeting unit;

@@ -2,7 +2,8 @@ package staff.hello;
 
 import student.hello.Greeting;
 
-public class Hello implements Greeting {
+/** Say hello. */
+public final class Hello implements Greeting {
 
     private String greeting;
 
@@ -10,7 +11,7 @@ public class Hello implements Greeting {
      * Construct a new Hello object.
      * @param greeting The greeting to use to say hello.
      */
-    public Hello(String greeting) {
+    public Hello(final String greeting) {
         this.greeting = greeting;
     }
 
@@ -20,7 +21,7 @@ public class Hello implements Greeting {
     }
 
     @Override
-    public String greet(String who) {
+    public String greet(final String who) {
         return String.format("%s, %s!", this.greeting, who);
     }
 
