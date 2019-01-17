@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+cd /autograder/source
+
+cp /autograder/submission/Hello.java /autograder/source/src/main/java/student/hello/
+
+# compilation
+./compile.sh
+
+# execution
+./run.sh
