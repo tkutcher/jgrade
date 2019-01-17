@@ -21,3 +21,6 @@ _1.17.2019_
 - Added `CLITester` and `CLIResult` for command line help.
 - Added `CheckstyleGrader` for creating a `GradedTestResult` based off a checkstyle run.
 - Made domain for package `com.github.tkutche1`
+- pom to correctly build jar with dependencies (appended with `-all`).
+- pom with option to build javadoc.
+- Full gradescope example.
