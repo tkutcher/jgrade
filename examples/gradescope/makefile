@@ -1,5 +1,5 @@
 
-output: classes
+output: clean classes
 	sh run.sh --local
 
 classes:

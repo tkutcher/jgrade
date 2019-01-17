@@ -14,8 +14,10 @@ public class GradeHello {
                     "Debug Mode Warning", "",
                     0.0, GradedTestResult.HIDDEN
             );
-            r.addOutput("WARNING: Autograder in DEBUG mode, not" +
-                    " checking student submission");
+            r.addOutput("WARNING: Autograder in DEBUG mode, not " +
+                    "checking student submission. If seeing this on " +
+                    "Gradescope it means you forgot to switch DEBUG " +
+                    "to false");
             grader.addGradedTestResult(r);
         }
     }
