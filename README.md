@@ -109,7 +109,7 @@ For the abstract `CLITester` class:
 - If extending the class
   - The client must implement abstract method `getInvocation()`
   - This should return the List of strings that invoke the process for each run in the unit test suite
-    - e.g. `"java", "-cp", "lib/:.", "com.blah.mypackage.Hello"
+    - e.g. `"java", "-cp", "lib/:.", "com.blah.mypackage.Hello"`
     - Then, if a client wanted to add command line arguments for a specific test method, within that method the client could do `getCommand().append("someArgument");`
     - Note you __cannot__ include any IO redirection in this command, instead you call `runCommand()` with the input that you want to feed in, and use the `CLIResult` to get the output as a String.
     - For now, there is no `runCommand(File)` method for running with input, only `runCommand(String)`.
