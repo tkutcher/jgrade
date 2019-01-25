@@ -24,3 +24,7 @@ _1.17.2019_
 - pom to correctly build jar with dependencies (appended with `-all`).
 - pom with option to build javadoc.
 - Full gradescope example.
+
+#### 1.0.0.1
+_1.24.2019_
+- Bug in `CheckstyleGrader` excluding files named with `test` anywhere in the path, now ignores case.

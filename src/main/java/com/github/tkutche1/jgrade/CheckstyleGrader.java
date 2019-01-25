@@ -118,7 +118,7 @@ public class CheckstyleGrader {
      */
     protected static boolean isFileToCheck(Path path) {
         String s = path.toString();
-        return s.endsWith(".java") && !s.contains("test");
+        return s.endsWith(".java") && !s.toLowerCase().contains("test");
     }
 
     private GradedTestResult initResult() {
