@@ -27,4 +27,10 @@ public interface CLIResult {
      * @return A List of Strings of output, one list item per line.
      */
     List<String> getOutputByLine(STREAM stream);
+
+    /**
+     * Get the exit value of the process that was run.
+     * @return The exit value of the program that was run.
+     */
+    int exitValue();
 }

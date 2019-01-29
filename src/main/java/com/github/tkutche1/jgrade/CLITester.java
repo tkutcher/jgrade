@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -20,13 +21,15 @@ import java.util.List;
  */
 public abstract class CLITester {
 
-    private static class ExecutionResult implements CLIResult {
+    static class ExecutionResult implements CLIResult {
         private String stdOutOutput;
         private String stdErrOutput;
+        private int exitValue;
 
-        ExecutionResult(String stdOutOutput, String stdErrOutput) {
+        ExecutionResult(String stdOutOutput, String stdErrOutput, int exitValue) {
             this.stdOutOutput = stdOutOutput;
             this.stdErrOutput = stdErrOutput;
+            this.exitValue = exitValue;
         }
 
         @Override
@@ -39,6 +42,12 @@ public abstract class CLITester {
             return splitByLines(getOutput(stream));
         }
 
+        @Override
+        public int exitValue() {
+            return this.exitValue;
+        }
+
+
         void dump() {
             System.out.println(stdOutOutput);
             if (stdErrOutput.length() > 0) {
@@ -48,7 +57,7 @@ public abstract class CLITester {
         }
 
         private static List<String> splitByLines(String s) {
-            return Arrays.asList(s.split("[\\r\\n]+"));
+            return s.isEmpty() ? new ArrayList<>() : Arrays.asList(s.split("[\\r\\n]+"));
         }
     }
 
@@ -157,10 +166,10 @@ public abstract class CLITester {
                 writer.close();
             }
 
-            proc.waitFor();
+            int exitValue = proc.waitFor();
 
             return new ExecutionResult(getStringFromStream(driverStdout),
-                    getStringFromStream(driverStderr));
+                    getStringFromStream(driverStderr), exitValue);
 
         } catch (IOException | InterruptedException e) {
             throw new InternalError(e);

@@ -25,6 +25,13 @@ _1.17.2019_
 - pom with option to build javadoc.
 - Full gradescope example.
 
-#### 1.0.0.1
+#### 1.0.1
 _1.24.2019_
 - Bug in `CheckstyleGrader` excluding files named with `test` anywhere in the path, now ignores case.
+
+#### 1.0.2
+_1.28.2019_
+- Bug in `CLIResult` that returned a `List` of size `1` rather than `0` when the stream actually had an empty string.
+- Captures the exit value for the sub-process that runs the main program being tested.
+- Some (very basic) unit tests in `CLITesterExecutionResultTest` to test these tweaks and that they work as expected.
+
