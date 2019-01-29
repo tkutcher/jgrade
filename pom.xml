@@ -7,7 +7,7 @@
     <groupId>edu.jhu.cs</groupId>
     <artifactId>jgrade</artifactId>
     <packaging>jar</packaging>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
 
     <name>jgrade</name>
     <url>https://github.com/tkutche1/jgrade</url>
