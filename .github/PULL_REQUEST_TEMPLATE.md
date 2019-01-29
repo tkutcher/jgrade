@@ -7,6 +7,6 @@ related issue: # of issue
 
 **Have relative unit tests been added?**
 
-**Were existing unit tests modified?***
+**Were existing unit tests modified?**
 
-<!-- Style Compliance TODO -->
+**Are you checkstyle compliant with the current configuration?**
