@@ -19,6 +19,7 @@ _A guide for contributing to this repository ._
   - Add the corresponding labels (bug, enhancement, etc.).
   - Add a relevant description along with the title.
 - If you are working on a feature, leave a comment on the issue
+- Start with the template (from the `docs` folder).
 
 ### Branching
 - Any feature to implement should branch off the `development` branch.
