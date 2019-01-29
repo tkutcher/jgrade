@@ -22,6 +22,12 @@ public interface CLIResult {
     String getOutput(STREAM stream);
 
     /**
+     * Get standard output.
+     * @return the standard output.
+     */
+    String getOutput();
+
+    /**
      * Get the output for the specified stream split by lines.
      * @param stream The {@link STREAM} to get output from.
      * @return A List of Strings of output, one list item per line.

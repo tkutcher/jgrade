@@ -38,6 +38,11 @@ public abstract class CLITester {
         }
 
         @Override
+        public String getOutput() {
+            return getOutput(STREAM.STDOUT);
+        }
+
+        @Override
         public List<String> getOutputByLine(STREAM stream) {
             return splitByLines(getOutput(stream));
         }

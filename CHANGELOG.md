@@ -34,4 +34,5 @@ _1.28.2019_
 - Bug in `CLIResult` that returned a `List` of size `1` rather than `0` when the stream actually had an empty string.
 - Captures the exit value for the sub-process that runs the main program being tested.
 - Some (very basic) unit tests in `CLITesterExecutionResultTest` to test these tweaks and that they work as expected.
+- `getOutput()` without parameters defaults to returning the standard out.
 

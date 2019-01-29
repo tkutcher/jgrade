@@ -23,4 +23,10 @@ public class CLITesterExecutionResultTest {
         CLIResult unit = new CLITester.ExecutionResult("test1", "", 1);
         assertEquals(1, unit.exitValue());
     }
+
+    @Test
+    public void defaultGetStd() {
+        CLIResult unit = new CLITester.ExecutionResult("stdout", "stderr", 0);
+        assertEquals("stdout", unit.getOutput());
+    }
 }
