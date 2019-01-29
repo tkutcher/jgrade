@@ -1,11 +1,13 @@
 # CHANGELOG
 
-- [1.0.0-alpha](#1.0.0\-alpha)
+- [1.0.0-alpha](#1.0.0-(alpha))
 - [1.0.0](#1.0.0)
+- [1.0.1](#1.0.1)
+- [1.0.2](#1.0.2)
 
 ---
 
-### 1.0.0-alpha
+### 1.0.0 (alpha)
 - For internal use
 - Maven setup
 - Main program that takes a class name as a String on the command line and runs the annotated methods in that class to produce output
@@ -33,6 +35,6 @@ _1.24.2019_
 _1.28.2019_
 - Bug in `CLIResult` that returned a `List` of size `1` rather than `0` when the stream actually had an empty string.
 - Captures the exit value for the sub-process that runs the main program being tested.
-- Some (very basic) unit tests in `CLITesterExecutionResultTest` to test these tweaks and that they work as expected.
 - `getOutput()` without parameters defaults to returning the standard out.
+- Some (very basic) unit tests in `CLITesterExecutionResultTest` to test these tweaks and that they work as expected.
 
