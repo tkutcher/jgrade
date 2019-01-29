@@ -38,3 +38,10 @@ _1.28.2019_
 - `getOutput()` without parameters defaults to returning the standard out.
 - Some (very basic) unit tests in `CLITesterExecutionResultTest` to test these tweaks and that they work as expected.
 
+### 1.0.3
+_1.29.2019_
+- Checkstyle compliance in all files.
+- Docs based on GitHub's community standards.
+- Maven checkstyle plugin added to object model.
+- Updated naming of jars to **not** include patch number.
+

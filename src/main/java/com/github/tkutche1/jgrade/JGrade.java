@@ -138,8 +138,8 @@ public final class JGrade {
     private static Object instantiateClass(Class<?> c) {
         try {
             return c.getConstructor().newInstance();
-        } catch (IllegalAccessException | InstantiationException |
-                NoSuchMethodException | InvocationTargetException e) {
+        } catch (IllegalAccessException | InstantiationException
+                | NoSuchMethodException | InvocationTargetException e) {
             fatal("could not invoke constructor of " + c.getName(), e);
             throw new InternalError("unreachable statement - system should have exited");
         }
@@ -204,7 +204,7 @@ public final class JGrade {
             usage();
         } else if (line.hasOption(VERSION_OPT)) {
             System.out.println(VERSION);
-        } else if (!line.hasOption(CLASS_OPT )) {
+        } else if (!line.hasOption(CLASS_OPT)) {
             fatal("missing required class flag", new ParseException("missing required class flag"));
         } else {
             Grader grader = initGrader(line);

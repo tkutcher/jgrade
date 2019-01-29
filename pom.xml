@@ -84,7 +84,7 @@
                             <goal>single</goal>
                         </goals>
                         <configuration>
-                            <finalName>jgrade-1.0.2-all</finalName>
+                            <finalName>jgrade-1.0-all</finalName>
                             <descriptorRefs>
                                 <descriptorRef>jar-with-dependencies</descriptorRef>
                             </descriptorRefs>
@@ -97,6 +97,20 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+
+            <!-- Checkstyle (not required for build) -->
+            <!-- Run with `mvn checkstyle:checkstyle` -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <configLocation>res/jgrade_checks.xml</configLocation>
+                    <encoding>UTF-8</encoding>
+                    <consoleOutput>true</consoleOutput>
+                    <failsOnError>false</failsOnError>
+                </configuration>
             </plugin>
 
         </plugins>

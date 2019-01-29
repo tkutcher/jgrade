@@ -98,7 +98,7 @@ public class CheckstyleGrader {
                     new ProcessBuilder(command))
                     .getOutput(CLIResult.STREAM.STDOUT);
             return xmlToGradedTestResult(xmlOutput);
-        } catch (InternalError | IOException | RuntimeException e) {
+        } catch (InternalError | IOException e) {
             e.printStackTrace();
             e.printStackTrace(System.err);
             return internalErrorResult(e.toString());
@@ -139,13 +139,15 @@ public class CheckstyleGrader {
         NodeList filesWithErrors = d.getElementsByTagName(FILE_TAG);
 
         int numErrors = 0;
-        for (int i = 0; i < filesWithErrors.getLength(); i++)
+        for (int i = 0; i < filesWithErrors.getLength(); i++) {
             numErrors += addOutputForFileNode(result, filesWithErrors.item(i));
+        }
 
         result.setScore(Math.max(this.points - (numErrors * this.deduct), 0));
 
-        if (numErrors == 0)
+        if (numErrors == 0) {
             result.addOutput("Passed all checks!");
+        }
 
         return result;
     }
@@ -174,8 +176,9 @@ public class CheckstyleGrader {
     }
 
     private static String getOutputForErrorNode(NamedNodeMap attributes) {
-        if (attributes == null)
+        if (attributes == null) {
             throw new InternalError();
+        }
         Node lineAttribute = attributes.getNamedItem(LINE_ATTR);
         Node columnAttribute = attributes.getNamedItem(COL_ATTR);
         Node messageAttribute = attributes.getNamedItem(MSG_ATTR);
@@ -188,11 +191,13 @@ public class CheckstyleGrader {
         String fileName = fullPath.substring(fullPath.lastIndexOf('/') + 1, fullPath.length() - 1);
         NodeList errorNodes = ((Element) elementNode).getElementsByTagName(ERROR_TAG);
 
-        if (errorNodes.getLength() > 0)
+        if (errorNodes.getLength() > 0) {
             result.addOutput(fileName + ":\n");
+        }
 
-        for (int i = 0; i < errorNodes.getLength(); i++)
+        for (int i = 0; i < errorNodes.getLength(); i++) {
             result.addOutput(getOutputForErrorNode(errorNodes.item(i).getAttributes()));
+        }
 
         return errorNodes.getLength();
     }

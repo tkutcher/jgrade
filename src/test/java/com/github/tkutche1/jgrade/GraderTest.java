@@ -91,7 +91,7 @@ public class GraderTest {
         assertTrue(unit.getExecutionTime() > atPause);
     }
 
-    @Test(expected=RuntimeException.class)
+    @Test(expected=IllegalStateException.class)
     public void cannotStopTimerIfNotStarted() {
         unit.stopTimer();
     }

@@ -103,7 +103,9 @@ public abstract class CLITester {
      * {@link #runCommand()}.
      * @return The current command (which is a List of Strings).
      */
-    public List<String> getCommand() { return this.command; }
+    public List<String> getCommand() {
+        return this.command;
+    }
 
     /**
      * Get the {@link ProcessBuilder} that was initialized from
@@ -113,7 +115,9 @@ public abstract class CLITester {
      * the builder.
      * @return The {@link ProcessBuilder} being used.
      */
-    public ProcessBuilder getBuilder() { return this.builder; }
+    public ProcessBuilder getBuilder() {
+        return this.builder;
+    }
 
     /**
      * Set whether or not to print the captured output. If true, then when
@@ -121,7 +125,9 @@ public abstract class CLITester {
      * to System.out.
      * @param to The boolean value to set whether or not to print output.
      */
-    public void setPrintOutput(boolean to) { this.printOutput = to; }
+    public void setPrintOutput(boolean to) {
+        this.printOutput = to;
+    }
 
     /**
      * Run a command with input. See {@link #runCommand()}.
@@ -131,8 +137,9 @@ public abstract class CLITester {
     protected CLIResult runCommand(String withInput) {
         this.builder.command(this.command);
         CLIResult output = executeProcess(this.builder, withInput);
-        if (printOutput)
+        if (printOutput) {
             ((ExecutionResult) output).dump();
+        }
         return output;
     }
 
@@ -194,7 +201,7 @@ public abstract class CLITester {
 
     // Reads from an InputStream and returns the String.
     private static String getStringFromStream(InputStream stream) throws IOException {
-        byte streamBytes[] = new byte[stream.available()];
+        byte[] streamBytes = new byte[stream.available()];
         stream.read(streamBytes, 0, streamBytes.length);
         return new String(streamBytes);
     }

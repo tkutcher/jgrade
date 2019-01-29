@@ -48,8 +48,13 @@ public class GradescopeJsonObserver implements GraderObserver {
         this.prettyPrint = -1;
     }
 
-    private boolean hasVisibility() { return this.visibility != null; }
-    private boolean hasStdoutVisibility() { return this.stdoutVisibility != null; }
+    private boolean hasVisibility() {
+        return this.visibility != null;
+    }
+
+    private boolean hasStdoutVisibility() {
+        return this.stdoutVisibility != null;
+    }
 
     // <editor-fold "desc="accessors">
 
@@ -84,7 +89,9 @@ public class GradescopeJsonObserver implements GraderObserver {
      * {@link JSONObject#toString(int)}
      * @param prettyPrint The integer for how much to indent
      */
-    public void setPrettyPrint(int prettyPrint) { this.prettyPrint = prettyPrint; }
+    public void setPrettyPrint(int prettyPrint) {
+        this.prettyPrint = prettyPrint;
+    }
 
     // </editor-fold>
 
@@ -120,20 +127,27 @@ public class GradescopeJsonObserver implements GraderObserver {
     private void assemble(Grader grader) throws GradescopeJsonException {
         try {
             validateGrader(grader);
-            if (grader.hasScore())
+            if (grader.hasScore()) {
                 this.json.put(SCORE, grader.getScore());
-            if (grader.hasMaxScore())
+            }
+            if (grader.hasMaxScore()) {
                 this.json.put(MAX_SCORE, grader.getMaxScore());
-            if (grader.hasExecutionTime())
+            }
+            if (grader.hasExecutionTime()) {
                 this.json.put(EXECUTION_TIME, grader.getExecutionTime());
-            if (grader.hasOutput())
+            }
+            if (grader.hasOutput()) {
                 this.json.put(OUTPUT, grader.getOutput());
-            if (this.hasVisibility())
+            }
+            if (this.hasVisibility()) {
                 this.json.put(VISIBILITY, this.visibility);
-            if (this.hasStdoutVisibility())
+            }
+            if (this.hasStdoutVisibility()) {
                 this.json.put(STDOUT_VISIBILITY, this.stdoutVisibility);
-            if (grader.hasGradedTestResults())
+            }
+            if (grader.hasGradedTestResults()) {
                 this.json.put(TESTS, this.assemble(grader.getGradedTestResults()));
+            }
         } catch (JSONException e) {
             throw new InternalError(e);
         }
@@ -160,11 +174,11 @@ public class GradescopeJsonObserver implements GraderObserver {
     }
 
     private static boolean isValidVisibility(String visibility) {
-        return visibility == null ||   // Just wasn't set, which is OK
-                visibility.equals(VISIBLE) ||
-                visibility.equals(HIDDEN) ||
-                visibility.equals(AFTER_DUE_DATE) ||
-                visibility.equals(AFTER_PUBLISHED);
+        return visibility == null  // Just wasn't set, which is OK
+                || visibility.equals(VISIBLE)
+                || visibility.equals(HIDDEN)
+                || visibility.equals(AFTER_DUE_DATE)
+                || visibility.equals(AFTER_PUBLISHED);
     }
 
     // TODO - Enforce that if score and tests both present that they match?

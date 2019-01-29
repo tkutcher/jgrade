@@ -21,6 +21,9 @@ import java.util.TreeMap;
  */
 final class ReflectGrade {
 
+    // Appease checkstyle
+    private ReflectGrade() { }
+
     // Borrowed mostly from phf
     static Class<?> load(String className) throws ClassNotFoundException, MalformedURLException {
         URL url = FileSystems.getDefault().getPath("").toUri().toURL();
@@ -49,9 +52,9 @@ final class ReflectGrade {
     }
 
     private static boolean hasGradeAnnotation(Method m) {
-        int num = (m.isAnnotationPresent(BeforeGrading.class) ? 1 : 0) +
-                (m.isAnnotationPresent(Grade.class) ? 1 : 0) +
-                (m.isAnnotationPresent(AfterGrading.class) ? 1 : 0);
+        int num = (m.isAnnotationPresent(BeforeGrading.class) ? 1 : 0)
+                + (m.isAnnotationPresent(Grade.class) ? 1 : 0)
+                + (m.isAnnotationPresent(AfterGrading.class) ? 1 : 0);
 
         if (num > 1) {
             System.err.printf("method %s has too many grade annotations, should only have 1", m.getName());

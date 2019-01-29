@@ -40,23 +40,125 @@ public class Grader {
 
     // <editor-fold desc="accessors">
 
-    public boolean hasScore() { return this.score != null; }
-    public boolean hasMaxScore() { return this.maxScore != null; }
-    public boolean hasExecutionTime() { return this.executionTime != NOT_SET; }
-    public boolean hasGradedTestResults() { return this.gradedTestResults.size() > 0; }
-    public boolean hasOutput() { return this.output.length() > 0; }
+    /**
+     * Has a score set.
+     * @return True if a score was set.
+     */
+    public boolean hasScore() {
+        return this.score != null;
+    }
 
-    public void setScore(double score) { this.score = score; }
-    public void setMaxScore(double maxScore) { this.maxScore = maxScore; }
-    public void setExecutionTime(long executionTime) { this.executionTime = executionTime; }
-    public void addGradedTestResult(GradedTestResult result) { gradedTestResults.add(result); }
-    public void addOutput(String output) { this.output.append(output); }
+    /**
+     * Has a max score set.
+     * @return True if max score was set.
+     */
+    public boolean hasMaxScore() {
+        return this.maxScore != null;
+    }
 
-    public double getScore() { return this.score; }
-    public double getMaxScore() { return this.maxScore; }
-    public long getExecutionTime() { return this.executionTime; }
-    public List<GradedTestResult> getGradedTestResults() { return gradedTestResults; }
-    public String getOutput() { return this.output.toString(); }
+    /**
+     * Has an execution time.
+     * @return True if the Graders has an execution time.
+     */
+    public boolean hasExecutionTime() {
+        return this.executionTime != NOT_SET;
+    }
+
+    /**
+     * Has any {@link GradedTestResult}s.
+     * @return True if the list contains at least one result.
+     */
+    public boolean hasGradedTestResults() {
+        return this.gradedTestResults.size() > 0;
+    }
+
+    /**
+     * Has output for the Grader.
+     * @return True if there is any output to include.
+     */
+    public boolean hasOutput() {
+        return this.output.length() > 0;
+    }
+
+    /**
+     * Set the score (student's score) for the Grader.
+     * @param score The score to set.
+     */
+    public void setScore(double score) {
+        this.score = score;
+    }
+
+    /**
+     * Set the max potential score for the Grader.
+     * @param maxScore The max potential score to set.
+     */
+    public void setMaxScore(double maxScore) {
+        this.maxScore = maxScore;
+    }
+
+    /**
+     * Set the execution time for the Grader.
+     * @param executionTime The execution time.
+     */
+    public void setExecutionTime(long executionTime) {
+        this.executionTime = executionTime;
+    }
+
+    /**
+     * Add a {@link GradedTestResult} to the Grader.
+     * @param result The {@link GradedTestResult} to add.
+     */
+    public void addGradedTestResult(GradedTestResult result) {
+        gradedTestResults.add(result);
+    }
+
+    /**
+     * Add output to the Grader overall.
+     * @param output The string to append to the output.
+     */
+    public void addOutput(String output) {
+        this.output.append(output);
+    }
+
+    /**
+     * Get the (student) score for the Grader.
+     * @return The student score.
+     */
+    public double getScore() {
+        return this.score;
+    }
+
+    /**
+     * Get the max potential score.
+     * @return The max potential score.
+     */
+    public double getMaxScore() {
+        return this.maxScore;
+    }
+
+    /**
+     * Get the execution time.
+     * @return The execution time.
+     */
+    public long getExecutionTime() {
+        return this.executionTime;
+    }
+
+    /**
+     * Get the list of {@link GradedTestResult}s.
+     * @return The list of {@link GradedTestResult}s.
+    */
+    public List<GradedTestResult> getGradedTestResults() {
+        return gradedTestResults;
+    }
+
+    /**
+     * Get the output for the Grader.
+     * @return All of the output that has been added to the Grader.
+     */
+    public String getOutput() {
+        return this.output.toString();
+    }
 
     // </editor-fold>
 
@@ -84,11 +186,12 @@ public class Grader {
 
     /**
      * Stops the timer for the Grader. Can start again after stopping.
-     * @throws RuntimeException If the timer has not been started.
+     * @throws IllegalStateException If the timer has not been started.
      */
-    public void stopTimer() throws RuntimeException {
-        if (this.startTime == 0)
-            throw new RuntimeException("cannot stop timer not started");
+    public void stopTimer() throws IllegalStateException {
+        if (this.startTime == 0) {
+            throw new IllegalStateException("cannot stop timer not started");
+        }
         this.setExecutionTime(this.getExecutionTime() + System.currentTimeMillis() - this.startTime);
         this.startTime = 0;
     }

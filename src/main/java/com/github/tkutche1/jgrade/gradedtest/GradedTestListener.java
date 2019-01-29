@@ -53,8 +53,8 @@ public class GradedTestListener extends RunListener {
     }
 
     /**
-     * Get the list of {@link GradedTestResult}
-     * @return The list of {@link GradedTestResult}
+     * Get the list of {@link GradedTestResult}.
+     * @return The list of {@link GradedTestResult}.
      */
     public List<GradedTestResult> getGradedTestResults() {
         return this.gradedTestResults;
@@ -140,8 +140,8 @@ public class GradedTestListener extends RunListener {
         super.testFailure(failure);
         if (this.currentGradedTestResult != null) {
             this.currentGradedTestResult.setScore(0);
-            this.currentGradedTestResult.addOutput(failure.getMessage() == null ?
-                    failure.toString() : failure.getMessage());
+            this.currentGradedTestResult.addOutput(failure.getMessage() == null
+                    ? failure.toString() : failure.getMessage());
             numFailedGradedTests++;
         }
     }

@@ -18,8 +18,27 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD})
 public @interface GradedTest {
+    /**
+     * The name of the test.
+     * @return The name of the test.
+     */
     String name() default GradedTestResult.DEFAULT_NAME;
+
+    /**
+     * The number corresponding to the test.
+     * @return The number corresponding to the test.
+     */
     String number() default GradedTestResult.DEFAULT_NUMBER;
+
+    /**
+     * The number of points the test is worth.
+     * @return The number of points the test is worth.
+     */
     double points() default GradedTestResult.DEFAULT_POINTS;
+
+    /**
+     * The visibility level of the test.
+     * @return The visibility level of the test.
+     */
     String visibility() default GradedTestResult.DEFAULT_VISIBILITY;
 }

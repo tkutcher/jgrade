@@ -53,10 +53,11 @@ public class GradedTestResult {
         this.number = number;
         this.points = points;
 
-        if (!(visibility.equals(HIDDEN) || visibility.equals(VISIBLE) ||
-                visibility.equals(AFTER_DUE_DATE) || visibility.equals(AFTER_PUBLISHED)))
-            throw new IllegalArgumentException("visibility should be one of 'hidden', 'visible', " +
-                    "'after_due_date', or 'after_published'");
+        if (!(visibility.equals(HIDDEN) || visibility.equals(VISIBLE)
+                || visibility.equals(AFTER_DUE_DATE) || visibility.equals(AFTER_PUBLISHED))) {
+            throw new IllegalArgumentException("visibility should be one of 'hidden', 'visible', "
+                    + "'after_due_date', or 'after_published'");
+        }
 
         this.visibility = visibility;
         this.score = 0;
@@ -79,8 +80,9 @@ public class GradedTestResult {
      * @throws RuntimeException if the score exceeds the points for the test.
      */
     public void setScore(double score) {
-        if (score > this.points)
+        if (score > this.points) {
             throw new RuntimeException("Cannot set score above max number of points");
+        }
         this.score = score;
     }
 

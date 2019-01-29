@@ -40,7 +40,7 @@ _A guide for contributing to this repository ._
 ## Style
 
 ### Java Style
-No checkstyle config has been set up _yet_. Stay tuned. Not particularly picky.
+I use the `jgrade_checks.xml` configuration file in the `res` folder. Use this to be checkstyle compliant.
 
 ### Branching Names
 See the note in the [SOP branching section](#branching)
