@@ -143,6 +143,7 @@ public class GradedTestListener extends RunListener {
             this.currentGradedTestResult.addOutput(failure.getMessage() == null
                     ? failure.toString() : failure.getMessage());
             numFailedGradedTests++;
+            this.currentGradedTestResult.setPassed(false);
         }
     }
 

@@ -12,5 +12,6 @@ import org.junit.runners.Suite;
         AllGraderTests.class,
         GradescopeJsonObserverTest.class,
         CLITesterExecutionResultTest.class,
+        DeductiveGraderStrategyTest.class,
 })
 public class AllJGradeTests { }
