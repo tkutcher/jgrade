@@ -44,24 +44,25 @@ public class DeductiveGraderStrategy implements GraderStrategy {
     public void grade(List<GradedTestResult> l) {
         for (GradedTestResult r : l) {
             if (!r.passed()) {
-                double amountToDeduct = this.deduct(r);
-                r.setScore(0 - amountToDeduct);
-                this.deductedPoints += amountToDeduct;
+                this.deductedPoints += this.deduct(r);
             }
             r.setPoints(0);
         }
     }
 
+    // Deduct from r, return the amount deducted
     private double deduct(GradedTestResult r) {
+        double amountToDeduct = r.getPoints();
         if ((this.deductedPoints + r.getPoints()) > potentialDeductions()) {
             r.addOutput("Failed test but deductive grading did not subtract"
                     + "points below floor");
-            return potentialDeductions() - this.deductedPoints;
-        } else {
-            return r.getPoints();
+            amountToDeduct = potentialDeductions() - this.deductedPoints;
         }
+        r.setScore(0 - amountToDeduct);
+        return amountToDeduct;
     }
 
+    // Get the amount of possible points that can be deducted in total.
     private double potentialDeductions() {
         return this.startingScore - this.floor;
     }
