@@ -19,7 +19,7 @@ public class DeductiveGraderStrategyTest {
 
     @Before
     public void initUnit() {
-        this.unit = new DeductiveGraderStrategy(STARTING_SCORE);
+        this.unit = new DeductiveGraderStrategy(STARTING_SCORE, "blah");
     }
 
     private static GradedTestResult failedGradedTestResult(double points) {
@@ -38,12 +38,13 @@ public class DeductiveGraderStrategyTest {
 
         this.unit.grade(l);
 
-        for (GradedTestResult r : l) {
+        for (GradedTestResult r : l.subList(0, l.size() - 1)) {
             assertEquals(0, r.getPoints(), 0.0);
             assertEquals(0, r.getScore(), 0.0);
         }
 
         assertEquals(0, unit.getDeductedPoints(), 0.0);
+        assertEquals(STARTING_SCORE, l.get(l.size() - 1).getScore(), 0.0);
     }
 
     @Test
@@ -53,12 +54,13 @@ public class DeductiveGraderStrategyTest {
 
         this.unit.grade(l);
 
-        for (GradedTestResult r : l) {
+        for (GradedTestResult r : l.subList(0, l.size() - 1)) {
             assertEquals(0, r.getPoints(), 0.0);
             assertEquals(0 - STARTING_SCORE, r.getScore(), 0.0);
         }
 
         assertEquals(STARTING_SCORE, unit.getDeductedPoints(), 0.0);
+        assertEquals(STARTING_SCORE, l.get(l.size() - 1).getScore(), 0.0);
     }
 
     @Test
@@ -72,6 +74,7 @@ public class DeductiveGraderStrategyTest {
         assertEquals(0 - STARTING_SCORE + 2, l.get(0).getScore(), 0.0);
         assertEquals(-2, l.get(1).getScore(), 0.0);
         assertEquals(STARTING_SCORE, unit.getDeductedPoints(), 0.0);
+        assertEquals(STARTING_SCORE, l.get(l.size() - 1).getScore(), 0.0);
     }
 
     @Test
@@ -83,6 +86,7 @@ public class DeductiveGraderStrategyTest {
 
         assertEquals(0 - STARTING_SCORE, l.get(0).getScore(), 0.0);
         assertEquals(STARTING_SCORE, unit.getDeductedPoints(), 0.0);
+        assertEquals(STARTING_SCORE, l.get(l.size() - 1).getScore(), 0.0);
     }
 
     @Test
@@ -96,5 +100,6 @@ public class DeductiveGraderStrategyTest {
 
         assertEquals(0 - STARTING_SCORE + FLOOR, l.get(0).getScore(), 0.0);
         assertEquals(STARTING_SCORE - FLOOR, unit.getDeductedPoints(), 0.0);
+        assertEquals(STARTING_SCORE, l.get(l.size() - 1).getScore(), 0.0);
     }
 }

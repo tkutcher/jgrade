@@ -11,15 +11,18 @@ import java.util.List;
 public class DeductiveGraderStrategy implements GraderStrategy {
 
     private double floor;
+    private String sectionName;
     private double startingScore;
     private double deductedPoints;
 
     /**
      * Create a new DeductiveGradingStrategy.
      * @param startingScore The score to deduct from.
+     * @param sectionName The name of the section being graded.
      */
-    public DeductiveGraderStrategy(double startingScore) {
+    public DeductiveGraderStrategy(double startingScore, String sectionName) {
         this.startingScore = startingScore;
+        this.sectionName = sectionName;
         this.floor = 0;
         this.deductedPoints = 0;
     }
@@ -48,6 +51,11 @@ public class DeductiveGraderStrategy implements GraderStrategy {
             }
             r.setPoints(0);
         }
+        // Since scores get set to 0 ...
+        GradedTestResult baseScore = new GradedTestResult(sectionName, "",
+                startingScore, GradedTestResult.VISIBLE);
+        baseScore.setScore(startingScore);
+        l.add(baseScore);
     }
 
     // Deduct from r, return the amount deducted
