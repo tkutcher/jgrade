@@ -89,6 +89,14 @@ public class GradedTestResult {
     }
 
     /**
+     * Set the number of points the test is worth.
+     * @param points The number of points to set.
+     */
+    public void setPoints(double points) {
+        this.points = points;
+    }
+
+    /**
      * Set whether or not this result passed.
      * @param passed The value to set.
      */
