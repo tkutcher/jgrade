@@ -57,7 +57,7 @@ _1.31.2019_
 - Added strategy design pattern to `Grader` so when a client calls `runJUnitGradedTests` the strategy for those test results treats them accordingly.
   - This is the `GraderStrategy` interface class
   - Added a private class `DefaultGraderStrategy` that does nothing so as to preserve original behavior for tests, etc.
-  - _Note this pattern should probably eventually be moved out to be a strategy for the `GradedTestListener` class rather than the `Grader` but would require a lot more work and needed this for this semester._
+  - _Note this pattern should probably eventually be moved out to be a strategy for the `GradedTestListener` class rather than the `Grader` but would be a little messier work and wanted to get it working quickly to use this semester._
 - Added `DeductiveGraderStrategy` class to go through graded test results from JUnit tests and treat their scores as deductive.
   - Constructor sets a starting score, failed tests deduct by the amount of points they are worth up to some floor (0 by default).
   - Tracks the total points deducted.
