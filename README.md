@@ -37,6 +37,7 @@ JGrade is a helper tool with various classes designed to assist in course instru
   - `Grade`: An annotation for anything to do to grade.
   - `Grader`: An object that holds data specific to general purpose grading (a list of `GradedTestResult`s, output for the whole run, etc.)
   - `GraderObserver`: Just an observer interface to observe a `Grader` and produce output.
+  - `GraderStrategy`: Strategy interface for anything to do to modify `GradedTestResults` that were run as part of a JUnit suite. For example, this contains a `DeductiveGraderStrategy` to treat them as grading deductively from some max score down to some floor.
   - `CheckstyleGrader`: A class to assist in running checkstyle for a `GradedTestResult`.
   - `CLITester`: An abstract class to assist in running the main method of programs with a command line interface for output.
   - `CLIResult`: An interface for an object to hold multiple streams of captured output from the run.
@@ -63,6 +64,8 @@ When repackaging and making a jar that can be run as an executable, I modeled Pr
 ---
 
 ## Use
+
+<!-- TODO - Move a lot of this to Wiki -->
 
 The [examples](https://github.com/tkutche1/jgrade/tree/development/examples) directory highlights most of the core functionality. There are two ways to utilize this library.
 
