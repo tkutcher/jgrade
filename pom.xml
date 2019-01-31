@@ -7,7 +7,7 @@
     <groupId>edu.jhu.cs</groupId>
     <artifactId>jgrade</artifactId>
     <packaging>jar</packaging>
-    <version>1.1.0</version>
+    <version>1.1.0</version> <!-- NOTE - If major/minor version changes, update finalName in build tag -->
 
     <name>jgrade</name>
     <url>https://github.com/tkutche1/jgrade</url>
@@ -50,6 +50,7 @@
     </dependencies>
 
     <build>
+        <finalName>jgrade-1.1</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
