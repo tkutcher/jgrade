@@ -38,6 +38,7 @@ public class GradedTestResult {
 
     private double score;
     private StringBuilder output;
+    private boolean passed;
 
     /**
      * Create a new GradedTestResult, setting the initial score to 0.
@@ -62,6 +63,7 @@ public class GradedTestResult {
         this.visibility = visibility;
         this.score = 0;
         this.output = new StringBuilder();
+        this.passed = true;
     }
 
     // <editor-fold "desc="accessors">
@@ -84,6 +86,14 @@ public class GradedTestResult {
             throw new RuntimeException("Cannot set score above max number of points");
         }
         this.score = score;
+    }
+
+    /**
+     * Set whether or not this result passed.
+     * @param passed The value to set.
+     */
+    public void setPassed(boolean passed) {
+        this.passed = passed;
     }
 
     /**
@@ -134,6 +144,16 @@ public class GradedTestResult {
         return this.output.toString();
     }
 
-    // <editor-fold "desc="accessors">
 
+    /**
+     * Determine if the test for this result was considered to have passed
+     * or not.
+     * @return True if the test passed (student got full credit), false
+     *         otherwise.
+     */
+    public boolean passed() {
+        return this.passed;
+    }
+
+    // <editor-fold "desc="accessors">
 }
