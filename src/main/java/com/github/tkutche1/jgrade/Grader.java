@@ -22,7 +22,14 @@ import java.util.List;
 public class Grader {
     private static final int NOT_SET = -1;
 
+    private class DefaultGraderStrategy implements GraderStrategy {
+        public void grade(List<GradedTestResult> l) {
+            // Nothing to do.
+        }
+    }
+
     private List<GraderObserver> observers;
+    private GraderStrategy graderStrategy;
     private List<GradedTestResult> gradedTestResults;
     private long startTime;
     private long executionTime;
@@ -36,6 +43,7 @@ public class Grader {
         this.gradedTestResults = new ArrayList<>();
         this.executionTime = NOT_SET;
         this.output = new StringBuilder();
+        this.graderStrategy = new DefaultGraderStrategy();
     }
 
     // <editor-fold desc="accessors">
@@ -179,6 +187,16 @@ public class Grader {
         }
     }
 
+    /**
+     * Set the strategy to use to grade. By default, the strategy is to
+     * add {@link GradedTestResult}s as they are. To change that, you can
+     * alter them via the strategy and it's grade method.
+     * @param s The strategy to set.
+     */
+    public void setGraderStrategy(GraderStrategy s) {
+        this.graderStrategy = s;
+    }
+
     /** Starts (or resumes) the timer for the Grader. */
     public void startTimer() {
         this.startTime = System.currentTimeMillis();
@@ -202,7 +220,8 @@ public class Grader {
      * created {@link GradedTestResult}s. If class <code>MyTests</code> has
      * graded test JUnit test methods, then call this method with
      * <code>MyTests.class</code>. Similarly can use JUnit's
-     * {@link org.junit.runners.Suite}.
+     * {@link org.junit.runners.Suite}. Can alter the list of results added from the
+     * run by setting the {@link GraderStrategy}.
      * @param testSuite The class containing the tests.
      */
     public void runJUnitGradedTests(Class testSuite) {
@@ -210,6 +229,8 @@ public class Grader {
         JUnitCore runner = new JUnitCore();
         runner.addListener(listener);
         runner.run(testSuite);
-        this.gradedTestResults.addAll(listener.getGradedTestResults());
+        List<GradedTestResult> results = listener.getGradedTestResults();
+        this.graderStrategy.grade(results);
+        this.gradedTestResults.addAll(results);
     }
 }
