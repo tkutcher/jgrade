@@ -7,6 +7,8 @@ import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+
 public class GradescopeJsonObserverTest {
 
     private GradescopeJsonObserver unit;

@@ -28,13 +28,20 @@ public class DeductiveGraderStrategyTest {
         return r;
     }
 
+    private static GradedTestResult successfulGradedTestResult(double points) {
+        GradedTestResult r = new GradedTestResult("", "", points, HIDDEN);
+        r.setPassed(true);
+        r.setScore(points);
+        return r;
+    }
+
     @Test
     public void noDeductions() {
         List<GradedTestResult> l = new ArrayList<>();
-        l.add(new GradedTestResult("", "", 2.0, HIDDEN));
-        l.add(new GradedTestResult("", "", 2.0, HIDDEN));
-        l.add(new GradedTestResult("", "", 2.0, HIDDEN));
-        l.add(new GradedTestResult("", "", 2.0, HIDDEN));
+        l.add(successfulGradedTestResult(2.0));
+        l.add(successfulGradedTestResult(2.0));
+        l.add(successfulGradedTestResult(2.0));
+        l.add(successfulGradedTestResult(2.0));
 
         this.unit.grade(l);
 

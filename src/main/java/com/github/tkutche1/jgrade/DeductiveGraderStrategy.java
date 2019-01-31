@@ -48,6 +48,8 @@ public class DeductiveGraderStrategy implements GraderStrategy {
         for (GradedTestResult r : l) {
             if (!r.passed()) {
                 this.deductedPoints += this.deduct(r);
+            } else {
+                r.setScore(0);
             }
             r.setPoints(0);
         }
