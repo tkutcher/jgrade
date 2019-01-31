@@ -4,7 +4,9 @@
 # JetBrains Stuff
 # decided just to ignore entirely
 .idea/
-jgrade.iml
+
+jgrade.iml  # leaving this in
+
 #.idea/**/workspace.xml
 #.idea/**/tasks.xml
 #.idea/**/usage.statistics.xml
