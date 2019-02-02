@@ -140,8 +140,15 @@ public class GradedTestListener extends RunListener {
         super.testFailure(failure);
         if (this.currentGradedTestResult != null) {
             this.currentGradedTestResult.setScore(0);
-            this.currentGradedTestResult.addOutput(failure.getMessage() == null
-                    ? failure.toString() : failure.getMessage());
+            this.currentGradedTestResult.addOutput("FAILED:\n");
+            if (failure.getMessage() != null) {
+                this.currentGradedTestResult.addOutput(failure.getMessage());
+            } else {
+                // This way no testing information is leaked - if you want to give students
+                // feedback on why they failed use a message.
+                this.currentGradedTestResult.addOutput("No description provided");
+            }
+            this.currentGradedTestResult.addOutput("\n");
             numFailedGradedTests++;
             this.currentGradedTestResult.setPassed(false);
         }

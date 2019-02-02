@@ -107,7 +107,7 @@ public class GradedTestListenerTest {
     @Test
     public void outputHasFailMessage() {
         GradedTestResult result = getOnlyGradedTestResult(SingleFailWithMessageGradedTest.class);
-        assertEquals(EXAMPLE_MESSAGE, result.getOutput());
+        assertTrue(result.getOutput().contains(EXAMPLE_MESSAGE));
     }
 
     @Test

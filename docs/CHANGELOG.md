@@ -64,3 +64,13 @@ _1.31.2019_
   - Appends a message to the test result's output if not all (or no) points were deducted so as to not go beyond the floor.
 - `DeductiveGraderStrategyTest` unit tests
   - Added to `AllJGradeTests`
+  
+#### 1.1.1
+_1.31.2019_
+- Fixed bug in `DeductiveGraderStrategy` where starting point value test wasn't added in all cases.
+
+#### 1.1.2
+_2.1.2019_
+- Changed fail message to not include the `Failure.toString()`
+  - If a test failed not using the message parameter, it added some useless output that was confusing to students
+  - Instead just print (no description provided)
