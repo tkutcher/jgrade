@@ -20,6 +20,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import static com.github.tkutche1.jgrade.gradedtest.GradedTestResult.VISIBLE;
 
@@ -42,12 +44,15 @@ public class CheckstyleGrader {
     private static final String LINE_ATTR = "line";
     private static final String COL_ATTR = "column";
     private static final String MSG_ATTR = "message";
+    private static final String SRC_ATTR = "source";
 
     private double points;
     private double deduct;
     private String pathToJar;
     private String dirToCheck;
     private String config;
+
+    private Map<String, Integer> errorTypes;
 
     /**
      * Instantiate a new CheckstyleGrader.
@@ -63,6 +68,7 @@ public class CheckstyleGrader {
         this.pathToJar = pathToJar;
         this.dirToCheck = dirToCheck;
         this.config = null;
+        this.errorTypes = new TreeMap<>();
     }
 
     /**
@@ -97,6 +103,7 @@ public class CheckstyleGrader {
             String xmlOutput = CLITester.executeProcess(
                     new ProcessBuilder(command))
                     .getOutput(CLIResult.STREAM.STDOUT);
+            System.out.println(xmlOutput);
             return xmlToGradedTestResult(xmlOutput);
         } catch (InternalError | IOException e) {
             e.printStackTrace();
@@ -175,18 +182,32 @@ public class CheckstyleGrader {
         return getAttributeValue("", attribute);
     }
 
-    private static String getOutputForErrorNode(NamedNodeMap attributes) {
+    private String getOutputForErrorNode(NamedNodeMap attributes) {
         if (attributes == null) {
             throw new InternalError();
         }
         Node lineAttribute = attributes.getNamedItem(LINE_ATTR);
         Node columnAttribute = attributes.getNamedItem(COL_ATTR);
         Node messageAttribute = attributes.getNamedItem(MSG_ATTR);
-        return String.format("\t%-20s - %s\n", getAttributeValue("line: ", lineAttribute)
-                + getAttributeValue(", column", columnAttribute), getAttributeValue(messageAttribute));
+        String errorTypeAttribute = getAttributeValue(attributes.getNamedItem(SRC_ATTR));
+        if (errorTypeAttribute.contains(".")) {
+            String[] split = errorTypeAttribute.split("\\.");
+            errorTypeAttribute = split[split.length - 1];
+            if (!this.errorTypes.containsKey(errorTypeAttribute)) {
+                this.errorTypes.put(errorTypeAttribute, 1);
+            } else {
+                this.errorTypes.put(errorTypeAttribute, this.errorTypes.get(errorTypeAttribute) + 1);
+            }
+        }
+
+        return String.format("\t%-20s - %s [%s]\n",
+                getAttributeValue("line: ", lineAttribute)
+                + getAttributeValue(", column", columnAttribute),
+                getAttributeValue(messageAttribute),
+                errorTypeAttribute);
     }
 
-    private static int addOutputForFileNode(GradedTestResult result, Node elementNode) {
+    private int addOutputForFileNode(GradedTestResult result, Node elementNode) {
         String fullPath = elementNode.getAttributes().getNamedItem(FILE_NAME_ATTR).toString();
         String fileName = fullPath.substring(fullPath.lastIndexOf('/') + 1, fullPath.length() - 1);
         NodeList errorNodes = ((Element) elementNode).getElementsByTagName(ERROR_TAG);
