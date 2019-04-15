@@ -5,11 +5,8 @@ Go To:
 **[Most Recent (1.1.0)](#110)**
 
 - [1.0.0-alpha](#100-(alpha))
-- [1.0.0](#100)
-  - [1.0.1](#101)
-  - [1.0.2](#102)
-  - [1.0.3](#103)
-- [1.1.0](#110)
+- [1.0](#100)
+- [1.1](#110)
 
 ---
 
@@ -74,3 +71,13 @@ _2.1.2019_
 - Changed fail message to not include the `Failure.toString()`
   - If a test failed not using the message parameter, it added some useless output that was confusing to students
   - Instead just print (no description provided)
+  
+#### 1.1.3
+_2.4.2019_
+- `CheckstyleGrader` adds the error type to it's output
+- Method `getErrorTypes()` to get the `Map` of error types to their count.
+- Method `getErrorTypeCount()` to get the number of error types encountered.
+
+#### 1.1.4
+_4.15.2019_
+- `addCommandLineArg(String)` in `CLITester`

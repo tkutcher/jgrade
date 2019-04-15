@@ -108,6 +108,14 @@ public abstract class CLITester {
     }
 
     /**
+     * Add a command line argument to the command to be run.
+     * @param s The command line argument to be added
+     */
+    public void addCommandLineArg(String s) {
+        this.command.add(s);
+    }
+
+    /**
      * Get the {@link ProcessBuilder} that was initialized from
      * {@link #initCommand()}.
      * If wanting to edit things about the builder for instance

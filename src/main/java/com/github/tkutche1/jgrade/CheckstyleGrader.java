@@ -103,13 +103,28 @@ public class CheckstyleGrader {
             String xmlOutput = CLITester.executeProcess(
                     new ProcessBuilder(command))
                     .getOutput(CLIResult.STREAM.STDOUT);
-            System.out.println(xmlOutput);
             return xmlToGradedTestResult(xmlOutput);
         } catch (InternalError | IOException e) {
             e.printStackTrace();
             e.printStackTrace(System.err);
             return internalErrorResult(e.toString());
         }
+    }
+
+    /**
+     * Get the map of error types to their count.
+     * @return The map of error types to their count.
+     */
+    public Map<String, Integer> getErrorTypes() {
+        return this.errorTypes;
+    }
+
+    /**
+     * Get the number of different error types encountered.
+     * @return The number of different error types encountered.
+     */
+    public int getErrorTypeCount() {
+        return this.errorTypes.size();
     }
 
     // FIXME - Alternative to make this take some interface that calls the
