@@ -2,7 +2,7 @@
 # JGrade
 _A library for grading Java assignments_
 
-[![Build Status](https://travis-ci.com/timkutcher/jgrade.svg?token=o33zRRbwCfdkkKhsDNVp&branch=development)](https://travis-ci.com/timkutcher/jgrade)
+[![Build Status](https://travis-ci.com/tkutcher/jgrade.svg?token=o33zRRbwCfdkkKhsDNVp&branch=development)](https://travis-ci.com/tkutcher/jgrade)
 
 - [Overview](#overview)
   - [Library Files](#library-files)
