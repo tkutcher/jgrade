@@ -1,0 +1,40 @@
+image: maven:latest
+
+stages:
+  - lint
+  - build
+  - test
+  - publish
+
+checkstyle:
+  stage: lint
+  needs: []
+  script:
+    - mvn checkstyle:checkstyle
+
+compile:
+  stage: build
+  needs: []
+  script:
+    - mvn install
+
+junit:
+  stage: test
+  needs: [compile]
+  script:
+    - mvn test
+  artifacts:
+    paths:
+      - target/surefire-reports/*.xml
+
+pages:
+  stage: publish
+  needs: [junit]
+  script:
+    - mkdir public
+    - mvn javadoc:jar
+    - cp -r target/apidocs/ public/
+  artifacts:
+    paths:
+      - public
+  only: [master]
