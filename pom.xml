@@ -10,13 +10,13 @@
     <version>1.1.4</version> <!-- NOTE - If major/minor version changes, update finalName in build tag -->
 
     <name>jgrade</name>
-    <url>https://github.com/tkutche1/jgrade</url>
+    <url>https://github.com/tkutcher/jgrade</url>
     <description>A library for grading Java assignments</description>
 
     <licenses>
         <license>
             <name>MIT License</name>
-            <url>https://github.com/tkutche1/jgrade/blob/master/LICENSE.md</url>
+            <url>https://github.com/tkutcher/jgrade/blob/master/LICENSE.md</url>
         </license>
     </licenses>
 
@@ -92,7 +92,7 @@
                             <appendAssemblyId>false</appendAssemblyId>
                             <archive>
                                 <manifest>
-                                    <mainClass>com.github.tkutche1.jgrade.JGrade</mainClass>
+                                    <mainClass>com.github.tkutcher.jgrade.JGrade</mainClass>
                                 </manifest>
                             </archive>
                         </configuration>

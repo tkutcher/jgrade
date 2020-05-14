@@ -37,7 +37,7 @@ and keeping this maintained. Submit an issue in the project if you are intereste
 JGrade is a helper tool with various classes designed to assist in course instructors "autograding" an assignment, 
 inspired by the [Gradescope Autograder](https://gradescope-autograders.readthedocs.io/en/latest/). There are classes 
 that the client can integrate with directly, or use the jar's main method (and provide a class with annotations) that 
-wraps a lot of common functionality (see [examples](https://github.com/tkutche1/jgrade/tree/development/examples)). 
+wraps a lot of common functionality (see [examples](https://github.com/tkutcher/jgrade/tree/development/examples)). 
 It was designed to produce the output needed for Gradescope while being extensible enough to produce different 
 outputs and configure the specific JSON output Gradescope is looking for.
 
@@ -52,11 +52,11 @@ With this, you could have the following setup:
 A class that runs some unit tests we want to treat their success as a grade (these would import student code):
 
 ```java
-import com.github.tkutche1.jgrade.gradedtest.GradedTest;
+import com.github.tkutcher.jgrade.gradedtest.GradedTest;
 import org.junit.Test;
 
-import static com.github.tkutche1.jgrade.gradedtest.GradedTestResult.HIDDEN;
-import static com.github.tkutche1.jgrade.gradedtest.GradedTestResult.VISIBLE;
+import static com.github.tkutcher.jgrade.gradedtest.GradedTestResult.HIDDEN;
+import static com.github.tkutcher.jgrade.gradedtest.GradedTestResult.VISIBLE;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -91,13 +91,13 @@ public class ExampleGradedTests {
 and a main method with some other grading-related non-unit-testing logic `MyGrader.java`:
 
 ```java
-import com.github.tkutche1.jgrade.BeforeGrading;
-import com.github.tkutche1.jgrade.AfterGrading;
-import com.github.tkutche1.jgrade.Grade;
-import com.github.tkutche1.jgrade.Grader;
-import com.github.tkutche1.jgrade.gradedtest.GradedTestResult;
+import com.github.tkutcher.jgrade.BeforeGrading;
+import com.github.tkutcher.jgrade.AfterGrading;
+import com.github.tkutcher.jgrade.Grade;
+import com.github.tkutcher.jgrade.Grader;
+import com.github.tkutcher.jgrade.gradedtest.GradedTestResult;
 
-import static com.github.tkutche1.jgrade.gradedtest.GradedTestResult.HIDDEN;
+import static com.github.tkutcher.jgrade.gradedtest.GradedTestResult.HIDDEN;
 
 
 public class BasicGraderExample {
@@ -224,6 +224,13 @@ public class GradeAssignment7 extends Grade226Assignment {
 }
 ```
 
+#### `CLITester`
+
+A class to help wrap testing command line programs. You subclass `CLITester`, then implement
+the `getInvocation()` method for how the command line program is invoked, then you can use
+`runCommand(String)` to get the output in an object that you can test for expected output.
+
+
 ---
 
 ## Development
@@ -250,3 +257,6 @@ For simplicity, the main jar (appended with "-all") includes all of these depend
 - Feedback for required files
   - In our autograder, we built in something that took a list of required files and created a visible test case worth 0 points of what files were missing - this helped students debug.
   - Could try and move some of this there.
+- Actual Observer pattern
+  - Allow for people to specify custom handlers whenever things like new graded test results are added
+  - Old "observer" terminology not really an observer

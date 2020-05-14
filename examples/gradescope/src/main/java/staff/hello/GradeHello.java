@@ -1,9 +1,9 @@
 package staff.hello;
 
-import com.github.tkutche1.jgrade.CheckstyleGrader;
-import com.github.tkutche1.jgrade.Grade;
-import com.github.tkutche1.jgrade.Grader;
-import com.github.tkutche1.jgrade.gradedtest.GradedTestResult;
+import com.github.tkutcher.jgrade.CheckstyleGrader;
+import com.github.tkutcher.jgrade.Grade;
+import com.github.tkutcher.jgrade.Grader;
+import com.github.tkutcher.jgrade.gradedtest.GradedTestResult;
 
 public class GradeHello {
 
