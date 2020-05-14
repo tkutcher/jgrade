@@ -81,3 +81,11 @@ _2.4.2019_
 #### 1.1.4
 _4.15.2019_
 - `addCommandLineArg(String)` in `CLITester`
+
+
+#### 2.0.0
+- Renamed `Observer` to `Formatter` everywhere
+- Renamed domain to `com.github.tkutcher` to match GitHub username.
+
+**Repository**
+- Switched CI to GitLab
