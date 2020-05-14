@@ -1,7 +1,7 @@
 package com.github.tkutche1.jgrade;
 
 import com.github.tkutche1.jgrade.gradedtest.AllGraderTests;
-import com.github.tkutche1.jgrade.gradescope.GradescopeJsonObserverTest;
+import com.github.tkutche1.jgrade.gradescope.GradescopeJsonFormatterTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
@@ -10,7 +10,7 @@ import org.junit.runners.Suite;
         GraderTest.class,
         JGradeCommandLineTest.class,
         AllGraderTests.class,
-        GradescopeJsonObserverTest.class,
+        GradescopeJsonFormatterTest.class,
         CLITesterExecutionResultTest.class,
         DeductiveGraderStrategyTest.class,
 })

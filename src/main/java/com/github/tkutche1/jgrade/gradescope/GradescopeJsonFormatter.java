@@ -1,7 +1,7 @@
 package com.github.tkutche1.jgrade.gradescope;
 
 import com.github.tkutche1.jgrade.Grader;
-import com.github.tkutche1.jgrade.GraderObserver;
+import com.github.tkutche1.jgrade.OutputFormatter;
 import com.github.tkutche1.jgrade.gradedtest.GradedTestResult;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -16,13 +16,10 @@ import static com.github.tkutche1.jgrade.gradedtest.GradedTestResult.VISIBLE;
 
 
 /**
- * A concrete observer for a {@link Grader} where the output it produces
- * is the JSON a Gradescope Autograder can work with. The Grader does not
- * notify on its own after changes, so if not using the main JGrade method
- * then be sure to call {@link Grader#notifyOutputObservers()} to see
- * updates.
+ * A concrete formatter for a {@link Grader} where the output it produces
+ * is the JSON a Gradescope Autograder can work with.
  */
-public class GradescopeJsonObserver implements GraderObserver {
+public class GradescopeJsonFormatter implements OutputFormatter {
 
     private static final String EXECUTION_TIME = "execution_time";
     private static final String STDOUT_VISIBILITY = "stdout_visibility";
@@ -40,10 +37,10 @@ public class GradescopeJsonObserver implements GraderObserver {
     private String stdoutVisibility;
 
     /**
-     * Creates an instance of the observer. By default the pretty-print
+     * Creates an instance of the formatter. By default the pretty-print
      * option is off (the integer is negative).
      */
-    public GradescopeJsonObserver() {
+    public GradescopeJsonFormatter() {
         this.json = new JSONObject();
         this.prettyPrint = -1;
     }
@@ -97,9 +94,14 @@ public class GradescopeJsonObserver implements GraderObserver {
 
 
     @Override
-    public void update(Grader grader) {
-        this.json = new JSONObject();
-        this.assemble(grader);
+    public String format(Grader grader) {
+        json = new JSONObject();
+        this.assemble(grader, json);
+        try {
+            return this.prettyPrint >= 0 ? this.json.toString(this.prettyPrint) : this.json.toString();
+        } catch (JSONException e) {
+            throw new InternalError(e);
+        }
     }
 
     private JSONObject assemble(GradedTestResult r) {
@@ -124,29 +126,29 @@ public class GradescopeJsonObserver implements GraderObserver {
         return testResults;
     }
 
-    private void assemble(Grader grader) throws GradescopeJsonException {
+    private void assemble(Grader grader, JSONObject json) throws GradescopeJsonException {
         try {
             validateGrader(grader);
             if (grader.hasScore()) {
-                this.json.put(SCORE, grader.getScore());
+                json.put(SCORE, grader.getScore());
             }
             if (grader.hasMaxScore()) {
-                this.json.put(MAX_SCORE, grader.getMaxScore());
+                json.put(MAX_SCORE, grader.getMaxScore());
             }
             if (grader.hasExecutionTime()) {
-                this.json.put(EXECUTION_TIME, grader.getExecutionTime());
+                json.put(EXECUTION_TIME, grader.getExecutionTime());
             }
             if (grader.hasOutput()) {
-                this.json.put(OUTPUT, grader.getOutput());
+                json.put(OUTPUT, grader.getOutput());
             }
             if (this.hasVisibility()) {
-                this.json.put(VISIBILITY, this.visibility);
+                json.put(VISIBILITY, this.visibility);
             }
             if (this.hasStdoutVisibility()) {
-                this.json.put(STDOUT_VISIBILITY, this.stdoutVisibility);
+                json.put(STDOUT_VISIBILITY, this.stdoutVisibility);
             }
             if (grader.hasGradedTestResults()) {
-                this.json.put(TESTS, this.assemble(grader.getGradedTestResults()));
+                json.put(TESTS, this.assemble(grader.getGradedTestResults()));
             }
         } catch (JSONException e) {
             throw new InternalError(e);
@@ -179,27 +181,5 @@ public class GradescopeJsonObserver implements GraderObserver {
                 || visibility.equals(HIDDEN)
                 || visibility.equals(AFTER_DUE_DATE)
                 || visibility.equals(AFTER_PUBLISHED);
-    }
-
-    // TODO - Enforce that if score and tests both present that they match?
-
-    /**
-     * Get the observers output of the JSON String.
-     * <p>
-     *     Note: just calls <code>toString()</code>
-     * </p>
-     * @return The JSON String for the observed Grader.
-     */
-    public String getOutput() {
-        return this.toString();
-    }
-
-    @Override
-    public String toString() {
-        try {
-            return this.prettyPrint >= 0 ? this.json.toString(this.prettyPrint) : this.json.toString();
-        } catch (JSONException e) {
-            throw new InternalError(e);
-        }
     }
 }

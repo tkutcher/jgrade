@@ -12,7 +12,7 @@ import java.util.List;
  * A class to encompass all of the options for grading tests. Bundles together
  * {@link GradedTestResult}s, a total score, a total max score, any output
  * relevant to the entire submission, and a timer feature for timing execution
- * time. Is Observable to {@link GraderObserver}s.
+ * time. Is Observable to {@link OutputFormatter}s.
  *
  * <p>
  *     Has undocumented accessors for score, max score, execution time,
@@ -28,7 +28,6 @@ public class Grader {
         }
     }
 
-    private List<GraderObserver> observers;
     private GraderStrategy graderStrategy;
     private List<GradedTestResult> gradedTestResults;
     private long startTime;
@@ -39,7 +38,6 @@ public class Grader {
 
     /** Create a new Grader. */
     public Grader() {
-        this.observers = new ArrayList<>();
         this.gradedTestResults = new ArrayList<>();
         this.executionTime = NOT_SET;
         this.output = new StringBuilder();
@@ -169,23 +167,6 @@ public class Grader {
     }
 
     // </editor-fold>
-
-    /**
-     * Attach a new {@link GraderObserver} to this Grader. When
-     * {@link Grader#notifyOutputObservers()} is called all
-     * {@link GraderObserver}s are updated.
-     * @param o The observer to add.
-     */
-    public void attachOutputObserver(GraderObserver o) {
-        this.observers.add(o);
-    }
-
-    /** Notify all observers that are observing this grader of a change. */
-    public void notifyOutputObservers() {
-        for (GraderObserver o : this.observers) {
-            o.update(this);
-        }
-    }
 
     /**
      * Set the strategy to use to grade. By default, the strategy is to

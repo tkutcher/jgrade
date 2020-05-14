@@ -9,14 +9,14 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class GradescopeJsonObserverTest {
+public class GradescopeJsonFormatterTest {
 
-    private GradescopeJsonObserver unit;
+    private GradescopeJsonFormatter unit;
     private Grader grader;
 
     @Before
     public void initUnit() {
-        unit = new GradescopeJsonObserver();
+        unit = new GradescopeJsonFormatter();
         grader = new Grader();
     }
 
@@ -26,29 +26,25 @@ public class GradescopeJsonObserverTest {
 
     @Test(expected=GradescopeJsonException.class)
     public void invalidIfEmpty() {
-        unit.update(grader);
-        unit.getOutput();
+        unit.format(grader);
     }
 
     @Test(expected=GradescopeJsonException.class)
     public void invalidIfNoTestsOrScore() {
         grader.setExecutionTime(45);
-        unit.update(grader);
-        unit.getOutput();
+        unit.format(grader);
     }
 
     @Test
     public void validIfScoreSet() throws JSONException {
         grader.setScore(20.0);
-        unit.update(grader);
-        assertValidJson(unit.getOutput());
+        assertValidJson(unit.format(grader));
     }
 
     @Test
     public void validIfTests() throws JSONException {
         grader.addGradedTestResult(new GradedTestResult("", "", 20.0, "visible"));
-        unit.update(grader);
-        assertValidJson(unit.getOutput());
+        assertValidJson(unit.format(grader));
     }
 
     @Test(expected=GradescopeJsonException.class)

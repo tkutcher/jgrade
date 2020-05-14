@@ -1,6 +1,6 @@
 package com.github.tkutche1.jgrade;
 
-import com.github.tkutche1.jgrade.gradescope.GradescopeJsonObserver;
+import com.github.tkutche1.jgrade.gradescope.GradescopeJsonFormatter;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -43,7 +43,7 @@ import java.net.MalformedURLException;
  */
 public final class JGrade {
 
-    private static final String VERSION = "1.0.0-alpha";
+    private static final String VERSION = "1.1.0";
 
     private static final String CLASS_OPT = "classname";
     private static final String HELP_OPT = "help";
@@ -58,8 +58,8 @@ public final class JGrade {
     private static final String TXT_VAL = "txt";
     private static final String DEFAULT_FORMAT = JSON_VAL;
 
-    // Observers
-    private static GradescopeJsonObserver jsonObserver;
+
+    private static GradescopeJsonFormatter formatter;
 
     // Hide Constructor
     private JGrade() { }
@@ -91,13 +91,13 @@ public final class JGrade {
             }
         }
 
-        if (jsonObserver != null) {
-            out.println(jsonObserver.toString());
+        if (formatter != null) {
+            out.println(formatter.format(grader));
         }
     }
 
     private static Grader initGrader(CommandLine line) {
-        jsonObserver = null;
+        formatter = null;
 
         Grader grader = new Grader();
         if (line.hasOption(FORMAT_OPT) && !line.getOptionValue(FORMAT_OPT).equals(DEFAULT_FORMAT)) {
@@ -109,15 +109,14 @@ public final class JGrade {
                     throw new IllegalArgumentException("unrecognized format value " + val);
             }
         } else if (!line.hasOption(NO_OUTPUT_OPT)) {
-            jsonObserver = new GradescopeJsonObserver();
-            grader.attachOutputObserver(jsonObserver);
+            formatter = new GradescopeJsonFormatter();
         }
 
         if (line.hasOption(PP_OPT)) {
-            if (jsonObserver == null) {
+            if (formatter == null) {
                 throw new IllegalArgumentException("pretty-print without json formatting");
             }
-            jsonObserver.setPrettyPrint(2);
+            formatter.setPrettyPrint(2);
         }
 
         return grader;
@@ -210,7 +209,6 @@ public final class JGrade {
             Grader grader = initGrader(line);
             Class<?> c = getClassToGrade(line.getOptionValue(CLASS_OPT));
             grade(grader, c);
-            grader.notifyOutputObservers();
             outputResult(grader, line);
         }
     }

@@ -96,29 +96,4 @@ public class GraderTest {
         unit.stopTimer();
     }
 
-
-    private class TestObserver implements GraderObserver {
-        private boolean isUpdated;
-        TestObserver() { this.isUpdated = false; }
-        @Override public void update(Grader g) { isUpdated = true; }
-        public String getOutput() { return "hello!"; }
-        public boolean isUpdated() { return this.isUpdated; }
-    }
-
-    @Test
-    public void canAttachObservers() {
-        TestObserver o1 = new TestObserver();
-        TestObserver o2 = new TestObserver();
-        unit.attachOutputObserver(o1);
-        unit.attachOutputObserver(o2);
-        assertFalse(o1.isUpdated);
-        assertFalse(o2.isUpdated);
-        unit.notifyOutputObservers();
-        assertTrue(o1.isUpdated);
-        assertTrue(o2.isUpdated);
-    }
-
-
-
-    // TODO - Test runJUnitGradedTests() ?
 }

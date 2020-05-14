@@ -9,22 +9,18 @@
  */
 
 import com.github.tkutche1.jgrade.Grader;
-import com.github.tkutche1.jgrade.gradescope.GradescopeJsonObserver;
+import com.github.tkutche1.jgrade.gradescope.GradescopeJsonFormatter;
 
 public class OwnGraderInstance {
     public static void main(String[] args) {
         Grader myGrader = new Grader();
-        GradescopeJsonObserver myObserver = new GradescopeJsonObserver();
-        myGrader.attachOutputObserver(myObserver);
-
         myGrader.startTimer();
         myGrader.runJUnitGradedTests(ExampleGradedTests.class);
         myGrader.stopTimer();
 
         myGrader.setMaxScore(100.0);
-        myGrader.notifyOutputObservers();
 
-        myObserver.setPrettyPrint(2);
-        System.out.println(myObserver.toString());
+        formatter = GradescopeJsonFormatter();
+        System.out.println(formatter.format(myGrader));
     }
 }
