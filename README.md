@@ -3,17 +3,28 @@
 _A library for grading Java assignments_
 
 
-[![pipeline status](https://gitlab.com/tkutcher/jgrade/badges/dev/pipeline.svg)](https://gitlab.com/tkutcher/jgrade/-/commits/dev)
+<a href="https://gitlab.com/tkutcher/jgrade/-/commits/master">
+    <img src="https://gitlab.com/tkutcher/jgrade/badges/master/pipeline.svg" alt="master pipeline"/>
+</a>
+
 <a href="https://tkutcher.gitlab.io/jgrade">
     <img src="https://img.shields.io/static/v1?label=%20&message=docs&color=informational" alt="docs"/>
 </a>
+
 <a href="https://tkutcher.gitlab.io/jgrade">
-    <img src="https://img.shields.io/static/v1?label=version&message=1.1.0&color=orange" alt="docs"/>
+    <img src="https://img.shields.io/static/v1?label=version&message=1.1.0&color=orange" alt="version"/>
 </a>
 
-[API Documentation](https://tkutcher.gitlab.io/jgrade)
+
+<br>
+
+
+
+[API Documentation](https://tkutcher.gitlab.io/jgrade/api)
+
 
 ---
+
 
 NOTE - I've moved the CI to GitLab and am using GitLab to host the API docs (https://tkutcher.gitlab.io/jgrade), but this
 will remain the primary repository. GitLab will just mirror the master and dev branches.
