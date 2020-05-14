@@ -224,6 +224,13 @@ public class GradeAssignment7 extends Grade226Assignment {
 }
 ```
 
+#### `CLITester`
+
+A class to help wrap testing command line programs. You subclass `CLITester`, then implement
+the `getInvocation()` method for how the command line program is invoked, then you can use
+`runCommand(String)` to get the output in an object that you can test for expected output.
+
+
 ---
 
 ## Development
@@ -250,3 +257,6 @@ For simplicity, the main jar (appended with "-all") includes all of these depend
 - Feedback for required files
   - In our autograder, we built in something that took a list of required files and created a visible test case worth 0 points of what files were missing - this helped students debug.
   - Could try and move some of this there.
+- Actual Observer pattern
+  - Allow for people to specify custom handlers whenever things like new graded test results are added
+  - Old "observer" terminology not really an observer
