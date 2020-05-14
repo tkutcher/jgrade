@@ -31,9 +31,12 @@ pages:
   stage: publish
   needs: [junit]
   script:
-    - mkdir public
+    - mkdir .public
+    - mkdir .public/api
     - mvn javadoc:jar
-    - cp -r target/apidocs/ public/
+    - cp static/* .public/
+    - cp target/apidocs/* .public/api/
+    - mv .public public
   artifacts:
     paths:
       - public
