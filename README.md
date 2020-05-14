@@ -3,20 +3,18 @@
 _A library for grading Java assignments_
 
 [![pipeline status](https://gitlab.com/tkutcher/jgrade/badges/dev/pipeline.svg)](https://gitlab.com/tkutcher/jgrade/-/commits/dev)
-<a href="https://tkutcher.gitlab.io/jgrade">
+<a href="https://tkutcher.gitlab.io/jgrade/api">
     <img src="https://img.shields.io/static/v1?label=%20&message=docs&color=informational" alt="docs"/>
 </a>
 <a href="https://tkutcher.gitlab.io/jgrade">
     <img src="https://img.shields.io/static/v1?label=version&message=1.1.4&color=orange" alt="docs"/>
 </a>
 
-
 [API Documentation](https://tkutcher.gitlab.io/jgrade)
 
 ---
 
-NOTE - I've moved the CI to GitLab and am using GitLab to host the API docs (https://tkutcher.gitlab.io/jgrade), but this
-will remain the primary repository. GitLab will just mirror the master and dev branches.
+NOTE - I've moved the CI to GitLab and am using GitLab to host the API and some docs (https://tkutcher.gitlab.io/jgrade), but this will remain the primary repository. GitLab will just mirror the master and dev branches.
 
 
 :bangbang: Help Wanted :bangbang:
@@ -182,6 +180,8 @@ does the "grading" of style with checkstyle. Subclasses, for example `Assignment
 See the gradescope folder in the examples for a rough example setup.
 
 ### Features
+
+See the [API Docs](https://tkutcher.gitlab.io/jgrade/api) for more complete documentation.
 
 #### `CheckstyleGrader`
 
