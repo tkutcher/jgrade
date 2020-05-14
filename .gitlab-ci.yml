@@ -30,8 +30,8 @@ junit:
   script:
     - mvn test
   artifacts:
-    paths:
-      - target/surefire-reports/*.xml
+    reports:
+      junit: target/surefire-reports/*.xml
 
 pages:
   stage: publish

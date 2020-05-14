@@ -5,4 +5,4 @@
 mkdir -p .public/api/
 
 cp -r static/* .public/
-cp -r target/apidocs/ .public/api/.
+cp -r target/apidocs/* .public/api/.

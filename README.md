@@ -2,7 +2,8 @@
 # JGrade
 _A library for grading Java assignments_
 
-[![pipeline status](https://gitlab.com/tkutcher/jgrade/badges/dev/pipeline.svg)](https://gitlab.com/tkutcher/jgrade/-/commits/dev)
+
+[![pipeline status](https://gitlab.com/tkutcher/jgrade/badges/dev/pipeline.svg)](https://gitlab.com/tkutcher/jgrade/pinelines/dev/latest)
 <a href="https://tkutcher.gitlab.io/jgrade/api">
     <img src="https://img.shields.io/static/v1?label=%20&message=docs&color=informational" alt="docs"/>
 </a>
