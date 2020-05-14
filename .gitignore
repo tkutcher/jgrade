@@ -5,6 +5,9 @@
 # decided just to ignore entirely
 .idea/
 
+# Built docs are built during CI.
+.public/
+
 jgrade.iml  # leaving this in
 
 #.idea/**/workspace.xml

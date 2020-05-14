@@ -18,6 +18,12 @@ compile:
   script:
     - mvn install
 
+docs:
+  stage: build
+  needs: []
+  script:
+    - mvn javadoc:jar
+
 junit:
   stage: test
   needs: [compile]
@@ -30,10 +36,9 @@ junit:
 pages:
   stage: publish
   needs: [junit]
-  script:
-    - mkdir public
-    - mvn javadoc:jar
-    - cp target/apidocs/* public/
+  script: sh scripts/pages.sh
+  after_script:
+    - mv .public public
   artifacts:
     paths:
       - public
