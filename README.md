@@ -45,11 +45,7 @@ and keeping this maintained. Submit an issue in the project if you are intereste
 JGrade is a helper tool with various classes designed to assist in course instructors "autograding" an assignment, 
 inspired by the [Gradescope Autograder](https://gradescope-autograders.readthedocs.io/en/latest/). There are classes 
 that the client can integrate with directly, or use the jar's main method (and provide a class with annotations) that 
-<<<<<<< HEAD
 wraps a lot of common functionality (see [examples](https://github.com/tkutcher/jgrade/tree/development/examples)). 
-=======
-wraps a lot of common functionality (see [examples](https://github.com/tkutche1/jgrade/tree/development/examples)). 
->>>>>>> master
 It was designed to produce the output needed for Gradescope while being extensible enough to produce different 
 outputs and configure the specific JSON output Gradescope is looking for.
 
@@ -64,19 +60,11 @@ With this, you could have the following setup:
 A class that runs some unit tests we want to treat their success as a grade (these would import student code):
 
 ```java
-<<<<<<< HEAD
 import com.github.tkutcher.jgrade.gradedtest.GradedTest;
 import org.junit.Test;
 
 import static com.github.tkutcher.jgrade.gradedtest.GradedTestResult.HIDDEN;
 import static com.github.tkutcher.jgrade.gradedtest.GradedTestResult.VISIBLE;
-=======
-import com.github.tkutche1.jgrade.gradedtest.GradedTest;
-import org.junit.Test;
-
-import static com.github.tkutche1.jgrade.gradedtest.GradedTestResult.HIDDEN;
-import static com.github.tkutche1.jgrade.gradedtest.GradedTestResult.VISIBLE;
->>>>>>> master
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -107,7 +95,6 @@ public class ExampleGradedTests {
     }
 }
 ```
-<<<<<<< HEAD
 
 and a main method with some other grading-related non-unit-testing logic `MyGrader.java`:
 
@@ -166,66 +153,6 @@ public class BasicGraderExample {
 
 Then, you could run 
 
-=======
-
-and a main method with some other grading-related non-unit-testing logic `MyGrader.java`:
-
-```java
-import com.github.tkutche1.jgrade.BeforeGrading;
-import com.github.tkutche1.jgrade.AfterGrading;
-import com.github.tkutche1.jgrade.Grade;
-import com.github.tkutche1.jgrade.Grader;
-import com.github.tkutche1.jgrade.gradedtest.GradedTestResult;
-
-import static com.github.tkutche1.jgrade.gradedtest.GradedTestResult.HIDDEN;
-
-
-public class BasicGraderExample {
-
-    /* All @Grade/@BeforeGrading/@AfterGrading methods must take exactly one parameter
-     * of type Grader. This parameter is the same grader throughout.
-     *
-     * @BeforeGrading methods are run before others.
-     */
-    @BeforeGrading
-    public void initGrader(Grader grader) {
-        grader.startTimer();
-    }
-
-    /* You can run unit tests that are annotated with @GradedTest to add
-     * GradedTestResults to the Grader in this way.
-     */
-    @Grade
-    public void runGradedUnitTests(Grader grader) {
-        grader.runJUnitGradedTests(ExampleGradedTests.class);
-    }
-
-    /* You can also manually add GradedTestResults you create to the grader. */
-    @Grade
-    public void singleTestResult(Grader grader) {
-        grader.addGradedTestResult(
-                new GradedTestResult("manual test", "1", 1.0, HIDDEN)
-        );
-    }
-
-    /* Grader.startTimer() and Grader.stopTimer() can be used to time the grader */
-    @Grade
-    public void loopForTime(Grader grader) {
-        long startTime = System.currentTimeMillis();
-        while (System.currentTimeMillis() - startTime < 1000);
-    }
-
-    /* @AfterGrading methods are run after all other methods. */
-    @AfterGrading
-    public void endGrader(Grader grader) {
-        grader.stopTimer();
-    }
-}
-```
-
-Then, you could run 
-
->>>>>>> master
 ```shell script
 java -jar ../lib/jgrade-1.1-all.jar -c MyGrader -o results.json
 ```
@@ -263,11 +190,8 @@ See the gradescope folder in the examples for a rough example setup.
 
 ### Features
 
-<<<<<<< HEAD
-=======
 See the [API Docs](https://tkutcher.gitlab.io/jgrade/api) for more complete documentation.
 
->>>>>>> master
 #### `CheckstyleGrader`
 
 With the `CheckstyleGrader` you can specify grading deductions for checkstyle errors. This method below, for example,
@@ -283,7 +207,33 @@ would check the students files and deduct a point for each checkstyle error type
         grader.addGradedTestResult(result);
     }
 ```
-<<<<<<< HEAD
+
+#### `DeductiveGraderStrategy`
+
+You can use this strategy to make failed tests deduct points from a total. So say in the current assignment there are two
+parts, A and B, each worth 25 points. If someone fails 30 tests for part B each worth one point, you don't want that to cut
+in to the assignment A portion:
+
+```java
+public class GradeAssignment7 extends Grade226Assignment {
+    
+    private static final int AVL_POINTS = 30;
+    private static final int TREAP_POINTS = 20;
+
+    @Grade
+    public void gradeAvlTree(Grader grader) {
+        grader.setGraderStrategy(new DeductiveGraderStrategy(AVL_POINTS, "AvlTreeMap"));
+        grader.runJUnitGradedTests(GradeAvlTreeMap.class);
+    }
+
+    @Grade
+    public void gradeBinaryHeapPQ(Grader grader) {
+        grader.setGraderStrategy(new DeductiveGraderStrategy(TREAP_POINTS, "TreapMap"));
+        grader.runJUnitGradedTests(GradeTreapMap.class);
+    }
+}
+```
+
 
 #### `DeductiveGraderStrategy`
 
@@ -312,45 +262,14 @@ public class GradeAssignment7 extends Grade226Assignment {
 ```
 
 #### `CLITester`
-=======
-
-#### `DeductiveGraderStrategy`
-
-You can use this strategy to make failed tests deduct points from a total. So say in the current assignment there are two
-parts, A and B, each worth 25 points. If someone fails 30 tests for part B each worth one point, you don't want that to cut
-in to the assignment A portion:
-
-```java
-public class GradeAssignment7 extends Grade226Assignment {
-    
-    private static final int AVL_POINTS = 30;
-    private static final int TREAP_POINTS = 20;
-
-    @Grade
-    public void gradeAvlTree(Grader grader) {
-        grader.setGraderStrategy(new DeductiveGraderStrategy(AVL_POINTS, "AvlTreeMap"));
-        grader.runJUnitGradedTests(GradeAvlTreeMap.class);
-    }
-
-    @Grade
-    public void gradeBinaryHeapPQ(Grader grader) {
-        grader.setGraderStrategy(new DeductiveGraderStrategy(TREAP_POINTS, "TreapMap"));
-        grader.runJUnitGradedTests(GradeTreapMap.class);
-    }
-}
-```
->>>>>>> master
 
 A class to help wrap testing command line programs. You subclass `CLITester`, then implement
 the `getInvocation()` method for how the command line program is invoked, then you can use
 `runCommand(String)` to get the output in an object that you can test for expected output.
 
-<<<<<<< HEAD
 
 ---
 
-=======
->>>>>>> master
 ## Development
 
 - `mvn install` to compile
@@ -375,9 +294,7 @@ For simplicity, the main jar (appended with "-all") includes all of these depend
 - Feedback for required files
   - In our autograder, we built in something that took a list of required files and created a visible test case worth 0 points of what files were missing - this helped students debug.
   - Could try and move some of this there.
-<<<<<<< HEAD
 - Actual Observer pattern
   - Allow for people to specify custom handlers whenever things like new graded test results are added
   - Old "observer" terminology not really an observer
-=======
->>>>>>> master
+
