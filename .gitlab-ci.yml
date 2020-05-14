@@ -33,7 +33,7 @@ pages:
   script:
     - mkdir public
     - mvn javadoc:jar
-    - cp -r target/apidocs/ public/
+    - cp target/apidocs/* public/
   artifacts:
     paths:
       - public
