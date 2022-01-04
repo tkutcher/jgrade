@@ -5,6 +5,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.github.tkutcher.jgrade.gradedtest.GradedTestResult;
+import com.github.tkutcher.jgrade.gradedtest.MyTestExecutionListener;
+
+import static org.junit.platform.engine.discovery.DiscoverySelectors.selectClass;
+
+import org.junit.platform.launcher.Launcher;
+import org.junit.platform.launcher.LauncherDiscoveryRequest;
+import org.junit.platform.launcher.LauncherSession;
+
+import org.junit.platform.launcher.TestPlan;
+import org.junit.platform.launcher.core.LauncherDiscoveryRequestBuilder;
+import org.junit.platform.launcher.core.LauncherFactory;
 
 
 /**
@@ -206,15 +217,21 @@ public class Grader {
      */
     public void runJUnitGradedTests(Class testSuite) {
 
-        System.out.println("TODO:  REPLACE WITH NEW LISTENER/RUNNER FROM JUNIT5");
+        LauncherDiscoveryRequest request = LauncherDiscoveryRequestBuilder.request()
+                .selectors(selectClass(testSuite))
+                .build();
 
-        // GradedTestListener listener = new GradedTestListener();
-        
-        // JUnitCore runner = new JUnitCore();
-        // runner.addListener(listener);
-        // runner.run(testSuite);
-        // List<GradedTestResult> results = listener.getGradedTestResults();
-        // this.graderStrategy.grade(results);
-        // this.gradedTestResults.addAll(results);
+        MyTestExecutionListener tel = new MyTestExecutionListener();
+
+        try (LauncherSession session = LauncherFactory.openSession()) {
+            Launcher launcher = session.getLauncher();
+            launcher.registerTestExecutionListeners(tel);
+            TestPlan testPlan = launcher.discover(request);
+            launcher.execute(testPlan);
+        }
+
+        List<GradedTestResult> results = tel.getGradedTestResults();
+        this.graderStrategy.grade(results);
+        this.gradedTestResults.addAll(results);
     }
 }
