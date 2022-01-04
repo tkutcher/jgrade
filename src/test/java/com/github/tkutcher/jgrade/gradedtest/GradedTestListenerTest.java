@@ -1,13 +1,14 @@
 package com.github.tkutcher.jgrade.gradedtest;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.JUnitCore;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import org.junit.jupiter.api.Assertions;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class GradedTestListenerTest {
@@ -20,15 +21,17 @@ public class GradedTestListenerTest {
 
     private GradedTestListener listener;
 
-    @Before
+    @BeforeEach
     public void initUnit() {
         this.listener = new GradedTestListener();
     }
 
     private void runWithListenerForExample(Class exampleUnitTests) {
-        JUnitCore runner = new JUnitCore();
-        runner.addListener(this.listener);
-        runner.run(exampleUnitTests);
+        // TODO REPLACE WITH NEW JUNIT 5 STUFF
+        System.out.println("REPLACE WITH JUNIT 5 STUFF");
+        // JUnitCore runner = new JUnitCore();
+        // runner.addListener(this.listener);
+        // runner.run(exampleUnitTests);
     }
 
     private GradedTestResult getOnlyGradedTestResult(Class exampleUnitTests) {
@@ -70,7 +73,7 @@ public class GradedTestListenerTest {
         assertEquals(EXAMPLE_NAME, result.getName());
         assertEquals(EXAMPLE_NUMBER, result.getNumber());
         assertEquals(EXAMPLE_POINTS, result.getPoints(), 0.0);
-        Assert.assertEquals(GradedTestResult.HIDDEN, result.getVisibility());
+        Assertions.assertEquals(GradedTestResult.HIDDEN, result.getVisibility());
     }
 
     @Test

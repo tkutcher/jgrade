@@ -1,11 +1,10 @@
 package com.github.tkutcher.jgrade;
 
-import com.github.tkutcher.jgrade.gradedtest.GradedTestListener;
-import com.github.tkutcher.jgrade.gradedtest.GradedTestResult;
-import org.junit.runner.JUnitCore;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.github.tkutcher.jgrade.gradedtest.GradedTestResult;
 
 
 /**
@@ -201,17 +200,21 @@ public class Grader {
      * created {@link GradedTestResult}s. If class <code>MyTests</code> has
      * graded test JUnit test methods, then call this method with
      * <code>MyTests.class</code>. Similarly can use JUnit's
-     * {@link org.junit.runners.Suite}. Can alter the list of results added from the
+     * {@link org.junit.platform.runners.Suite}. Can alter the list of results added from the
      * run by setting the {@link GraderStrategy}.
      * @param testSuite The class containing the tests.
      */
     public void runJUnitGradedTests(Class testSuite) {
-        GradedTestListener listener = new GradedTestListener();
-        JUnitCore runner = new JUnitCore();
-        runner.addListener(listener);
-        runner.run(testSuite);
-        List<GradedTestResult> results = listener.getGradedTestResults();
-        this.graderStrategy.grade(results);
-        this.gradedTestResults.addAll(results);
+
+        System.out.println("TODO:  REPLACE WITH NEW LISTENER/RUNNER FROM JUNIT5");
+
+        // GradedTestListener listener = new GradedTestListener();
+        
+        // JUnitCore runner = new JUnitCore();
+        // runner.addListener(listener);
+        // runner.run(testSuite);
+        // List<GradedTestResult> results = listener.getGradedTestResults();
+        // this.graderStrategy.grade(results);
+        // this.gradedTestResults.addAll(results);
     }
 }

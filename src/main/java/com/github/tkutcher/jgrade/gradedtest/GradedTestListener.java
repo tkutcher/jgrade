@@ -1,8 +1,5 @@
 package com.github.tkutcher.jgrade.gradedtest;
 
-import org.junit.runner.Description;
-import org.junit.runner.notification.Failure;
-import org.junit.runner.notification.RunListener;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -22,7 +19,7 @@ import java.util.List;
  *     also most recently started (for annotated methods).
  * </p>
  */
-public class GradedTestListener extends RunListener {
+public class GradedTestListener /* extends RunListener */ {
 
     private List<GradedTestResult> gradedTestResults;
     private int numFailedGradedTests;
@@ -87,13 +84,12 @@ public class GradedTestListener extends RunListener {
      * Finally, it sets <code>System.out</code> to be its own
      * <code>PrintStream</code> to capture output.
      */
-    @Override
     public void testStarted(Description description) throws Exception {
-        super.testStarted(description);
+        // super.testStarted(description);
 
         this.currentGradedTestResult = null;
 
-        GradedTest gradedTestAnnotation = description.getAnnotation(GradedTest.class);
+        GradedTest gradedTestAnnotation = description.getAnnotation(/* GradedTest.class */);
         if (gradedTestAnnotation != null) {
             this.currentGradedTestResult =  new GradedTestResult(
                     gradedTestAnnotation.name(),
@@ -115,9 +111,8 @@ public class GradedTestListener extends RunListener {
      * Calls super method, adds the {@link GradedTestResult} if it exists, and
      * restores the original <code>PrintStream</code>.
      */
-    @Override
     public void testFinished(Description description) throws Exception {
-        super.testFinished(description);
+       // super.testFinished(description);
 
         if (this.currentGradedTestResult != null) {
             this.currentGradedTestResult.addOutput(testOutput.toString());
@@ -135,9 +130,8 @@ public class GradedTestListener extends RunListener {
      * {@link GradedTest} then sets the {@link GradedTestResult} score to 0
      * and adds the failure message to the output.
      */
-    @Override
     public void testFailure(Failure failure) throws Exception {
-        super.testFailure(failure);
+       // super.testFailure(failure);
         if (this.currentGradedTestResult != null) {
             this.currentGradedTestResult.setScore(0);
             this.currentGradedTestResult.addOutput("FAILED:\n");

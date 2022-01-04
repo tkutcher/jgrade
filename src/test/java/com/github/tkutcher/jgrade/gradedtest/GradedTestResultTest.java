@@ -1,22 +1,23 @@
 package com.github.tkutcher.jgrade.gradedtest;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.BeforeEach;
 
 public class GradedTestResultTest {
 
     private GradedTestResult unit;
 
-    @Before
+    @BeforeEach
     public void initUnit() {
         this.unit = new GradedTestResult(
                 GradedTestResult.DEFAULT_NAME,
                 GradedTestResult.DEFAULT_NUMBER,
                 GradedTestResult.DEFAULT_POINTS,
-                GradedTestResult.DEFAULT_VISIBILITY
-        );
+                GradedTestResult.DEFAULT_VISIBILITY);
     }
 
     @Test
@@ -59,13 +60,18 @@ public class GradedTestResultTest {
         assertEquals(score2, unit.getScore(), 0.0);
     }
 
-    @Test(expected=RuntimeException.class)
+    @Test
     public void cannotAddScoreGreaterThanPoints() {
-        unit.setScore(15.0);
+        assertThrows(RuntimeException.class, () -> {
+            unit.setScore(15.0);
+        });
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test
     public void visibilityMustBeValid() {
-        new GradedTestResult(GradedTestResult.DEFAULT_NAME, GradedTestResult.DEFAULT_NUMBER, GradedTestResult.DEFAULT_POINTS, "INVALID");
+        assertThrows(IllegalArgumentException.class, () -> {
+            new GradedTestResult(GradedTestResult.DEFAULT_NAME, GradedTestResult.DEFAULT_NUMBER,
+                    GradedTestResult.DEFAULT_POINTS, "INVALID");
+        });
     }
 }

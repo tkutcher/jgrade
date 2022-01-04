@@ -3,11 +3,11 @@ package staff.hello;
 import com.github.tkutcher.jgrade.gradedtest.GradedTest;
 import org.junit.Before;
 import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.rules.Timeout;
 import student.hello.Greeting;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class HelloTest {
 

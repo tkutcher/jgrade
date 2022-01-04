@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>edu.jhu.cs</groupId>
-    <artifactId>jgrade</artifactId>
+    <groupId>edu.ucsb.cs156</groupId>
+    <artifactId>jgrade5</artifactId>
     <packaging>jar</packaging>
-    <version>1.1.4</version> <!-- NOTE - If major/minor version changes, update finalName in build tag -->
+    <version>0.1.0</version> <!-- NOTE - If major/minor version changes, update finalName in build tag -->
 
     <name>jgrade</name>
-    <url>https://github.com/tkutcher/jgrade</url>
-    <description>A library for grading Java assignments</description>
+    <url>https://github.com/ucsb-cs156/jgrade</url>
+    <description>A library for grading Java assignments using JUnit 5 (based on tkutcher/jgrade)</description>
 
     <licenses>
         <license>
@@ -25,12 +23,28 @@
     </properties>
 
     <dependencies>
-        <dependency>
-            <!-- NOTE - Used in source, so not a test scope. -->
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.13.1</version>
+        <!-- NOTE - Used in source, so not a test scope. -->
+        <!-- <dependency>
+          
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.13.1</version>
         </dependency>
+        -->
+
+        <!-- NOTE - Used in source, so not a test scope. -->
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.8.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.8.2</version>
+        </dependency>
+
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-library</artifactId>
@@ -50,7 +64,7 @@
     </dependencies>
 
     <build>
-        <finalName>jgrade-1.1</finalName>
+        <finalName>jgrade5-1.1</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

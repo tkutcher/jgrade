@@ -61,13 +61,13 @@ A class that runs some unit tests we want to treat their success as a grade (the
 
 ```java
 import com.github.tkutcher.jgrade.gradedtest.GradedTest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static com.github.tkutcher.jgrade.gradedtest.GradedTestResult.HIDDEN;
 import static com.github.tkutcher.jgrade.gradedtest.GradedTestResult.VISIBLE;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class ExampleGradedTests {
     @Test

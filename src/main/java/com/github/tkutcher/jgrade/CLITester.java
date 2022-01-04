@@ -1,6 +1,6 @@
 package com.github.tkutcher.jgrade;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -89,7 +89,7 @@ public abstract class CLITester {
      * {@link Before}. Calls the abstract {@link #getInvocation()} and
      * initializes a new {@link ProcessBuilder}.
      */
-    @Before
+    @BeforeEach
     public void initCommand() {
         this.command = getInvocation();
         this.builder = new ProcessBuilder();
