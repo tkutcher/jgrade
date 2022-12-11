@@ -1,9 +1,9 @@
 package staff.hello;
 
-import com.github.tkutche1.jgrade.CheckstyleGrader;
-import com.github.tkutche1.jgrade.Grade;
-import com.github.tkutche1.jgrade.Grader;
-import com.github.tkutche1.jgrade.gradedtest.GradedTestResult;
+import com.github.tkutcher.jgrade.CheckstyleGrader;
+import com.github.tkutcher.jgrade.Grade;
+import com.github.tkutcher.jgrade.Grader;
+import com.github.tkutcher.jgrade.gradedtest.GradedTestResult;
 
 public class GradeHello {
 
@@ -29,13 +29,11 @@ public class GradeHello {
 
     @Grade
     public void runCheckstyle(Grader grader) {
-	/*
         // FIXME - Better than knowing running from the classes directory...
         CheckstyleGrader checker = new CheckstyleGrader(10.0, 1.0,
-                "../lib/checkstyle-8.12-all.jar", "../src/main/java/student/hello/");
+                "../lib/checkstyle-l0.5.0-all.jar", "../src/main/java/student/hello/");
         checker.setConfig("../res/sun_checks.xml");
         GradedTestResult result = checker.runForGradedTestResult();
         grader.addGradedTestResult(result);
-	*/
     }
 }

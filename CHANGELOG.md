@@ -89,3 +89,8 @@ _4.15.2019_
 
 **Repository**
 - Switched CI to GitLab
+
+#### 2.1.1
+_12.12.2022_
+- Updated library dependencies
+- Fixed Gradescope example

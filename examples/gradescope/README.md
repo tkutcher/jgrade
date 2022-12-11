@@ -2,7 +2,7 @@
 
 This is a full example that works on gradescope, and models much of the setup from the original [java example](https://github.com/gradescope/autograder_samples/tree/master/java) Gradescope links to.
 
-It compiles all files in to a created `classes/` directory (not tracked). The `lib/` folder contains all jars and library files - for this example just `jgrade-1.0.0-all.jar` (which includes JUnit, etc.), and `checkstyle-8.12.jar`. The `res/` directory is for resources (like the checkstyle configuration file). `src/` is the main source code, and `test_submissions/` are submissions to test with on Gradescope.
+It compiles all files in to a created `classes/` directory (not tracked). The `lib/` folder contains all jars and library files - for this example just `jgrade-1.1.1-all.jar` (which includes JUnit, etc.), and `checkstyle-10.5.0.jar`. The `res/` directory is for resources (like the checkstyle configuration file). `src/` is the main source code, and `test_submissions/` are submissions to test with on Gradescope.
 
 The source has 2 main packages, `staff` and `student`. The staff package contains the unit tests, a solution (to debug with) and the code to do the grading.
 
