@@ -234,33 +234,6 @@ public class GradeAssignment7 extends Grade226Assignment {
 }
 ```
 
-
-#### `DeductiveGraderStrategy`
-
-You can use this strategy to make failed tests deduct points from a total. So say in the current assignment there are two
-parts, A and B, each worth 25 points. If someone fails 30 tests for part B each worth one point, you don't want that to cut
-in to the assignment A portion:
-
-```java
-public class GradeAssignment7 extends Grade226Assignment {
-    
-    private static final int AVL_POINTS = 30;
-    private static final int TREAP_POINTS = 20;
-
-    @Grade
-    public void gradeAvlTree(Grader grader) {
-        grader.setGraderStrategy(new DeductiveGraderStrategy(AVL_POINTS, "AvlTreeMap"));
-        grader.runJUnitGradedTests(GradeAvlTreeMap.class);
-    }
-
-    @Grade
-    public void gradeBinaryHeapPQ(Grader grader) {
-        grader.setGraderStrategy(new DeductiveGraderStrategy(TREAP_POINTS, "TreapMap"));
-        grader.runJUnitGradedTests(GradeTreapMap.class);
-    }
-}
-```
-
 #### `CLITester`
 
 A class to help wrap testing command line programs. You subclass `CLITester`, then implement
