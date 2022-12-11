@@ -1,6 +1,6 @@
 package staff.hello;
 
-import com.github.tkutcher.jgrade.gradedtest.GradedTest;
+import com.github.tkutche1.jgrade.gradedtest.GradedTest;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
