@@ -31,7 +31,7 @@ public class GradeHello {
     public void runCheckstyle(Grader grader) {
         // FIXME - Better than knowing running from the classes directory...
         CheckstyleGrader checker = new CheckstyleGrader(10.0, 1.0,
-                "../lib/checkstyle-l0.5.0-all.jar", "../src/main/java/student/hello/");
+                "../lib/checkstyle-10.5.0-all.jar", "../src/main/java/student/hello/");
         checker.setConfig("../res/sun_checks.xml");
         GradedTestResult result = checker.runForGradedTestResult();
         grader.addGradedTestResult(result);

@@ -1,6 +1,10 @@
 package com.github.tkutcher.jgrade;
 
 import com.github.tkutcher.jgrade.gradedtest.GradedTestResult;
+import org.apache.commons.exec.CommandLine;
+import org.apache.commons.exec.DefaultExecutor;
+import org.apache.commons.exec.ExecuteException;
+import org.apache.commons.exec.PumpStreamHandler;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -12,14 +16,12 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.StringReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -28,10 +30,11 @@ import static com.github.tkutcher.jgrade.gradedtest.GradedTestResult.VISIBLE;
 /**
  * Class to assist in getting a {@link GradedTestResult} for checkstyle. It
  * sets a max score, and a points per deduction, then deducts up to the max
- * score number of points. Assumes is checking an entire directory but
+ * score number of points. Assumes it is checking an entire directory but
  * excludes any files with "test" in the name by default (since we don't
  * really require JUnit files be checkstyle compliant). To configure it for
  * specific files the client has to override {@link #isFileToCheck(Path)}.
+ *
  * @version 1.0.0
  */
 public class CheckstyleGrader {
@@ -56,9 +59,10 @@ public class CheckstyleGrader {
 
     /**
      * Instantiate a new CheckstyleGrader.
-     * @param points The total number of points for the checkstyle test.
-     * @param deduct The number of points to deduct per error.
-     * @param pathToJar The path to the checkstyle jar executable.
+     *
+     * @param points     The total number of points for the checkstyle test.
+     * @param deduct     The number of points to deduct per error.
+     * @param pathToJar  The path to the checkstyle jar executable.
      * @param dirToCheck The directory of files to check.
      */
     public CheckstyleGrader(double points, double deduct,
@@ -73,6 +77,7 @@ public class CheckstyleGrader {
 
     /**
      * Set a configuration file to use for the checkstyle run.
+     *
      * @param config - The file to use as the -c argument to checkstyle.
      */
     public void setConfig(String config) {
@@ -85,26 +90,40 @@ public class CheckstyleGrader {
      * specified from {@link #setConfig(String)} then it will add the config
      * to the command. Will include all files that {@link #isFileToCheck(Path)}
      * returns true for, which by default is any java file not containing
-     * "test" in it's name. Will deduct to 0 points for each error.
+     * "test" in its name. Will deduct to 0 points for each error.
+     *
      * @return The generated result.
      */
     public GradedTestResult runForGradedTestResult() {
-        List<String> command = new ArrayList<>(Arrays.asList("java", "-jar",
-                this.pathToJar, "-f", CHECKSTYLE_FORMAT));
-        if (this.config != null) {
-            command.add("-c");
-            command.add(this.config);
+        if (this.config == null) {
+            throw new RuntimeException("config was null");
         }
-
         try {
+            CommandLine cmd = new CommandLine("java");
+            String[] args = {"-jar", this.pathToJar, "-f", CHECKSTYLE_FORMAT, "-c", this.config};
+            cmd.addArguments(args);
             Files.walk(Paths.get(dirToCheck))
                     .filter(CheckstyleGrader::isFileToCheck)
-                    .forEach(path -> command.add(path.toString()));
-            String xmlOutput = CLITester.executeProcess(
-                    new ProcessBuilder(command))
-                    .getOutput(CLIResult.STREAM.STDOUT);
+                    .forEach(path -> cmd.addArgument(path.toString()));
+            // Capture both output streams in case something goes wrong.
+            // https://stackoverflow.com/a/34571800/631051
+            DefaultExecutor executor = new DefaultExecutor();
+            ByteArrayOutputStream stdout = new ByteArrayOutputStream();
+            ByteArrayOutputStream stderr = new ByteArrayOutputStream();
+            PumpStreamHandler handler = new PumpStreamHandler(stdout, stderr);
+            executor.setStreamHandler(handler);
+            try {
+                executor.execute(cmd);
+            } catch (ExecuteException e) {
+                // The exit code is the number of errors found.
+                // That's normal, not exceptional, so ignore.
+            }
+            String xmlOutput = stdout.toString().trim();
+            if (xmlOutput.isEmpty()) {
+                throw new InternalError(stderr.toString());
+            }
             return xmlToGradedTestResult(xmlOutput);
-        } catch (InternalError | IOException e) {
+        } catch (IOException | InternalError e) {
             e.printStackTrace();
             e.printStackTrace(System.err);
             return internalErrorResult(e.toString());
@@ -113,6 +132,7 @@ public class CheckstyleGrader {
 
     /**
      * Get the map of error types to their count.
+     *
      * @return The map of error types to their count.
      */
     public Map<String, Integer> getErrorTypes() {
@@ -121,6 +141,7 @@ public class CheckstyleGrader {
 
     /**
      * Get the number of different error types encountered.
+     *
      * @return The number of different error types encountered.
      */
     public int getErrorTypeCount() {
@@ -129,12 +150,14 @@ public class CheckstyleGrader {
 
     // FIXME - Alternative to make this take some interface that calls the
     //   static boolean function.
+
     /**
      * Boolean function for whether or not a file should be included in
      * checkstyle's run. By default it only includes files that are
      * java files and excludes any containing "test" in the directory.
      * If a client wanted to include more or exclude others they would
      * have to subclass and override this.
+     *
      * @param path The file to consider.
      * @return True if it should be checked.
      */
@@ -217,7 +240,7 @@ public class CheckstyleGrader {
 
         return String.format("\t%-20s - %s [%s]\n",
                 getAttributeValue("line: ", lineAttribute)
-                + getAttributeValue(", column", columnAttribute),
+                        + getAttributeValue(", column", columnAttribute),
                 getAttributeValue(messageAttribute),
                 errorTypeAttribute);
     }
