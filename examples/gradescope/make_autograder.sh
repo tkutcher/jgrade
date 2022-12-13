@@ -5,7 +5,7 @@ dos2unix *.sh
 
 echo "Building Autograder..."
 
-zip -r hello_autograder.zip lib/ res/ src/ compile.sh run.sh setup.sh run_autograder
+zip -r hello_autograder.zip lib/ res/ src compile.sh run.sh setup.sh run_autograder compilation_error.json
 mv hello_autograder.zip zips/
 
 echo "---"

@@ -92,5 +92,6 @@ _4.15.2019_
 
 #### 2.1.1
 _12.12.2022_
-- Updated library dependencies
 - Fixed Gradescope example
+- Updated library versions
+- Improved error handling and reporting

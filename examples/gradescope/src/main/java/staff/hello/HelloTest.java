@@ -23,7 +23,7 @@ public class HelloTest {
     private static final String GREETING = "Hello";
     private Greeting unit;
 
-    // Makes it so can verify tests work for instructor solution.
+    // Running with the DEBUG flag enabled tests the staff solution.
     @Before
     public void initUnit() {
         this.unit = DEBUG ? new Hello(GREETING) : new student.hello.Hello(GREETING);

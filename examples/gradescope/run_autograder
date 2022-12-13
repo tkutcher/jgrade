@@ -1,11 +1,17 @@
 #!/usr/bin/env bash
 
-cd /autograder/source
-
-cp /autograder/submission/Hello.java /autograder/source/src/main/java/student/hello/
+if [ "$1" != "--local" ]; then
+    cd /autograder/source
+    cp /autograder/submission/Hello.java /autograder/source/src/main/java/student/hello/
+fi
 
 # compilation
-sh compile.sh
+sh compile.sh $1
+if [ $? -eq 0 ]; then
+    # execution
+    sh run.sh $1
+fi
+exit $?
 
-# execution
-sh run.sh
+
+

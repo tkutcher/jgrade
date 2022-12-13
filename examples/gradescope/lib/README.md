@@ -1,4 +1,4 @@
-Here you would include all jars that the execution depends on. For this example:
+The location for needed jar files. This example requires:
 
-- checkstyle-8.12-all.jar
-- jgrade-1.1-all.jar
+* checkstyle-10.5.0-all.jar
+* jgrade-2.1.1-all.jar
