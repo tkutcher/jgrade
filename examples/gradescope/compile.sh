@@ -18,7 +18,7 @@ else
        if [ "$1" = "--local" ]; then
            cat compilation_error.json
        else
-	   cp compilation_error.json /autograder/results/results.json
+	         cp compilation_error.json /autograder/results/results.json
        fi
        exit 1 # failure
 fi
