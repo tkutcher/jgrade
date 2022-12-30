@@ -1,5 +1,8 @@
 package staff.hello;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import com.github.tkutcher.jgrade.gradedtest.GradedTest;
 import org.junit.Before;
 import org.junit.Rule;
@@ -42,8 +45,13 @@ public class HelloTest {
     }
 
     @Test
-    @GradedTest(name = "prints greeting", points = 0.0)
+    @GradedTest(name = "prints greeting", points = 2.0)
     public void printGreeting() {
+        PrintStream realStdout = System.out;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(baos));
         unit.printGreeting();
+        assertEquals(GREETING + "\n", baos.toString());
+        System.setOut(realStdout);
     }
 }
