@@ -51,7 +51,7 @@ public class HelloTest {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         System.setOut(new PrintStream(baos));
         unit.printGreeting();
-        assertEquals(GREETING + "\n", baos.toString());
+        assertEquals(GREETING, baos.toString().trim());
         System.setOut(realStdout);
     }
 }
