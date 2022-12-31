@@ -1,8 +1,8 @@
 # JGrade Gradescope Example
 
-This is a full example that models much of the setup from Gradescope's
-original [Java
-example](https://github.com/gradescope/autograder_samples/tree/master/java).
+This demonstrates a Gradescope autograder that uses checkstyle and JUnit.
+
+[![Watch the video](https://img.youtube.com/vi/o1FHbHZwyUY/maxresdefault.jpg)](https://youtu.be/o1FHbHZwyUY)
 
 These are the files and directories:
 * `make_autograder.sh`: zips up files for uploading to Gradescope
@@ -40,5 +40,3 @@ To test (and debug) the autograder before uploading it, execute:
 ```
 
 To build the autograder, run either `$ sh make_autograder.sh` or `$ make autograder` which will place it in the `zips/` folder.
-
-**Untested**: While debugging, a makefile is provided for compiling and running. `make output` will start fresh and run the autograder, pretty-printing the output to the console.
