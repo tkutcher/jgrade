@@ -4,37 +4,22 @@ package com.github.tkutcher.jgrade.gradedtest;
  * A class for the data that models a graded test. Primarily based on the
  * data needed for Gradescope's Autograder JSON. When creating
  * {@link GradedTestResult}s and working with visibility, use the public
- * constants {@link GradedTestResult#VISIBLE}, {@link GradedTestResult#HIDDEN},
- * etc.
+ * constants in {@link Visibility}.
  */
 public class GradedTestResult {
-
-    // <editor-fold "desc="visibility options">
-
-    /** Visible to the student always. */
-    public static final String VISIBLE = "visible";
-
-    /** Never visible to the student. */
-    public static final String HIDDEN = "hidden";
-
-    /** Visible to the student only after the due date. */
-    public static final String AFTER_DUE_DATE = "after_due_date";
-
-    /** Visible to the student only after grades have been released. */
-    public static final String AFTER_PUBLISHED = "after_published";
-
-    // </editor-fold>
 
     // GradedTest annotation defaults
     static final String DEFAULT_NAME = "Unnamed Test";
     static final String DEFAULT_NUMBER = "";
     static final double DEFAULT_POINTS = 1.0;
-    static final String DEFAULT_VISIBILITY = VISIBLE;
+    // This duplicates the default value in the GradedTestResult annotation,
+    // but there is no clean way to get its value for a static constant.
+    static final Visibility DEFAULT_VISIBILITY = Visibility.VISIBLE;
 
     private String name;
     private String number;
     private double points;
-    private String visibility;
+    private Visibility visibility;
 
     private double score;
     private StringBuilder output;
@@ -48,18 +33,11 @@ public class GradedTestResult {
      * @param visibility The visibility setting of the test.
      * @throws IllegalArgumentException If the visibility is not valid.
      */
-    public GradedTestResult(String name, String number, double points, String visibility)
+    public GradedTestResult(String name, String number, double points, Visibility visibility)
             throws IllegalArgumentException {
         this.name = name;
         this.number = number;
         this.points = points;
-
-        if (!(visibility.equals(HIDDEN) || visibility.equals(VISIBLE)
-                || visibility.equals(AFTER_DUE_DATE) || visibility.equals(AFTER_PUBLISHED))) {
-            throw new IllegalArgumentException("visibility should be one of 'hidden', 'visible', "
-                    + "'after_due_date', or 'after_published'");
-        }
-
         this.visibility = visibility;
         this.score = 0;
         this.output = new StringBuilder();
@@ -132,7 +110,7 @@ public class GradedTestResult {
      * Get the visibility setting of the test.
      * @return The visibility setting of the test.
      */
-    public String getVisibility() {
+    public Visibility getVisibility() {
         return visibility;
     }
 

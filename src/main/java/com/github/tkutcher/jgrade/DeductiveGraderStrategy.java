@@ -1,6 +1,7 @@
 package com.github.tkutcher.jgrade;
 
 import com.github.tkutcher.jgrade.gradedtest.GradedTestResult;
+import com.github.tkutcher.jgrade.gradedtest.Visibility;
 
 import java.util.List;
 
@@ -55,7 +56,7 @@ public class DeductiveGraderStrategy implements GraderStrategy {
         }
         // Since scores get set to 0 ...
         GradedTestResult baseScore = new GradedTestResult(sectionName, "",
-                startingScore, GradedTestResult.HIDDEN);
+                startingScore, Visibility.HIDDEN);
         baseScore.setScore(startingScore);
         l.add(baseScore);
     }

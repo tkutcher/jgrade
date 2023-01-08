@@ -1,13 +1,13 @@
 package com.github.tkutcher.jgrade;
 
 import com.github.tkutcher.jgrade.gradedtest.GradedTestResult;
+import com.github.tkutcher.jgrade.gradedtest.Visibility;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.github.tkutcher.jgrade.gradedtest.GradedTestResult.HIDDEN;
 import static org.junit.Assert.assertEquals;
 
 public class DeductiveGraderStrategyTest {
@@ -23,13 +23,13 @@ public class DeductiveGraderStrategyTest {
     }
 
     private static GradedTestResult failedGradedTestResult(double points) {
-        GradedTestResult r = new GradedTestResult("", "", points, HIDDEN);
+        GradedTestResult r = new GradedTestResult("", "", points, Visibility.HIDDEN);
         r.setPassed(false);
         return r;
     }
 
     private static GradedTestResult successfulGradedTestResult(double points) {
-        GradedTestResult r = new GradedTestResult("", "", points, HIDDEN);
+        GradedTestResult r = new GradedTestResult("", "", points, Visibility.HIDDEN);
         r.setPassed(true);
         r.setScore(points);
         return r;

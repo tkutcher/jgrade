@@ -1,6 +1,7 @@
 package com.github.tkutcher.jgrade;
 
 import com.github.tkutcher.jgrade.gradedtest.GradedTestResult;
+import com.github.tkutcher.jgrade.gradedtest.Visibility;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -54,7 +55,7 @@ public class GraderTest {
 
     @Test
     public void canAddGradedTestResults() {
-        GradedTestResult t = new GradedTestResult("", "", 0.0, "visible");
+        GradedTestResult t = new GradedTestResult("", "", 0.0, Visibility.VISIBLE);
         unit.addGradedTestResult(t);
         assertTrue(unit.hasGradedTestResults());
         List<GradedTestResult> results = unit.getGradedTestResults();

@@ -25,7 +25,7 @@ import java.nio.file.Paths;
 import java.util.Map;
 import java.util.TreeMap;
 
-import static com.github.tkutcher.jgrade.gradedtest.GradedTestResult.VISIBLE;
+import static com.github.tkutcher.jgrade.gradedtest.Visibility.VISIBLE;
 
 /**
  * Class to assist in getting a {@link GradedTestResult} for checkstyle. It
