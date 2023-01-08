@@ -56,7 +56,7 @@
     </dependencies>
 
     <build>
-        <finalName>jgrade-2.1.1</finalName>
+        <finalName>jgrade-2.2.0</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -91,7 +91,7 @@
                             <goal>single</goal>
                         </goals>
                         <configuration>
-                            <finalName>jgrade-2.1.1-all</finalName>
+                            <finalName>jgrade-2.2.0-all</finalName>
                             <descriptorRefs>
                                 <descriptorRef>jar-with-dependencies</descriptorRef>
                             </descriptorRefs>

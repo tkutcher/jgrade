@@ -4,6 +4,7 @@ import com.github.tkutcher.jgrade.CheckstyleGrader;
 import com.github.tkutcher.jgrade.Grade;
 import com.github.tkutcher.jgrade.Grader;
 import com.github.tkutcher.jgrade.gradedtest.GradedTestResult;
+import com.github.tkutcher.jgrade.gradedtest.Visibility;
 
 public class GradeHello {
 
@@ -12,7 +13,7 @@ public class GradeHello {
         if (HelloTest.DEBUG) {
             GradedTestResult r = new GradedTestResult(
                     "Debug Mode Warning", "",
-                    0.0, GradedTestResult.HIDDEN
+                    0.0, Visibility.HIDDEN
             );
             r.addOutput("WARNING: Autograder in DEBUG mode, not " +
                     "checking student submission. If seeing this on " +

@@ -8,7 +8,7 @@ mkdir -p classes
 # Compile all java files in src directory
 java_files=$(find src -name "*.java")
 echo "compiling java files..."
-javac -cp lib/jgrade-2.1.1-all.jar:. -d classes ${java_files}
+javac -cp lib/jgrade-2.2.0-all.jar:. -d classes ${java_files}
 if [ $? -eq 0 ]; then
        echo "---"
        echo "DONE"
