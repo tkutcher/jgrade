@@ -8,6 +8,17 @@ mkdir -p classes
 # Compile all java files in src directory
 java_files=$(find src -name "*.java")
 echo "compiling java files..."
-javac -cp lib/*:. -d classes ${java_files}
-echo "---"
-echo "DONE"
+javac -cp lib/jgrade-2.2.0-all.jar:. -d classes ${java_files}
+if [ $? -eq 0 ]; then
+       echo "---"
+       echo "DONE"
+       exit 0 # success
+else
+       echo "Compilation failed"
+       if [ "$1" = "--local" ]; then
+           cat compilation_error.json
+       else
+	         cp compilation_error.json /autograder/results/results.json
+       fi
+       exit 1 # failure
+fi

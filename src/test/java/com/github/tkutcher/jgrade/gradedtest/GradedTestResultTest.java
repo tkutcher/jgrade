@@ -63,9 +63,4 @@ public class GradedTestResultTest {
     public void cannotAddScoreGreaterThanPoints() {
         unit.setScore(15.0);
     }
-
-    @Test(expected=IllegalArgumentException.class)
-    public void visibilityMustBeValid() {
-        new GradedTestResult(GradedTestResult.DEFAULT_NAME, GradedTestResult.DEFAULT_NUMBER, GradedTestResult.DEFAULT_POINTS, "INVALID");
-    }
 }

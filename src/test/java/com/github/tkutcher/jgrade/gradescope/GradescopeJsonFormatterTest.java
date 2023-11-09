@@ -2,6 +2,7 @@ package com.github.tkutcher.jgrade.gradescope;
 
 import com.github.tkutcher.jgrade.Grader;
 import com.github.tkutcher.jgrade.gradedtest.GradedTestResult;
+import com.github.tkutcher.jgrade.gradedtest.Visibility;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Before;
@@ -43,17 +44,7 @@ public class GradescopeJsonFormatterTest {
 
     @Test
     public void validIfTests() throws JSONException {
-        grader.addGradedTestResult(new GradedTestResult("", "", 20.0, "visible"));
+        grader.addGradedTestResult(new GradedTestResult("", "", 20.0, Visibility.VISIBLE));
         assertValidJson(unit.format(grader));
-    }
-
-    @Test(expected=GradescopeJsonException.class)
-    public void catchesInvalidVisibility() {
-        unit.setVisibility("invisible");
-    }
-
-    @Test(expected=GradescopeJsonException.class)
-    public void catchesInvalidStdoutVisibility() {
-        unit.setStdoutVisibility("invisible");
     }
 }

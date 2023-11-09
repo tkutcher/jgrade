@@ -4,6 +4,7 @@ import com.github.tkutcher.jgrade.CheckstyleGrader;
 import com.github.tkutcher.jgrade.Grade;
 import com.github.tkutcher.jgrade.Grader;
 import com.github.tkutcher.jgrade.gradedtest.GradedTestResult;
+import com.github.tkutcher.jgrade.gradedtest.Visibility;
 
 public class GradeHello {
 
@@ -12,7 +13,7 @@ public class GradeHello {
         if (HelloTest.DEBUG) {
             GradedTestResult r = new GradedTestResult(
                     "Debug Mode Warning", "",
-                    0.0, GradedTestResult.HIDDEN
+                    0.0, Visibility.HIDDEN
             );
             r.addOutput("WARNING: Autograder in DEBUG mode, not " +
                     "checking student submission. If seeing this on " +
@@ -31,7 +32,7 @@ public class GradeHello {
     public void runCheckstyle(Grader grader) {
         // FIXME - Better than knowing running from the classes directory...
         CheckstyleGrader checker = new CheckstyleGrader(10.0, 1.0,
-                "../lib/checkstyle-8.12-all.jar", "../src/main/java/student/hello/");
+                "../lib/checkstyle-10.5.0-all.jar", "../src/main/java/student/hello/");
         checker.setConfig("../res/sun_checks.xml");
         GradedTestResult result = checker.runForGradedTestResult();
         grader.addGradedTestResult(result);

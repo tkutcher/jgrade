@@ -1,5 +1,8 @@
 package staff.hello;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import com.github.tkutcher.jgrade.gradedtest.GradedTest;
 import org.junit.Before;
 import org.junit.Rule;
@@ -23,27 +26,32 @@ public class HelloTest {
     private static final String GREETING = "Hello";
     private Greeting unit;
 
-    // Makes it so can verify tests work for instructor solution.
+    // Running with the DEBUG flag enabled tests the staff solution.
     @Before
     public void initUnit() {
         this.unit = DEBUG ? new Hello(GREETING) : new student.hello.Hello(GREETING);
     }
 
     @Test
-    @GradedTest(name="greet() works")
+    @GradedTest(name = "greet() works")
     public void defaultGreeting() {
         assertEquals(GREETING, unit.greet());
     }
 
     @Test
-    @GradedTest(name="greet(String who) works", points=2.0)
+    @GradedTest(name = "greet(String who) works", points = 2.0)
     public void greetSomebody() {
         assertEquals(GREETING + ", World!", unit.greet("World"));
     }
 
     @Test
-    @GradedTest(name="prints greeting", points=0.0)
+    @GradedTest(name = "prints greeting", points = 2.0)
     public void printGreeting() {
+        PrintStream realStdout = System.out;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(baos));
         unit.printGreeting();
+        assertEquals(GREETING, baos.toString().trim());
+        System.setOut(realStdout);
     }
 }

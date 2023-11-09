@@ -3,17 +3,12 @@ package com.github.tkutcher.jgrade.gradescope;
 import com.github.tkutcher.jgrade.Grader;
 import com.github.tkutcher.jgrade.OutputFormatter;
 import com.github.tkutcher.jgrade.gradedtest.GradedTestResult;
+import com.github.tkutcher.jgrade.gradedtest.Visibility;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.List;
-
-import static com.github.tkutcher.jgrade.gradedtest.GradedTestResult.AFTER_DUE_DATE;
-import static com.github.tkutcher.jgrade.gradedtest.GradedTestResult.AFTER_PUBLISHED;
-import static com.github.tkutcher.jgrade.gradedtest.GradedTestResult.HIDDEN;
-import static com.github.tkutcher.jgrade.gradedtest.GradedTestResult.VISIBLE;
-
 
 /**
  * A concrete formatter for a {@link Grader} where the output it produces
@@ -33,8 +28,8 @@ public class GradescopeJsonFormatter implements OutputFormatter {
 
     private JSONObject json;
     private int prettyPrint;
-    private String visibility;
-    private String stdoutVisibility;
+    private Visibility visibility;
+    private Visibility stdoutVisibility;
 
     /**
      * Creates an instance of the formatter. By default the pretty-print
@@ -57,25 +52,21 @@ public class GradescopeJsonFormatter implements OutputFormatter {
 
     /**
      * Sets the visibility for all of the test cases.
+     *
      * @param visibility The top-level visibility to use for all test cases.
      * @throws GradescopeJsonException If visibility not valid.
      */
-    public void setVisibility(String visibility) throws GradescopeJsonException {
-        if (!isValidVisibility(visibility)) {
-            throw new GradescopeJsonException(visibility + " is not a valid visibility");
-        }
+    public void setVisibility(Visibility visibility) throws GradescopeJsonException {
         this.visibility = visibility;
     }
 
     /**
      * Sets the visibility for standard out during the run.
+     *
      * @param visibility The visibility to set for standard out.
      * @throws GradescopeJsonException If visibility is not valid.
      */
-    public void setStdoutVisibility(String visibility) throws GradescopeJsonException {
-        if (!isValidVisibility(visibility)) {
-            throw new GradescopeJsonException(visibility + " is not a valid visibility");
-        }
+    public void setStdoutVisibility(Visibility visibility) throws GradescopeJsonException {
         this.stdoutVisibility = visibility;
     }
 
@@ -84,6 +75,7 @@ public class GradescopeJsonFormatter implements OutputFormatter {
      * spaces to add for each indent level. A negative integer corresponds to
      * disabling pretty-print. If non-negative, simply calls
      * {@link JSONObject#toString(int)}
+     *
      * @param prettyPrint The integer for how much to indent
      */
     public void setPrettyPrint(int prettyPrint) {
@@ -112,7 +104,7 @@ public class GradescopeJsonFormatter implements OutputFormatter {
                     .put(MAX_SCORE, r.getPoints())
                     .put(NUMBER, r.getNumber())
                     .put(OUTPUT, r.getOutput())
-                    .put(VISIBILITY, r.getVisibility());
+                    .put(VISIBILITY, r.getVisibility().getText());
         } catch (JSONException e) {
             throw new InternalError(e);
         }
@@ -142,10 +134,10 @@ public class GradescopeJsonFormatter implements OutputFormatter {
                 json.put(OUTPUT, grader.getOutput());
             }
             if (this.hasVisibility()) {
-                json.put(VISIBILITY, this.visibility);
+                json.put(VISIBILITY, this.visibility.getText());
             }
             if (this.hasStdoutVisibility()) {
-                json.put(STDOUT_VISIBILITY, this.stdoutVisibility);
+                json.put(STDOUT_VISIBILITY, this.stdoutVisibility.getText());
             }
             if (grader.hasGradedTestResults()) {
                 json.put(TESTS, this.assemble(grader.getGradedTestResults()));
@@ -159,27 +151,5 @@ public class GradescopeJsonFormatter implements OutputFormatter {
         if (!(grader.hasScore() || grader.hasGradedTestResults())) {
             throw new GradescopeJsonException("Gradescope Json must have either tests or score set");
         }
-
-        /* The following checks ~should~ all pass because they would have been checked when set. */
-        assert isValidVisibility(this.visibility);
-        assert isValidVisibility(this.stdoutVisibility);
-        assert allValidVisibility(grader.getGradedTestResults());
-    }
-
-    private static boolean allValidVisibility(List<GradedTestResult> results) {
-        for (GradedTestResult r : results) {
-            if (!isValidVisibility(r.getVisibility())) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private static boolean isValidVisibility(String visibility) {
-        return visibility == null  // Just wasn't set, which is OK
-                || visibility.equals(VISIBLE)
-                || visibility.equals(HIDDEN)
-                || visibility.equals(AFTER_DUE_DATE)
-                || visibility.equals(AFTER_PUBLISHED);
     }
 }

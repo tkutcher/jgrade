@@ -1,0 +1,12 @@
+{
+  "tests": [
+    {
+      "output": "",
+      "score": 0,
+      "number": "",
+      "visibility": "visible",
+      "max_score": 15,
+      "name": "compiler error"
+    }
+  ]
+}

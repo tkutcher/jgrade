@@ -1,6 +1,7 @@
 package com.github.tkutcher.jgrade;
 
 import com.github.tkutcher.jgrade.gradedtest.GradedTestResult;
+import com.github.tkutcher.jgrade.gradedtest.Visibility;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.After;
@@ -87,7 +88,7 @@ public class JGradeCommandLineTest {
                 "Test GradedTestResult",
                 "1",
                 25.0,
-                GradedTestResult.VISIBLE
+                Visibility.VISIBLE
         ));
     }
 }

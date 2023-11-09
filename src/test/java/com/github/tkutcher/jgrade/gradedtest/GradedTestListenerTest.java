@@ -70,7 +70,7 @@ public class GradedTestListenerTest {
         assertEquals(EXAMPLE_NAME, result.getName());
         assertEquals(EXAMPLE_NUMBER, result.getNumber());
         assertEquals(EXAMPLE_POINTS, result.getPoints(), 0.0);
-        Assert.assertEquals(GradedTestResult.HIDDEN, result.getVisibility());
+        Assert.assertEquals(Visibility.HIDDEN, result.getVisibility());
     }
 
     @Test
@@ -148,7 +148,7 @@ public class GradedTestListenerTest {
                 name=EXAMPLE_NAME,
                 number=EXAMPLE_NUMBER,
                 points=EXAMPLE_POINTS,
-                visibility= GradedTestResult.HIDDEN)
+                visibility=Visibility.HIDDEN)
         public void gradedTest() { assertTrue(true); }
     }
 
